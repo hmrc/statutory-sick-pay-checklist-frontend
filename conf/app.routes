@@ -19,3 +19,8 @@ GET         /account/sign-out                            controllers.auth.AuthCo
 GET         /account/signed-out                          controllers.auth.SignedOutController.onPageLoad
 
 GET         /unauthorised                                controllers.UnauthorisedController.onPageLoad
+
+GET        /what-is-your-name                        controllers.WhatIsYourNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-is-your-name                        controllers.WhatIsYourNameController.onSubmit(mode: Mode = NormalMode)
+GET        /change-your-name                  controllers.WhatIsYourNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-your-name                  controllers.WhatIsYourNameController.onSubmit(mode: Mode = CheckMode)

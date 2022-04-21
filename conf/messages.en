@@ -55,3 +55,15 @@ signedOut.guidance = We did not save your answers.
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
+
+whatIsYourName.title = whatIsYourName
+whatIsYourName.heading = whatIsYourName
+whatIsYourName.firstname = firstname
+whatIsYourName.surname = surname
+whatIsYourName.checkYourAnswersLabel = WhatIsYourName
+whatIsYourName.error.firstname.required = Enter firstname
+whatIsYourName.error.surname.required = Enter surname
+whatIsYourName.error.firstname.length = firstname must be 100 characters or less
+whatIsYourName.error.surname.length = surname must be 100 characters or less
+whatIsYourName.firstname.change.hidden = firstname
+whatIsYourName.surname.change.hidden = surname
