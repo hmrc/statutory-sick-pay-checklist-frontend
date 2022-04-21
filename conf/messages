@@ -87,8 +87,8 @@ whatIsYourDateOfBirth.error.invalid = Enter a real date
 whatIsYourDateOfBirth.error.future = Your date of birth must be in the past
 whatIsYourDateOfBirth.change.hidden = your date of birth
 
-doYouKnowYourClockOrPayrollNumber.title = doYouKnowYourClockOrPayrollNumber
-doYouKnowYourClockOrPayrollNumber.heading = doYouKnowYourClockOrPayrollNumber
-doYouKnowYourClockOrPayrollNumber.checkYourAnswersLabel = doYouKnowYourClockOrPayrollNumber
-doYouKnowYourClockOrPayrollNumber.error.required = Select yes if doYouKnowYourClockOrPayrollNumber
-doYouKnowYourClockOrPayrollNumber.change.hidden = DoYouKnowYourClockOrPayrollNumber
+doYouKnowYourClockOrPayrollNumber.title = Do you know your clock or payroll number?
+doYouKnowYourClockOrPayrollNumber.heading = Do you know your clock or payroll number?
+doYouKnowYourClockOrPayrollNumber.checkYourAnswersLabel = Do you know your clock or payroll number?
+doYouKnowYourClockOrPayrollNumber.error.required = Select yes if you know your clock or payroll number
+doYouKnowYourClockOrPayrollNumber.change.hidden = whether you know your clock or payroll number

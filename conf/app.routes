@@ -35,7 +35,7 @@ POST       /what-is-your-date-of-birth                  controllers.WhatIsYourDa
 GET        /change-your-date-of-birth                        controllers.WhatIsYourDateOfBirthController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-your-date-of-birth                        controllers.WhatIsYourDateOfBirthController.onSubmit(mode: Mode = CheckMode)
 
-GET        /doYouKnowYourClockOrPayrollNumber                        controllers.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(mode: Mode = NormalMode)
-POST       /doYouKnowYourClockOrPayrollNumber                        controllers.DoYouKnowYourClockOrPayrollNumberController.onSubmit(mode: Mode = NormalMode)
-GET        /changeDoYouKnowYourClockOrPayrollNumber                  controllers.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(mode: Mode = CheckMode)
-POST       /changeDoYouKnowYourClockOrPayrollNumber                  controllers.DoYouKnowYourClockOrPayrollNumberController.onSubmit(mode: Mode = CheckMode)
+GET        /do-you-know-your-clock-or-payroll-number                        controllers.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /do-you-know-your-clock-or-payroll-number                        controllers.DoYouKnowYourClockOrPayrollNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /change-do-you-know-your-clock-or-payroll-number                  controllers.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-do-you-know-your-clock-or-payroll-number                  controllers.DoYouKnowYourClockOrPayrollNumberController.onSubmit(mode: Mode = CheckMode)
