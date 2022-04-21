@@ -106,3 +106,13 @@ detailsOfSickness.checkYourAnswersLabel = Brief details of your sickness
 detailsOfSickness.error.required = Enter brief details of your sickness
 detailsOfSickness.error.length = Details of your sickness must be 100 characters or less
 detailsOfSickness.change.hidden = details of your sickness
+
+dateSicknessBegan.title = DateSicknessBegan
+dateSicknessBegan.heading = DateSicknessBegan
+dateSicknessBegan.hint = For example, 12 11 2007
+dateSicknessBegan.checkYourAnswersLabel = DateSicknessBegan
+dateSicknessBegan.error.required.all = Enter the dateSicknessBegan
+dateSicknessBegan.error.required.two = The dateSicknessBegan must include {0} and {1}
+dateSicknessBegan.error.required = The dateSicknessBegan must include {0}
+dateSicknessBegan.error.invalid = Enter a real DateSicknessBegan
+dateSicknessBegan.change.hidden = DateSicknessBegan
