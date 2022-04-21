@@ -67,3 +67,10 @@ whatIsYourName.error.firstname.length = Your first name must be 100 characters o
 whatIsYourName.error.surname.length = Your surname must be 100 characters or less
 whatIsYourName.firstname.change.hidden = first name
 whatIsYourName.surname.change.hidden = surname
+
+whatIsYourNino.title = whatIsYourNino
+whatIsYourNino.heading = whatIsYourNino
+whatIsYourNino.checkYourAnswersLabel = whatIsYourNino
+whatIsYourNino.error.required = Enter whatIsYourNino
+whatIsYourNino.error.length = WhatIsYourNino must be 100 characters or less
+whatIsYourNino.change.hidden = WhatIsYourNino
