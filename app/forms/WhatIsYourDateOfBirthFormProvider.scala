@@ -31,6 +31,6 @@ class WhatIsYourDateOfBirthFormProvider @Inject() extends Mappings {
         allRequiredKey = "whatIsYourDateOfBirth.error.required.all",
         twoRequiredKey = "whatIsYourDateOfBirth.error.required.two",
         requiredKey    = "whatIsYourDateOfBirth.error.required"
-      )
+      ).verifying(maxDate(LocalDate.now, "whatIsYourDateOfBirth.error.future"))
     )
 }

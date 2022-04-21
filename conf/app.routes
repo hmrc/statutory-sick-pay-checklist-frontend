@@ -30,7 +30,7 @@ POST       /what-is-your-national-insurance-number                        contro
 GET        /change-your-national-insurance-number                  controllers.WhatIsYourNinoController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-your-national-insurance-number                  controllers.WhatIsYourNinoController.onSubmit(mode: Mode = CheckMode)
 
-GET        /whatIsYourDateOfBirth                  controllers.WhatIsYourDateOfBirthController.onPageLoad(mode: Mode = NormalMode)
-POST       /whatIsYourDateOfBirth                  controllers.WhatIsYourDateOfBirthController.onSubmit(mode: Mode = NormalMode)
-GET        /changeWhatIsYourDateOfBirth                        controllers.WhatIsYourDateOfBirthController.onPageLoad(mode: Mode = CheckMode)
-POST       /changeWhatIsYourDateOfBirth                        controllers.WhatIsYourDateOfBirthController.onSubmit(mode: Mode = CheckMode)
+GET        /what-is-your-date-of-birth                  controllers.WhatIsYourDateOfBirthController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-is-your-date-of-birth                  controllers.WhatIsYourDateOfBirthController.onSubmit(mode: Mode = NormalMode)
+GET        /change-your-date-of-birth                        controllers.WhatIsYourDateOfBirthController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-your-date-of-birth                        controllers.WhatIsYourDateOfBirthController.onSubmit(mode: Mode = CheckMode)
