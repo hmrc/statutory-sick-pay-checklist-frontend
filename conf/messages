@@ -86,3 +86,9 @@ whatIsYourDateOfBirth.error.required = Your date of birth must include {0}
 whatIsYourDateOfBirth.error.invalid = Enter a real date
 whatIsYourDateOfBirth.error.future = Your date of birth must be in the past
 whatIsYourDateOfBirth.change.hidden = your date of birth
+
+doYouKnowYourClockOrPayrollNumber.title = doYouKnowYourClockOrPayrollNumber
+doYouKnowYourClockOrPayrollNumber.heading = doYouKnowYourClockOrPayrollNumber
+doYouKnowYourClockOrPayrollNumber.checkYourAnswersLabel = doYouKnowYourClockOrPayrollNumber
+doYouKnowYourClockOrPayrollNumber.error.required = Select yes if doYouKnowYourClockOrPayrollNumber
+doYouKnowYourClockOrPayrollNumber.change.hidden = DoYouKnowYourClockOrPayrollNumber
