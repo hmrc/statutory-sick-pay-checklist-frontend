@@ -18,8 +18,9 @@ package controllers
 
 import controllers.actions._
 import forms.WhatIsYourNameFormProvider
+
 import javax.inject.Inject
-import models.Mode
+import models.{Mode, UserAnswers}
 import navigation.Navigator
 import pages.WhatIsYourNamePage
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -36,7 +37,6 @@ class WhatIsYourNameController @Inject()(
                                       navigator: Navigator,
                                       identify: IdentifierAction,
                                       getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
                                       formProvider: WhatIsYourNameFormProvider,
                                       val controllerComponents: MessagesControllerComponents,
                                       view: WhatIsYourNameView
@@ -44,10 +44,12 @@ class WhatIsYourNameController @Inject()(
 
   val form = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData) {
     implicit request =>
 
-      val preparedForm = request.userAnswers.get(WhatIsYourNamePage) match {
+      val answers = request.userAnswers.getOrElse(UserAnswers(request.userId))
+
+      val preparedForm = answers.get(WhatIsYourNamePage) match {
         case None => form
         case Some(value) => form.fill(value)
       }
@@ -55,8 +57,10 @@ class WhatIsYourNameController @Inject()(
       Ok(view(preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData).async {
     implicit request =>
+
+      val answers = request.userAnswers.getOrElse(UserAnswers(request.userId))
 
       form.bindFromRequest().fold(
         formWithErrors =>
@@ -64,7 +68,7 @@ class WhatIsYourNameController @Inject()(
 
         value =>
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(WhatIsYourNamePage, value))
+            updatedAnswers <- Future.fromTry(answers.set(WhatIsYourNamePage, value))
             _              <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(WhatIsYourNamePage, mode, updatedAnswers))
       )
