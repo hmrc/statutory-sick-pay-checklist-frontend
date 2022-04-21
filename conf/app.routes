@@ -25,7 +25,7 @@ POST       /what-is-your-name                        controllers.WhatIsYourNameC
 GET        /change-your-name                  controllers.WhatIsYourNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-your-name                  controllers.WhatIsYourNameController.onSubmit(mode: Mode = CheckMode)
 
-GET        /whatIsYourNino                        controllers.WhatIsYourNinoController.onPageLoad(mode: Mode = NormalMode)
-POST       /whatIsYourNino                        controllers.WhatIsYourNinoController.onSubmit(mode: Mode = NormalMode)
-GET        /changeWhatIsYourNino                  controllers.WhatIsYourNinoController.onPageLoad(mode: Mode = CheckMode)
-POST       /changeWhatIsYourNino                  controllers.WhatIsYourNinoController.onSubmit(mode: Mode = CheckMode)
+GET        /what-is-your-national-insurance-number                        controllers.WhatIsYourNinoController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-is-your-national-insurance-number                        controllers.WhatIsYourNinoController.onSubmit(mode: Mode = NormalMode)
+GET        /change-your-national-insurance-number                  controllers.WhatIsYourNinoController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-your-national-insurance-number                  controllers.WhatIsYourNinoController.onSubmit(mode: Mode = CheckMode)
