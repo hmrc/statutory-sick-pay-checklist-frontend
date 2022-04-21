@@ -39,3 +39,8 @@ GET        /do-you-know-your-clock-or-payroll-number                        cont
 POST       /do-you-know-your-clock-or-payroll-number                        controllers.DoYouKnowYourClockOrPayrollNumberController.onSubmit(mode: Mode = NormalMode)
 GET        /change-do-you-know-your-clock-or-payroll-number                  controllers.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-do-you-know-your-clock-or-payroll-number                  controllers.DoYouKnowYourClockOrPayrollNumberController.onSubmit(mode: Mode = CheckMode)
+
+GET        /whatIsYourClockOrPayrollNumber                        controllers.WhatIsYourClockOrPayrollNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /whatIsYourClockOrPayrollNumber                        controllers.WhatIsYourClockOrPayrollNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /changeWhatIsYourClockOrPayrollNumber                  controllers.WhatIsYourClockOrPayrollNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeWhatIsYourClockOrPayrollNumber                  controllers.WhatIsYourClockOrPayrollNumberController.onSubmit(mode: Mode = CheckMode)

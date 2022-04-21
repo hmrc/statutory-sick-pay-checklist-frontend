@@ -21,6 +21,9 @@ import pages._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryWhatIsYourClockOrPayrollNumberPage: Arbitrary[WhatIsYourClockOrPayrollNumberPage.type] =
+    Arbitrary(WhatIsYourClockOrPayrollNumberPage)
+
   implicit lazy val arbitraryDoYouKnowYourClockOrPayrollNumberPage: Arbitrary[DoYouKnowYourClockOrPayrollNumberPage.type] =
     Arbitrary(DoYouKnowYourClockOrPayrollNumberPage)
 

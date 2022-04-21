@@ -92,3 +92,10 @@ doYouKnowYourClockOrPayrollNumber.heading = Do you know your clock or payroll nu
 doYouKnowYourClockOrPayrollNumber.checkYourAnswersLabel = Do you know your clock or payroll number?
 doYouKnowYourClockOrPayrollNumber.error.required = Select yes if you know your clock or payroll number
 doYouKnowYourClockOrPayrollNumber.change.hidden = whether you know your clock or payroll number
+
+whatIsYourClockOrPayrollNumber.title = whatIsYourClockOrPayrollNumber
+whatIsYourClockOrPayrollNumber.heading = whatIsYourClockOrPayrollNumber
+whatIsYourClockOrPayrollNumber.checkYourAnswersLabel = whatIsYourClockOrPayrollNumber
+whatIsYourClockOrPayrollNumber.error.required = Enter whatIsYourClockOrPayrollNumber
+whatIsYourClockOrPayrollNumber.error.length = WhatIsYourClockOrPayrollNumber must be 100 characters or less
+whatIsYourClockOrPayrollNumber.change.hidden = WhatIsYourClockOrPayrollNumber
