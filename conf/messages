@@ -100,9 +100,9 @@ whatIsYourClockOrPayrollNumber.error.required = Enter your clock or payroll numb
 whatIsYourClockOrPayrollNumber.error.length = Your clock or payroll number must be 100 characters or less
 whatIsYourClockOrPayrollNumber.change.hidden = your clock or payroll number
 
-detailsOfSickness.title = detailsOfSickness
-detailsOfSickness.heading = detailsOfSickness
-detailsOfSickness.checkYourAnswersLabel = detailsOfSickness
-detailsOfSickness.error.required = Enter detailsOfSickness
-detailsOfSickness.error.length = DetailsOfSickness must be 100 characters or less
-detailsOfSickness.change.hidden = DetailsOfSickness
+detailsOfSickness.title = Enter brief details of your sickness
+detailsOfSickness.heading = Enter brief details of your sickness
+detailsOfSickness.checkYourAnswersLabel = Brief details of your sickness
+detailsOfSickness.error.required = Enter brief details of your sickness
+detailsOfSickness.error.length = Details of your sickness must be 100 characters or less
+detailsOfSickness.change.hidden = details of your sickness

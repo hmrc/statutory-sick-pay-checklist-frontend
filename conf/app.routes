@@ -45,7 +45,7 @@ POST       /what-is-your-clock-or-payroll-number                        controll
 GET        /change-your-clock-or-payroll-number                  controllers.WhatIsYourClockOrPayrollNumberController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-your-clock-or-payroll-number                  controllers.WhatIsYourClockOrPayrollNumberController.onSubmit(mode: Mode = CheckMode)
 
-GET        /detailsOfSickness                        controllers.DetailsOfSicknessController.onPageLoad(mode: Mode = NormalMode)
-POST       /detailsOfSickness                        controllers.DetailsOfSicknessController.onSubmit(mode: Mode = NormalMode)
-GET        /changeDetailsOfSickness                  controllers.DetailsOfSicknessController.onPageLoad(mode: Mode = CheckMode)
-POST       /changeDetailsOfSickness                  controllers.DetailsOfSicknessController.onSubmit(mode: Mode = CheckMode)
+GET        /details-of-sickness                        controllers.DetailsOfSicknessController.onPageLoad(mode: Mode = NormalMode)
+POST       /details-of-sickness                        controllers.DetailsOfSicknessController.onSubmit(mode: Mode = NormalMode)
+GET        /change-details-of-sickness                  controllers.DetailsOfSicknessController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-details-of-sickness                  controllers.DetailsOfSicknessController.onSubmit(mode: Mode = CheckMode)
