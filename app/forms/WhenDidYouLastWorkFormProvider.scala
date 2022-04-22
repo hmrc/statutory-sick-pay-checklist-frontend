@@ -31,6 +31,6 @@ class WhenDidYouLastWorkFormProvider @Inject() extends Mappings {
         allRequiredKey = "whenDidYouLastWork.error.required.all",
         twoRequiredKey = "whenDidYouLastWork.error.required.two",
         requiredKey    = "whenDidYouLastWork.error.required"
-      )
+      ).verifying(maxDate(LocalDate.now, "whenDidYouLastWork.error.future"))
     )
 }

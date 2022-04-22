@@ -17,8 +17,8 @@
 package forms
 
 import java.time.{LocalDate, ZoneOffset}
-
 import forms.behaviours.DateBehaviours
+import play.api.data.FormError
 
 class WhenDidYouLastWorkFormProviderSpec extends DateBehaviours {
 
@@ -34,5 +34,7 @@ class WhenDidYouLastWorkFormProviderSpec extends DateBehaviours {
     behave like dateField(form, "value", validData)
 
     behave like mandatoryDateField(form, "value", "whenDidYouLastWork.error.required.all")
+
+    behave like dateFieldWithMax(form, "value", LocalDate.now, FormError("value", "whenDidYouLastWork.error.future"))
   }
 }
