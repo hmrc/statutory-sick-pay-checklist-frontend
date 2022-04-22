@@ -118,8 +118,8 @@ dateSicknessBegan.error.invalid = Enter a real date
 dateSicknessBegan.error.future = The date your sickness began must be in the past
 dateSicknessBegan.change.hidden = when your sickness began
 
-hasSicknessEnded.title = hasSicknessEnded
-hasSicknessEnded.heading = hasSicknessEnded
-hasSicknessEnded.checkYourAnswersLabel = hasSicknessEnded
-hasSicknessEnded.error.required = Select yes if hasSicknessEnded
-hasSicknessEnded.change.hidden = HasSicknessEnded
+hasSicknessEnded.title = Has your sickness ended?
+hasSicknessEnded.heading = Has your sickness ended?
+hasSicknessEnded.checkYourAnswersLabel = Has your sickness ended?
+hasSicknessEnded.error.required = Select yes if your sickness has ended
+hasSicknessEnded.change.hidden = whether your sickness has ended
