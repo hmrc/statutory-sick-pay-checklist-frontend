@@ -16,6 +16,7 @@
 
 package pages
 
+import models.UserAnswers
 import pages.behaviours.PageBehaviours
 
 class DoYouKnowYourClockOrPayrollNumberPageSpec extends PageBehaviours {
@@ -27,5 +28,19 @@ class DoYouKnowYourClockOrPayrollNumberPageSpec extends PageBehaviours {
     beSettable[Boolean](DoYouKnowYourClockOrPayrollNumberPage)
 
     beRemovable[Boolean](DoYouKnowYourClockOrPayrollNumberPage)
+
+    "must remove clock or payroll number when set to no" in {
+      val answers = UserAnswers("id")
+        .set(WhatIsYourClockOrPayrollNumberPage, "foobar").success.value
+        .set(DoYouKnowYourClockOrPayrollNumberPage, false).success.value
+      answers.get(WhatIsYourClockOrPayrollNumberPage) mustBe empty
+    }
+
+    "must not remove clock or payroll number when set to yes" in {
+      val answers = UserAnswers("id")
+        .set(WhatIsYourClockOrPayrollNumberPage, "foobar").success.value
+        .set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
+      answers.get(WhatIsYourClockOrPayrollNumberPage).value mustEqual "foobar"
+    }
   }
 }
