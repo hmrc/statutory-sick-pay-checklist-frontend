@@ -44,6 +44,9 @@ class Navigator @Inject()() {
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
+    case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberCheckRoutes
+    case HasSicknessEndedPage => hasSicknessEndedCheckRoutes
+    case CausedByAccidentOrIndustrialDiseasePage => causedByAccidentOrIndustrialDiseaseCheckRoutes
     case _ => _ => routes.CheckYourAnswersController.onPageLoad
   }
 
@@ -53,16 +56,34 @@ class Navigator @Inject()() {
       case false => routes.DetailsOfSicknessController.onPageLoad(NormalMode)
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
 
+  private def doYouKnowYourClockOrPayrollNumberCheckRoutes(answers: UserAnswers): Call =
+    answers.get(DoYouKnowYourClockOrPayrollNumberPage).map {
+      case true  => routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(CheckMode)
+      case false => routes.CheckYourAnswersController.onPageLoad
+    }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
+
   private def hasSicknessEndedRoutes(answers: UserAnswers): Call =
     answers.get(HasSicknessEndedPage).map {
       case true  => routes.DateSicknessEndedController.onPageLoad(NormalMode)
       case false => routes.WhenDidYouLastWorkController.onPageLoad(NormalMode)
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
 
+  private def hasSicknessEndedCheckRoutes(answers: UserAnswers): Call =
+    answers.get(HasSicknessEndedPage).map {
+      case true  => routes.DateSicknessEndedController.onPageLoad(CheckMode)
+      case false => routes.CheckYourAnswersController.onPageLoad
+    }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
+
   private def causedByAccidentOrIndustrialDiseaseRoutes(answers: UserAnswers): Call =
     answers.get(CausedByAccidentOrIndustrialDiseasePage).map {
       case true  => ???
       case false => routes.PhoneNumberController.onPageLoad(NormalMode)
+    }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
+
+  private def causedByAccidentOrIndustrialDiseaseCheckRoutes(answers: UserAnswers): Call =
+    answers.get(CausedByAccidentOrIndustrialDiseasePage).map {
+      case true  => ???
+      case false => routes.CheckYourAnswersController.onPageLoad
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {

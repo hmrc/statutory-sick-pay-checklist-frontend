@@ -30,7 +30,6 @@ class NavigatorSpec extends SpecBase {
     "in Normal mode" - {
 
       "must go from a page that doesn't exist in the route map to Index" in {
-
         case object UnknownPage extends Page
         navigator.nextPage(UnknownPage, NormalMode, emptyUserAnswers) mustBe routes.IndexController.onPageLoad
       }
@@ -128,8 +127,57 @@ class NavigatorSpec extends SpecBase {
 
     "in Check mode" - {
 
-      "must go from a page that doesn't exist in the edit route map to CheckYourAnswers" in {
+      "must go from the do you know your clock or payroll number" - {
 
+        "to the what is your clock or payroll number page when the user selects yes" in {
+          val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
+          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, answers) mustBe routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(CheckMode)
+        }
+
+        "to the details of sickness page when the user selects no" in {
+          val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, false).success.value
+          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
+        }
+
+        "to the journey recovery page when the user has no answer" in {
+          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
+        }
+      }
+
+      "must go from the has sickness ended page" - {
+
+        "to the date sickness ended page when the user selects yes" in {
+          val answers = emptyUserAnswers.set(HasSicknessEndedPage, true).success.value
+          navigator.nextPage(HasSicknessEndedPage, CheckMode, answers) mustBe routes.DateSicknessEndedController.onPageLoad(CheckMode)
+        }
+
+        "to the when did you last work page when the user selects no" in {
+          val answers = emptyUserAnswers.set(HasSicknessEndedPage, false).success.value
+          navigator.nextPage(HasSicknessEndedPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
+        }
+
+        "to the journey recovery page when the user has no answer" in {
+          navigator.nextPage(HasSicknessEndedPage, CheckMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
+        }
+      }
+
+      "must go from the caused by accident or industrial disease page" - {
+
+        "to the guidance page when the user selects yes" ignore {
+          // TODO
+        }
+
+        "to the phone number page when the user selects no" in {
+          val answers = emptyUserAnswers.set(CausedByAccidentOrIndustrialDiseasePage, false).success.value
+          navigator.nextPage(CausedByAccidentOrIndustrialDiseasePage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
+        }
+
+        "to the journey recovery page when there are no user answers" in {
+          navigator.nextPage(CausedByAccidentOrIndustrialDiseasePage, CheckMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
+        }
+      }
+
+      "must go from a page that doesn't exist in the edit route map to CheckYourAnswers" in {
         case object UnknownPage extends Page
         navigator.nextPage(UnknownPage, CheckMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
       }
