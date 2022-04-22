@@ -17,8 +17,8 @@
 package forms
 
 import java.time.{LocalDate, ZoneOffset}
-
 import forms.behaviours.DateBehaviours
+import play.api.data.FormError
 
 class DateSicknessEndedFormProviderSpec extends DateBehaviours {
 
@@ -34,5 +34,7 @@ class DateSicknessEndedFormProviderSpec extends DateBehaviours {
     behave like dateField(form, "value", validData)
 
     behave like mandatoryDateField(form, "value", "dateSicknessEnded.error.required.all")
+
+    behave like dateFieldWithMax(form, "value", LocalDate.now, FormError("value", "dateSicknessEnded.error.future"))
   }
 }

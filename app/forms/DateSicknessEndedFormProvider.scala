@@ -31,6 +31,6 @@ class DateSicknessEndedFormProvider @Inject() extends Mappings {
         allRequiredKey = "dateSicknessEnded.error.required.all",
         twoRequiredKey = "dateSicknessEnded.error.required.two",
         requiredKey    = "dateSicknessEnded.error.required"
-      )
+      ).verifying(maxDate(LocalDate.now, "dateSicknessEnded.error.future"))
     )
 }
