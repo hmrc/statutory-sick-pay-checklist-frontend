@@ -75,10 +75,10 @@ POST       /whatTimeDidYouFinish                        controllers.WhatTimeDidY
 GET        /changeWhatTimeDidYouFinish                  controllers.WhatTimeDidYouFinishController.onPageLoad(mode: Mode = CheckMode)
 POST       /changeWhatTimeDidYouFinish                  controllers.WhatTimeDidYouFinishController.onSubmit(mode: Mode = CheckMode)
 
-GET        /causedByAccidentOrIndustrialDisease                        controllers.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(mode: Mode = NormalMode)
-POST       /causedByAccidentOrIndustrialDisease                        controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = NormalMode)
-GET        /changeCausedByAccidentOrIndustrialDisease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(mode: Mode = CheckMode)
-POST       /changeCausedByAccidentOrIndustrialDisease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = CheckMode)
+GET        /caused-by-accident-or-industrial-disease                        controllers.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(mode: Mode = NormalMode)
+POST       /caused-by-accident-or-industrial-disease                        controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = NormalMode)
+GET        /change-caused-by-accident-or-industrial-disease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-caused-by-accident-or-industrial-disease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = CheckMode)
 
 GET        /phoneNumber                        controllers.PhoneNumberController.onPageLoad(mode: Mode = NormalMode)
 POST       /phoneNumber                        controllers.PhoneNumberController.onSubmit(mode: Mode = NormalMode)

@@ -153,11 +153,11 @@ whatTimeDidYouFinish.error.required = Enter whatTimeDidYouFinish
 whatTimeDidYouFinish.error.length = WhatTimeDidYouFinish must be 100 characters or less
 whatTimeDidYouFinish.change.hidden = WhatTimeDidYouFinish
 
-causedByAccidentOrIndustrialDisease.title = causedByAccidentOrIndustrialDisease
-causedByAccidentOrIndustrialDisease.heading = causedByAccidentOrIndustrialDisease
-causedByAccidentOrIndustrialDisease.checkYourAnswersLabel = causedByAccidentOrIndustrialDisease
-causedByAccidentOrIndustrialDisease.error.required = Select yes if causedByAccidentOrIndustrialDisease
-causedByAccidentOrIndustrialDisease.change.hidden = CausedByAccidentOrIndustrialDisease
+causedByAccidentOrIndustrialDisease.title = Was your sickness caused by an accident at work or an industrial disease?
+causedByAccidentOrIndustrialDisease.heading = Was your sickness caused by an accident at work or an industrial disease?
+causedByAccidentOrIndustrialDisease.checkYourAnswersLabel = Was your sickness caused by an accident at work or an industrial disease?
+causedByAccidentOrIndustrialDisease.error.required = Select yes if your sickness was caused by an accident at work or an industrial disease
+causedByAccidentOrIndustrialDisease.change.hidden = whether your sickness was caused by an accident at work or an industrial disease
 
 phoneNumber.title = phoneNumber
 phoneNumber.heading = phoneNumber
