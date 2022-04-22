@@ -79,3 +79,8 @@ GET        /causedByAccidentOrIndustrialDisease                        controlle
 POST       /causedByAccidentOrIndustrialDisease                        controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = NormalMode)
 GET        /changeCausedByAccidentOrIndustrialDisease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(mode: Mode = CheckMode)
 POST       /changeCausedByAccidentOrIndustrialDisease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = CheckMode)
+
+GET        /phoneNumber                        controllers.PhoneNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /phoneNumber                        controllers.PhoneNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /changePhoneNumber                  controllers.PhoneNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /changePhoneNumber                  controllers.PhoneNumberController.onSubmit(mode: Mode = CheckMode)

@@ -158,3 +158,10 @@ causedByAccidentOrIndustrialDisease.heading = causedByAccidentOrIndustrialDiseas
 causedByAccidentOrIndustrialDisease.checkYourAnswersLabel = causedByAccidentOrIndustrialDisease
 causedByAccidentOrIndustrialDisease.error.required = Select yes if causedByAccidentOrIndustrialDisease
 causedByAccidentOrIndustrialDisease.change.hidden = CausedByAccidentOrIndustrialDisease
+
+phoneNumber.title = phoneNumber
+phoneNumber.heading = phoneNumber
+phoneNumber.checkYourAnswersLabel = phoneNumber
+phoneNumber.error.required = Enter phoneNumber
+phoneNumber.error.length = PhoneNumber must be 100 characters or less
+phoneNumber.change.hidden = PhoneNumber
