@@ -21,6 +21,9 @@ import pages._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryDateSicknessEndedPage: Arbitrary[DateSicknessEndedPage.type] =
+    Arbitrary(DateSicknessEndedPage)
+
   implicit lazy val arbitraryHasSicknessEndedPage: Arbitrary[HasSicknessEndedPage.type] =
     Arbitrary(HasSicknessEndedPage)
 

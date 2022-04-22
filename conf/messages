@@ -123,3 +123,13 @@ hasSicknessEnded.heading = Has your sickness ended?
 hasSicknessEnded.checkYourAnswersLabel = Has your sickness ended?
 hasSicknessEnded.error.required = Select yes if your sickness has ended
 hasSicknessEnded.change.hidden = whether your sickness has ended
+
+dateSicknessEnded.title = DateSicknessEnded
+dateSicknessEnded.heading = DateSicknessEnded
+dateSicknessEnded.hint = For example, 12 11 2007
+dateSicknessEnded.checkYourAnswersLabel = DateSicknessEnded
+dateSicknessEnded.error.required.all = Enter the dateSicknessEnded
+dateSicknessEnded.error.required.two = The dateSicknessEnded must include {0} and {1}
+dateSicknessEnded.error.required = The dateSicknessEnded must include {0}
+dateSicknessEnded.error.invalid = Enter a real DateSicknessEnded
+dateSicknessEnded.change.hidden = DateSicknessEnded
