@@ -16,7 +16,10 @@
 
 package pages
 
+import models.UserAnswers
 import pages.behaviours.PageBehaviours
+
+import java.time.LocalDate
 
 class HasSicknessEndedPageSpec extends PageBehaviours {
 
@@ -27,5 +30,21 @@ class HasSicknessEndedPageSpec extends PageBehaviours {
     beSettable[Boolean](HasSicknessEndedPage)
 
     beRemovable[Boolean](HasSicknessEndedPage)
+
+    "must remove when did your sickness end when set to no" in {
+      val date = LocalDate.now
+      val answers = UserAnswers("id")
+        .set(DateSicknessEndedPage, date).success.value
+        .set(HasSicknessEndedPage, false).success.value
+      answers.get(DateSicknessEndedPage) mustBe empty
+    }
+
+    "must not remove when did your sickness end when set to true" in {
+      val date = LocalDate.now
+      val answers = UserAnswers("id")
+        .set(DateSicknessEndedPage, date).success.value
+        .set(HasSicknessEndedPage, true).success.value
+      answers.get(DateSicknessEndedPage).value mustBe date
+    }
   }
 }
