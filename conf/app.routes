@@ -54,3 +54,8 @@ GET        /date-sickness-began                  controllers.DateSicknessBeganCo
 POST       /date-sickness-began                  controllers.DateSicknessBeganController.onSubmit(mode: Mode = NormalMode)
 GET        /change-date-sickness-began                        controllers.DateSicknessBeganController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-date-sickness-began                        controllers.DateSicknessBeganController.onSubmit(mode: Mode = CheckMode)
+
+GET        /hasSicknessEnded                        controllers.HasSicknessEndedController.onPageLoad(mode: Mode = NormalMode)
+POST       /hasSicknessEnded                        controllers.HasSicknessEndedController.onSubmit(mode: Mode = NormalMode)
+GET        /changeHasSicknessEnded                  controllers.HasSicknessEndedController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeHasSicknessEnded                  controllers.HasSicknessEndedController.onSubmit(mode: Mode = CheckMode)
