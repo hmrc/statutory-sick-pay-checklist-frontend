@@ -80,7 +80,7 @@ POST       /caused-by-accident-or-industrial-disease                        cont
 GET        /change-caused-by-accident-or-industrial-disease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-caused-by-accident-or-industrial-disease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = CheckMode)
 
-GET        /phoneNumber                        controllers.PhoneNumberController.onPageLoad(mode: Mode = NormalMode)
-POST       /phoneNumber                        controllers.PhoneNumberController.onSubmit(mode: Mode = NormalMode)
-GET        /changePhoneNumber                  controllers.PhoneNumberController.onPageLoad(mode: Mode = CheckMode)
-POST       /changePhoneNumber                  controllers.PhoneNumberController.onSubmit(mode: Mode = CheckMode)
+GET        /what-is-your-phone-number                        controllers.PhoneNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-is-your-phone-number                        controllers.PhoneNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /change-your-phone-number                  controllers.PhoneNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-your-phone-number                  controllers.PhoneNumberController.onSubmit(mode: Mode = CheckMode)

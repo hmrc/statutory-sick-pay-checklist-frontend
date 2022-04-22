@@ -159,9 +159,9 @@ causedByAccidentOrIndustrialDisease.checkYourAnswersLabel = Was your sickness ca
 causedByAccidentOrIndustrialDisease.error.required = Select yes if your sickness was caused by an accident at work or an industrial disease
 causedByAccidentOrIndustrialDisease.change.hidden = whether your sickness was caused by an accident at work or an industrial disease
 
-phoneNumber.title = phoneNumber
-phoneNumber.heading = phoneNumber
-phoneNumber.checkYourAnswersLabel = phoneNumber
-phoneNumber.error.required = Enter phoneNumber
-phoneNumber.error.length = PhoneNumber must be 100 characters or less
-phoneNumber.change.hidden = PhoneNumber
+phoneNumber.title = What is your phone number?
+phoneNumber.heading = What is your phone number?
+phoneNumber.checkYourAnswersLabel = What is your phone number?
+phoneNumber.error.required = Enter your phone number
+phoneNumber.error.length = Your phone must be 100 characters or less
+phoneNumber.change.hidden = your phone number
