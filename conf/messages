@@ -134,3 +134,13 @@ dateSicknessEnded.error.required = The date must include {0}
 dateSicknessEnded.error.invalid = Enter a real date
 dateSicknessEnded.error.future = The date your sickness ended must be in the past
 dateSicknessEnded.change.hidden = the date your sickness ended
+
+whenDidYouLastWork.title = WhenDidYouLastWork
+whenDidYouLastWork.heading = WhenDidYouLastWork
+whenDidYouLastWork.hint = For example, 12 11 2007
+whenDidYouLastWork.checkYourAnswersLabel = WhenDidYouLastWork
+whenDidYouLastWork.error.required.all = Enter the whenDidYouLastWork
+whenDidYouLastWork.error.required.two = The whenDidYouLastWork must include {0} and {1}
+whenDidYouLastWork.error.required = The whenDidYouLastWork must include {0}
+whenDidYouLastWork.error.invalid = Enter a real WhenDidYouLastWork
+whenDidYouLastWork.change.hidden = WhenDidYouLastWork
