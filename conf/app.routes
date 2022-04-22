@@ -69,3 +69,8 @@ GET        /when-did-you-last-work                  controllers.WhenDidYouLastWo
 POST       /when-did-you-last-work                  controllers.WhenDidYouLastWorkController.onSubmit(mode: Mode = NormalMode)
 GET        /change-when-you-last-worked                        controllers.WhenDidYouLastWorkController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-when-you-last-worked                        controllers.WhenDidYouLastWorkController.onSubmit(mode: Mode = CheckMode)
+
+GET        /whatTimeDidYouFinish                        controllers.WhatTimeDidYouFinishController.onPageLoad(mode: Mode = NormalMode)
+POST       /whatTimeDidYouFinish                        controllers.WhatTimeDidYouFinishController.onSubmit(mode: Mode = NormalMode)
+GET        /changeWhatTimeDidYouFinish                  controllers.WhatTimeDidYouFinishController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeWhatTimeDidYouFinish                  controllers.WhatTimeDidYouFinishController.onSubmit(mode: Mode = CheckMode)

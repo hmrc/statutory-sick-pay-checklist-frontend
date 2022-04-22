@@ -145,3 +145,10 @@ whenDidYouLastWork.error.required = The date must include {0}
 whenDidYouLastWork.error.invalid = Enter a real date
 whenDidYouLastWork.error.future = The date you last worked must be in the past
 whenDidYouLastWork.change.hidden = when you last worked before the sickness began
+
+whatTimeDidYouFinish.title = whatTimeDidYouFinish
+whatTimeDidYouFinish.heading = whatTimeDidYouFinish
+whatTimeDidYouFinish.checkYourAnswersLabel = whatTimeDidYouFinish
+whatTimeDidYouFinish.error.required = Enter whatTimeDidYouFinish
+whatTimeDidYouFinish.error.length = WhatTimeDidYouFinish must be 100 characters or less
+whatTimeDidYouFinish.change.hidden = WhatTimeDidYouFinish
