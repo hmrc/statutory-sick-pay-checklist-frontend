@@ -152,3 +152,9 @@ whatTimeDidYouFinish.checkYourAnswersLabel = whatTimeDidYouFinish
 whatTimeDidYouFinish.error.required = Enter whatTimeDidYouFinish
 whatTimeDidYouFinish.error.length = WhatTimeDidYouFinish must be 100 characters or less
 whatTimeDidYouFinish.change.hidden = WhatTimeDidYouFinish
+
+causedByAccidentOrIndustrialDisease.title = causedByAccidentOrIndustrialDisease
+causedByAccidentOrIndustrialDisease.heading = causedByAccidentOrIndustrialDisease
+causedByAccidentOrIndustrialDisease.checkYourAnswersLabel = causedByAccidentOrIndustrialDisease
+causedByAccidentOrIndustrialDisease.error.required = Select yes if causedByAccidentOrIndustrialDisease
+causedByAccidentOrIndustrialDisease.change.hidden = CausedByAccidentOrIndustrialDisease

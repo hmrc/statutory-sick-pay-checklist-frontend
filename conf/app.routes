@@ -74,3 +74,8 @@ GET        /whatTimeDidYouFinish                        controllers.WhatTimeDidY
 POST       /whatTimeDidYouFinish                        controllers.WhatTimeDidYouFinishController.onSubmit(mode: Mode = NormalMode)
 GET        /changeWhatTimeDidYouFinish                  controllers.WhatTimeDidYouFinishController.onPageLoad(mode: Mode = CheckMode)
 POST       /changeWhatTimeDidYouFinish                  controllers.WhatTimeDidYouFinishController.onSubmit(mode: Mode = CheckMode)
+
+GET        /causedByAccidentOrIndustrialDisease                        controllers.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(mode: Mode = NormalMode)
+POST       /causedByAccidentOrIndustrialDisease                        controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = NormalMode)
+GET        /changeCausedByAccidentOrIndustrialDisease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeCausedByAccidentOrIndustrialDisease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = CheckMode)
