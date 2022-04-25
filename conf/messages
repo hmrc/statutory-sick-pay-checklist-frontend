@@ -68,13 +68,13 @@ whatIsYourName.error.surname.length = Your surname must be 100 characters or les
 whatIsYourName.firstname.change.hidden = your first name
 whatIsYourName.surname.change.hidden = your surname
 
-whatIsYourNino.title = What is your national insurance number?
-whatIsYourNino.heading = What is your national insurance number?
+whatIsYourNino.title = What is your National Insurance number?
+whatIsYourNino.heading = What is your National Insurance number?
 whatIsYourNino.hint = It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C.
-whatIsYourNino.checkYourAnswersLabel = What is your national insurance number?
-whatIsYourNino.error.required = Enter your national insurance number
-whatIsYourNino.error.invalid = Enter your national insurance number in the correct format
-whatIsYourNino.change.hidden = your national insurance number
+whatIsYourNino.checkYourAnswersLabel = What is your National Insurance number?
+whatIsYourNino.error.required = Enter your National Insurance number
+whatIsYourNino.error.invalid = Enter your National Insurance number in the correct format
+whatIsYourNino.change.hidden = your National Insurance number
 
 whatIsYourDateOfBirth.title = What is your date of birth?
 whatIsYourDateOfBirth.heading = What is your date of birth?
