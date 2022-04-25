@@ -33,7 +33,7 @@ object WhatIsYourNinoSummary  {
 
         SummaryListRowViewModel(
           key     = "whatIsYourNino.checkYourAnswersLabel",
-          value   = ValueViewModel(HtmlFormat.escape(answer).toString),
+          value   = ValueViewModel(HtmlFormat.escape(answer.value).toString),
           actions = Seq(
             ActionItemViewModel("site.change", routes.WhatIsYourNinoController.onPageLoad(CheckMode).url)
               .withVisuallyHiddenText(messages("whatIsYourNino.change.hidden"))

@@ -73,7 +73,7 @@ whatIsYourNino.heading = What is your national insurance number?
 whatIsYourNino.hint = It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C.
 whatIsYourNino.checkYourAnswersLabel = What is your national insurance number?
 whatIsYourNino.error.required = Enter your national insurance number
-whatIsYourNino.error.length = WhatIsYourNino must be 100 characters or less
+whatIsYourNino.error.invalid = Enter your national insurance number in the correct format
 whatIsYourNino.change.hidden = your national insurance number
 
 whatIsYourDateOfBirth.title = What is your date of birth?
