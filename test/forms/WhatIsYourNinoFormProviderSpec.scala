@@ -16,10 +16,10 @@
 
 package forms
 
-import forms.behaviours.StringFieldBehaviours
+import forms.behaviours.FieldBehaviours
 import play.api.data.FormError
 
-class WhatIsYourNinoFormProviderSpec extends StringFieldBehaviours {
+class WhatIsYourNinoFormProviderSpec extends FieldBehaviours {
 
   val requiredKey = "whatIsYourNino.error.required"
   val lengthKey = "whatIsYourNino.error.length"
@@ -34,14 +34,7 @@ class WhatIsYourNinoFormProviderSpec extends StringFieldBehaviours {
     behave like fieldThatBindsValidData(
       form,
       fieldName,
-      stringsWithMaxLength(maxLength)
-    )
-
-    behave like fieldWithMaxLength(
-      form,
-      fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      arbitraryNino.arbitrary.map(_.value)
     )
 
     behave like mandatoryField(
@@ -49,5 +42,10 @@ class WhatIsYourNinoFormProviderSpec extends StringFieldBehaviours {
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
     )
+
+    "not bind values in the wrong format" in {
+      val result = form.bind(Map(fieldName -> "GB123456A")).apply(fieldName)
+      result.errors.head mustBe FormError(fieldName, "whatIsYourNino.error.invalid")
+    }
   }
 }
