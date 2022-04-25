@@ -20,4 +20,43 @@ import org.scalacheck.Arbitrary
 import pages._
 
 trait PageGenerators {
+
+  implicit lazy val arbitraryPhoneNumberPage: Arbitrary[PhoneNumberPage.type] =
+    Arbitrary(PhoneNumberPage)
+
+  implicit lazy val arbitraryCausedByAccidentOrIndustrialDiseasePage: Arbitrary[CausedByAccidentOrIndustrialDiseasePage.type] =
+    Arbitrary(CausedByAccidentOrIndustrialDiseasePage)
+
+  implicit lazy val arbitraryWhatTimeDidYouFinishPage: Arbitrary[WhatTimeDidYouFinishPage.type] =
+    Arbitrary(WhatTimeDidYouFinishPage)
+
+  implicit lazy val arbitraryWhenDidYouLastWorkPage: Arbitrary[WhenDidYouLastWorkPage.type] =
+    Arbitrary(WhenDidYouLastWorkPage)
+
+  implicit lazy val arbitraryDateSicknessEndedPage: Arbitrary[DateSicknessEndedPage.type] =
+    Arbitrary(DateSicknessEndedPage)
+
+  implicit lazy val arbitraryHasSicknessEndedPage: Arbitrary[HasSicknessEndedPage.type] =
+    Arbitrary(HasSicknessEndedPage)
+
+  implicit lazy val arbitraryDateSicknessBeganPage: Arbitrary[DateSicknessBeganPage.type] =
+    Arbitrary(DateSicknessBeganPage)
+
+  implicit lazy val arbitraryDetailsOfSicknessPage: Arbitrary[DetailsOfSicknessPage.type] =
+    Arbitrary(DetailsOfSicknessPage)
+
+  implicit lazy val arbitraryWhatIsYourClockOrPayrollNumberPage: Arbitrary[WhatIsYourClockOrPayrollNumberPage.type] =
+    Arbitrary(WhatIsYourClockOrPayrollNumberPage)
+
+  implicit lazy val arbitraryDoYouKnowYourClockOrPayrollNumberPage: Arbitrary[DoYouKnowYourClockOrPayrollNumberPage.type] =
+    Arbitrary(DoYouKnowYourClockOrPayrollNumberPage)
+
+  implicit lazy val arbitraryWhatIsYourDateOfBirthPage: Arbitrary[WhatIsYourDateOfBirthPage.type] =
+    Arbitrary(WhatIsYourDateOfBirthPage)
+
+  implicit lazy val arbitraryWhatIsYourNinoPage: Arbitrary[WhatIsYourNinoPage.type] =
+    Arbitrary(WhatIsYourNinoPage)
+
+  implicit lazy val arbitraryWhatIsYourNamePage: Arbitrary[WhatIsYourNamePage.type] =
+    Arbitrary(WhatIsYourNamePage)
 }

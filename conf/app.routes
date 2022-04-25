@@ -19,3 +19,68 @@ GET         /account/sign-out                            controllers.auth.AuthCo
 GET         /account/signed-out                          controllers.auth.SignedOutController.onPageLoad
 
 GET         /unauthorised                                controllers.UnauthorisedController.onPageLoad
+
+GET        /what-is-your-name                        controllers.WhatIsYourNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-is-your-name                        controllers.WhatIsYourNameController.onSubmit(mode: Mode = NormalMode)
+GET        /change-your-name                  controllers.WhatIsYourNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-your-name                  controllers.WhatIsYourNameController.onSubmit(mode: Mode = CheckMode)
+
+GET        /what-is-your-national-insurance-number                        controllers.WhatIsYourNinoController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-is-your-national-insurance-number                        controllers.WhatIsYourNinoController.onSubmit(mode: Mode = NormalMode)
+GET        /change-your-national-insurance-number                  controllers.WhatIsYourNinoController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-your-national-insurance-number                  controllers.WhatIsYourNinoController.onSubmit(mode: Mode = CheckMode)
+
+GET        /what-is-your-date-of-birth                  controllers.WhatIsYourDateOfBirthController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-is-your-date-of-birth                  controllers.WhatIsYourDateOfBirthController.onSubmit(mode: Mode = NormalMode)
+GET        /change-your-date-of-birth                        controllers.WhatIsYourDateOfBirthController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-your-date-of-birth                        controllers.WhatIsYourDateOfBirthController.onSubmit(mode: Mode = CheckMode)
+
+GET        /do-you-know-your-clock-or-payroll-number                        controllers.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /do-you-know-your-clock-or-payroll-number                        controllers.DoYouKnowYourClockOrPayrollNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /change-do-you-know-your-clock-or-payroll-number                  controllers.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-do-you-know-your-clock-or-payroll-number                  controllers.DoYouKnowYourClockOrPayrollNumberController.onSubmit(mode: Mode = CheckMode)
+
+GET        /what-is-your-clock-or-payroll-number                        controllers.WhatIsYourClockOrPayrollNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-is-your-clock-or-payroll-number                        controllers.WhatIsYourClockOrPayrollNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /change-your-clock-or-payroll-number                  controllers.WhatIsYourClockOrPayrollNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-your-clock-or-payroll-number                  controllers.WhatIsYourClockOrPayrollNumberController.onSubmit(mode: Mode = CheckMode)
+
+GET        /details-of-sickness                        controllers.DetailsOfSicknessController.onPageLoad(mode: Mode = NormalMode)
+POST       /details-of-sickness                        controllers.DetailsOfSicknessController.onSubmit(mode: Mode = NormalMode)
+GET        /change-details-of-sickness                  controllers.DetailsOfSicknessController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-details-of-sickness                  controllers.DetailsOfSicknessController.onSubmit(mode: Mode = CheckMode)
+
+GET        /date-sickness-began                  controllers.DateSicknessBeganController.onPageLoad(mode: Mode = NormalMode)
+POST       /date-sickness-began                  controllers.DateSicknessBeganController.onSubmit(mode: Mode = NormalMode)
+GET        /change-date-sickness-began                        controllers.DateSicknessBeganController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-date-sickness-began                        controllers.DateSicknessBeganController.onSubmit(mode: Mode = CheckMode)
+
+GET        /has-sickness-ended                        controllers.HasSicknessEndedController.onPageLoad(mode: Mode = NormalMode)
+POST       /has-sickness-ended                        controllers.HasSicknessEndedController.onSubmit(mode: Mode = NormalMode)
+GET        /change-has-sickness-ended                  controllers.HasSicknessEndedController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-has-sickness-ended                  controllers.HasSicknessEndedController.onSubmit(mode: Mode = CheckMode)
+
+GET        /date-sickness-ended                  controllers.DateSicknessEndedController.onPageLoad(mode: Mode = NormalMode)
+POST       /date-sickness-ended                  controllers.DateSicknessEndedController.onSubmit(mode: Mode = NormalMode)
+GET        /change-date-sickness-ended                        controllers.DateSicknessEndedController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-date-sickness-ended                        controllers.DateSicknessEndedController.onSubmit(mode: Mode = CheckMode)
+
+GET        /when-did-you-last-work                  controllers.WhenDidYouLastWorkController.onPageLoad(mode: Mode = NormalMode)
+POST       /when-did-you-last-work                  controllers.WhenDidYouLastWorkController.onSubmit(mode: Mode = NormalMode)
+GET        /change-when-you-last-worked                        controllers.WhenDidYouLastWorkController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-when-you-last-worked                        controllers.WhenDidYouLastWorkController.onSubmit(mode: Mode = CheckMode)
+
+GET        /whatTimeDidYouFinish                        controllers.WhatTimeDidYouFinishController.onPageLoad(mode: Mode = NormalMode)
+POST       /whatTimeDidYouFinish                        controllers.WhatTimeDidYouFinishController.onSubmit(mode: Mode = NormalMode)
+GET        /changeWhatTimeDidYouFinish                  controllers.WhatTimeDidYouFinishController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeWhatTimeDidYouFinish                  controllers.WhatTimeDidYouFinishController.onSubmit(mode: Mode = CheckMode)
+
+GET        /caused-by-accident-or-industrial-disease                        controllers.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(mode: Mode = NormalMode)
+POST       /caused-by-accident-or-industrial-disease                        controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = NormalMode)
+GET        /change-caused-by-accident-or-industrial-disease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-caused-by-accident-or-industrial-disease                  controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = CheckMode)
+
+GET        /what-is-your-phone-number                        controllers.PhoneNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-is-your-phone-number                        controllers.PhoneNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /change-your-phone-number                  controllers.PhoneNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-your-phone-number                  controllers.PhoneNumberController.onSubmit(mode: Mode = CheckMode)

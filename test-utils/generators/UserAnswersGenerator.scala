@@ -27,6 +27,19 @@ trait UserAnswersGenerator extends TryValues {
   self: Generators =>
 
   val generators: Seq[Gen[(QuestionPage[_], JsValue)]] =
+    arbitrary[(PhoneNumberPage.type, JsValue)] ::
+    arbitrary[(CausedByAccidentOrIndustrialDiseasePage.type, JsValue)] ::
+    arbitrary[(WhatTimeDidYouFinishPage.type, JsValue)] ::
+    arbitrary[(WhenDidYouLastWorkPage.type, JsValue)] ::
+    arbitrary[(DateSicknessEndedPage.type, JsValue)] ::
+    arbitrary[(HasSicknessEndedPage.type, JsValue)] ::
+    arbitrary[(DateSicknessBeganPage.type, JsValue)] ::
+    arbitrary[(DetailsOfSicknessPage.type, JsValue)] ::
+    arbitrary[(WhatIsYourClockOrPayrollNumberPage.type, JsValue)] ::
+    arbitrary[(DoYouKnowYourClockOrPayrollNumberPage.type, JsValue)] ::
+    arbitrary[(WhatIsYourDateOfBirthPage.type, JsValue)] ::
+    arbitrary[(WhatIsYourNinoPage.type, JsValue)] ::
+    arbitrary[(WhatIsYourNamePage.type, JsValue)] ::
     Nil
 
   implicit lazy val arbitraryUserData: Arbitrary[UserAnswers] = {

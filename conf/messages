@@ -1,0 +1,167 @@
+service.name = statutory-sick-pay-checklist-frontend
+
+site.back = Back
+site.remove = Remove
+site.change = Change
+site.no = No
+site.yes = Yes
+site.continue = Continue
+site.start = Start now
+site.startAgain = Start again
+site.signIn = Sign in
+site.govuk = GOV.UK
+
+date.day = Day
+date.month = Month
+date.year = Year
+
+timeout.title = You’re about to be signed out
+timeout.message = For security reasons, you will be signed out of this service in
+timeout.keepAlive = Stay signed in
+timeout.signOut = Sign out
+
+error.browser.title.prefix = Error:
+error.boolean = Please give an answer
+error.invalid_date = Give a correct date
+error.date.day_blank = Enter a day
+error.date.day_invalid = Give a correct day using numbers 1 to 31
+error.date.month_blank = Enter a month
+error.date.month_invalid = Give a correct month using numbers 1 to 12
+error.date.year_blank = Enter a year
+error.date.year_invalid = Give a correct year
+error.integer = Give an answer in whole numbers
+error.non_numeric = Give a value using only numbers
+error.number = Please enter a valid number
+error.required = Please enter a value
+error.summary.title = There is a problem
+
+index.title = statutory-sick-pay-checklist-frontend
+index.heading = statutory-sick-pay-checklist-frontend
+index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
+
+checkYourAnswers.title = Check Your Answers
+checkYourAnswers.heading = Check Your Answers
+
+journeyRecovery.continue.title = Sorry, there is a problem with the service
+journeyRecovery.continue.heading = Sorry, there is a problem with the service
+journeyRecovery.continue.guidance = [Add content to explain how to proceed.]
+journeyRecovery.startAgain.title = Sorry, there is a problem with the service
+journeyRecovery.startAgain.heading = Sorry, there is a problem with the service
+journeyRecovery.startAgain.guidance = [Add content to explain why the user needs to start again.]
+
+signedOut.title = For your security, we signed you out
+signedOut.heading = For your security, we signed you out
+signedOut.guidance = We did not save your answers.
+
+unauthorised.title = You can’t access this service with this account
+unauthorised.heading = You can’t access this service with this account
+
+whatIsYourName.title = What is your name?
+whatIsYourName.heading = What is your name?
+whatIsYourName.firstname = First name
+whatIsYourName.surname = Surname
+whatIsYourName.checkYourAnswersLabel = What is your name?
+whatIsYourName.error.firstname.required = Enter your first name
+whatIsYourName.error.surname.required = Enter your surname
+whatIsYourName.error.firstname.length = Your first name must be 100 characters or less
+whatIsYourName.error.surname.length = Your surname must be 100 characters or less
+whatIsYourName.firstname.change.hidden = your first name
+whatIsYourName.surname.change.hidden = your surname
+
+whatIsYourNino.title = What is your national insurance number?
+whatIsYourNino.heading = What is your national insurance number?
+whatIsYourNino.hint = It’s on your National Insurance card, benefit letter, payslip or P60. For example, QQ123456C.
+whatIsYourNino.checkYourAnswersLabel = What is your national insurance number?
+whatIsYourNino.error.required = Enter your national insurance number
+whatIsYourNino.error.length = WhatIsYourNino must be 100 characters or less
+whatIsYourNino.change.hidden = your national insurance number
+
+whatIsYourDateOfBirth.title = What is your date of birth?
+whatIsYourDateOfBirth.heading = What is your date of birth?
+whatIsYourDateOfBirth.hint = For example, 12 11 2007
+whatIsYourDateOfBirth.checkYourAnswersLabel = What is your date of birth?
+whatIsYourDateOfBirth.error.required.all = Enter your date of birth
+whatIsYourDateOfBirth.error.required.two = Your date of birth must include {0} and {1}
+whatIsYourDateOfBirth.error.required = Your date of birth must include {0}
+whatIsYourDateOfBirth.error.invalid = Enter a real date
+whatIsYourDateOfBirth.error.future = Your date of birth must be in the past
+whatIsYourDateOfBirth.change.hidden = your date of birth
+
+doYouKnowYourClockOrPayrollNumber.title = Do you know your clock or payroll number?
+doYouKnowYourClockOrPayrollNumber.heading = Do you know your clock or payroll number?
+doYouKnowYourClockOrPayrollNumber.checkYourAnswersLabel = Do you know your clock or payroll number?
+doYouKnowYourClockOrPayrollNumber.error.required = Select yes if you know your clock or payroll number
+doYouKnowYourClockOrPayrollNumber.change.hidden = whether you know your clock or payroll number
+
+whatIsYourClockOrPayrollNumber.title = What is your clock or payroll number?
+whatIsYourClockOrPayrollNumber.heading = What is your clock or payroll number?
+whatIsYourClockOrPayrollNumber.checkYourAnswersLabel = What is your clock or payroll number?
+whatIsYourClockOrPayrollNumber.error.required = Enter your clock or payroll number
+whatIsYourClockOrPayrollNumber.error.length = Your clock or payroll number must be 100 characters or less
+whatIsYourClockOrPayrollNumber.change.hidden = your clock or payroll number
+
+detailsOfSickness.title = Enter brief details of your sickness
+detailsOfSickness.heading = Enter brief details of your sickness
+detailsOfSickness.checkYourAnswersLabel = Brief details of your sickness
+detailsOfSickness.error.required = Enter brief details of your sickness
+detailsOfSickness.error.length = Details of your sickness must be 100 characters or less
+detailsOfSickness.change.hidden = details of your sickness
+
+dateSicknessBegan.title = When did your sickness begin?
+dateSicknessBegan.heading = When did your sickness begin?
+dateSicknessBegan.hint = For example, 12 11 2007
+dateSicknessBegan.checkYourAnswersLabel = When did your sickness begin?
+dateSicknessBegan.error.required.all = Enter the date that your sickness began
+dateSicknessBegan.error.required.two = The date must include {0} and {1}
+dateSicknessBegan.error.required = The date must include {0}
+dateSicknessBegan.error.invalid = Enter a real date
+dateSicknessBegan.error.future = The date your sickness began must be in the past
+dateSicknessBegan.change.hidden = when your sickness began
+
+hasSicknessEnded.title = Has your sickness ended?
+hasSicknessEnded.heading = Has your sickness ended?
+hasSicknessEnded.checkYourAnswersLabel = Has your sickness ended?
+hasSicknessEnded.error.required = Select yes if your sickness has ended
+hasSicknessEnded.change.hidden = whether your sickness has ended
+
+dateSicknessEnded.title = When did your sickness end?
+dateSicknessEnded.heading = When did your sickness end?
+dateSicknessEnded.hint = For example, 12 11 2007
+dateSicknessEnded.checkYourAnswersLabel = When did your sickness end?
+dateSicknessEnded.error.required.all = Enter the date your sickness ended
+dateSicknessEnded.error.required.two = The date must include {0} and {1}
+dateSicknessEnded.error.required = The date must include {0}
+dateSicknessEnded.error.invalid = Enter a real date
+dateSicknessEnded.error.future = The date your sickness ended must be in the past
+dateSicknessEnded.change.hidden = the date your sickness ended
+
+whenDidYouLastWork.title = When did you last work before the sickness began?
+whenDidYouLastWork.heading = When did you last work before the sickness began?
+whenDidYouLastWork.hint = For example, 12 11 2007
+whenDidYouLastWork.checkYourAnswersLabel = When did you last work before the sickness began?
+whenDidYouLastWork.error.required.all = Enter the when you last worked before the sickness began
+whenDidYouLastWork.error.required.two = The date must include {0} and {1}
+whenDidYouLastWork.error.required = The date must include {0}
+whenDidYouLastWork.error.invalid = Enter a real date
+whenDidYouLastWork.error.future = The date you last worked must be in the past
+whenDidYouLastWork.change.hidden = when you last worked before the sickness began
+
+whatTimeDidYouFinish.title = whatTimeDidYouFinish
+whatTimeDidYouFinish.heading = whatTimeDidYouFinish
+whatTimeDidYouFinish.checkYourAnswersLabel = whatTimeDidYouFinish
+whatTimeDidYouFinish.error.required = Enter whatTimeDidYouFinish
+whatTimeDidYouFinish.error.length = WhatTimeDidYouFinish must be 100 characters or less
+whatTimeDidYouFinish.change.hidden = WhatTimeDidYouFinish
+
+causedByAccidentOrIndustrialDisease.title = Was your sickness caused by an accident at work or an industrial disease?
+causedByAccidentOrIndustrialDisease.heading = Was your sickness caused by an accident at work or an industrial disease?
+causedByAccidentOrIndustrialDisease.checkYourAnswersLabel = Was your sickness caused by an accident at work or an industrial disease?
+causedByAccidentOrIndustrialDisease.error.required = Select yes if your sickness was caused by an accident at work or an industrial disease
+causedByAccidentOrIndustrialDisease.change.hidden = whether your sickness was caused by an accident at work or an industrial disease
+
+phoneNumber.title = What is your phone number?
+phoneNumber.heading = What is your phone number?
+phoneNumber.checkYourAnswersLabel = What is your phone number?
+phoneNumber.error.required = Enter your phone number
+phoneNumber.error.length = Your phone must be 100 characters or less
+phoneNumber.change.hidden = your phone number

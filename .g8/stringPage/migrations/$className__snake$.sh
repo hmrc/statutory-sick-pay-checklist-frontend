@@ -13,13 +13,13 @@ echo "GET        /change$className$                  controllers.$className$Cont
 echo "POST       /change$className$                  controllers.$className$Controller.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
-echo "" >> ../conf/messages.en
-echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.en
-echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.en
-echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="decap"$" >> ../conf/messages.en
-echo "$className;format="decap"$.error.required = Enter $className;format="decap"$" >> ../conf/messages.en
-echo "$className;format="decap"$.error.length = $className$ must be $maxLength$ characters or less" >> ../conf/messages.en
-echo "$className;format="decap"$.change.hidden = $className$" >> ../conf/messages.en
+echo "" >> ../conf/messages
+echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages
+echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages
+echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="decap"$" >> ../conf/messages
+echo "$className;format="decap"$.error.required = Enter $className;format="decap"$" >> ../conf/messages
+echo "$className;format="decap"$.error.length = $className$ must be $maxLength$ characters or less" >> ../conf/messages
+echo "$className;format="decap"$.change.hidden = $className$" >> ../conf/messages
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\

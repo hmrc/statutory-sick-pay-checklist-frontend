@@ -23,4 +23,108 @@ import pages._
 import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
+
+  implicit lazy val arbitraryPhoneNumberUserAnswersEntry: Arbitrary[(PhoneNumberPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[PhoneNumberPage.type]
+        value <- arbitrary[String].suchThat(_.nonEmpty).map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryCausedByAccidentOrIndustrialDiseaseUserAnswersEntry: Arbitrary[(CausedByAccidentOrIndustrialDiseasePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[CausedByAccidentOrIndustrialDiseasePage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryWhatTimeDidYouFinishUserAnswersEntry: Arbitrary[(WhatTimeDidYouFinishPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[WhatTimeDidYouFinishPage.type]
+        value <- arbitrary[String].suchThat(_.nonEmpty).map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryWhenDidYouLastWorkUserAnswersEntry: Arbitrary[(WhenDidYouLastWorkPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[WhenDidYouLastWorkPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryDateSicknessEndedUserAnswersEntry: Arbitrary[(DateSicknessEndedPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[DateSicknessEndedPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryHasSicknessEndedUserAnswersEntry: Arbitrary[(HasSicknessEndedPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[HasSicknessEndedPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryDateSicknessBeganUserAnswersEntry: Arbitrary[(DateSicknessBeganPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[DateSicknessBeganPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryDetailsOfSicknessUserAnswersEntry: Arbitrary[(DetailsOfSicknessPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[DetailsOfSicknessPage.type]
+        value <- arbitrary[String].suchThat(_.nonEmpty).map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryWhatIsYourClockOrPayrollNumberUserAnswersEntry: Arbitrary[(WhatIsYourClockOrPayrollNumberPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[WhatIsYourClockOrPayrollNumberPage.type]
+        value <- arbitrary[String].suchThat(_.nonEmpty).map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryDoYouKnowYourClockOrPayrollNumberUserAnswersEntry: Arbitrary[(DoYouKnowYourClockOrPayrollNumberPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[DoYouKnowYourClockOrPayrollNumberPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryWhatIsYourDateOfBirthUserAnswersEntry: Arbitrary[(WhatIsYourDateOfBirthPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[WhatIsYourDateOfBirthPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryWhatIsYourNinoUserAnswersEntry: Arbitrary[(WhatIsYourNinoPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[WhatIsYourNinoPage.type]
+        value <- arbitrary[String].suchThat(_.nonEmpty).map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryWhatIsYourNameUserAnswersEntry: Arbitrary[(WhatIsYourNamePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[WhatIsYourNamePage.type]
+        value <- arbitrary[WhatIsYourName].map(Json.toJson(_))
+      } yield (page, value)
+    }
 }
