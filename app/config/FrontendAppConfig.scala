@@ -29,7 +29,7 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   val appName: String = configuration.get[String]("appName")
 
   private val contactHost = configuration.get[String]("contact-frontend.host")
-  private val contactFormServiceIdentifier = "statutory-sick-pay-checklist-frontend"
+  private val contactFormServiceIdentifier = "statutory-sick-pay-checklist"
 
   def feedbackUrl(implicit request: RequestHeader): String =
     s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier&backUrl=${SafeRedirectUrl(host + request.uri).encodedUrl}"
@@ -39,7 +39,7 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   val signOutUrl: String       = configuration.get[String]("urls.signOut")
 
   private val exitSurveyBaseUrl: String = configuration.get[Service]("microservice.services.feedback-frontend").baseUrl
-  val exitSurveyUrl: String             = s"$exitSurveyBaseUrl/feedback/statutory-sick-pay-checklist-frontend"
+  val exitSurveyUrl: String             = s"$exitSurveyBaseUrl/feedback/statutory-sick-pay-checklist"
 
   val languageTranslationEnabled: Boolean =
     configuration.get[Boolean]("features.welsh-translation")
