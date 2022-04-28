@@ -23,7 +23,7 @@ class DetailsOfSicknessFormProviderSpec extends StringFieldBehaviours {
 
   val requiredKey = "detailsOfSickness.error.required"
   val lengthKey = "detailsOfSickness.error.length"
-  val maxLength = 100
+  val maxLength = 250
 
   val form = new DetailsOfSicknessFormProvider()()
 
