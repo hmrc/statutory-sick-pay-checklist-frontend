@@ -163,5 +163,5 @@ phoneNumber.title = What is your phone number?
 phoneNumber.heading = What is your phone number?
 phoneNumber.checkYourAnswersLabel = What is your phone number?
 phoneNumber.error.required = Enter your phone number
-phoneNumber.error.length = Your phone must be 100 characters or less
+phoneNumber.error.invalid = Enter a valid phone number
 phoneNumber.change.hidden = your phone number

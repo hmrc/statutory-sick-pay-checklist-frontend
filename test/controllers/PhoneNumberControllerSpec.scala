@@ -39,6 +39,7 @@ class PhoneNumberControllerSpec extends SpecBase with MockitoSugar {
 
   val formProvider = new PhoneNumberFormProvider()
   val form = formProvider()
+  val validNumber = "07777777777"
 
   lazy val phoneNumberRoute = routes.PhoneNumberController.onPageLoad(NormalMode).url
 
@@ -62,7 +63,7 @@ class PhoneNumberControllerSpec extends SpecBase with MockitoSugar {
 
     "must populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(PhoneNumberPage, "answer").success.value
+      val userAnswers = UserAnswers(userAnswersId).set(PhoneNumberPage, validNumber).success.value
 
       val application = applicationBuilder(userAnswers = Some(userAnswers)).build()
 
@@ -74,7 +75,7 @@ class PhoneNumberControllerSpec extends SpecBase with MockitoSugar {
         val result = route(application, request).value
 
         status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form.fill("answer"), NormalMode)(request, messages(application)).toString
+        contentAsString(result) mustEqual view(form.fill(validNumber), NormalMode)(request, messages(application)).toString
       }
     }
 
@@ -95,7 +96,7 @@ class PhoneNumberControllerSpec extends SpecBase with MockitoSugar {
       running(application) {
         val request =
           FakeRequest(POST, phoneNumberRoute)
-            .withFormUrlEncodedBody(("value", "answer"))
+            .withFormUrlEncodedBody(("value", validNumber))
 
         val result = route(application, request).value
 
@@ -145,7 +146,7 @@ class PhoneNumberControllerSpec extends SpecBase with MockitoSugar {
       running(application) {
         val request =
           FakeRequest(POST, phoneNumberRoute)
-            .withFormUrlEncodedBody(("value", "answer"))
+            .withFormUrlEncodedBody(("value", validNumber))
 
         val result = route(application, request).value
 
