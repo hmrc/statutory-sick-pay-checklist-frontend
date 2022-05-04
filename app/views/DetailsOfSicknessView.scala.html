@@ -14,13 +14,11 @@
  * limitations under the License.
  *@
 
-@import viewmodels.InputWidth._
-
 @this(
     layout: templates.Layout,
     formHelper: FormWithCSRF,
     govukErrorSummary: GovukErrorSummary,
-    govukInput: GovukInput,
+    govukCharacterCount : GovukCharacterCount,
     govukButton: GovukButton
 )
 
@@ -34,13 +32,21 @@
             @govukErrorSummary(ErrorSummaryViewModel(form))
         }
 
-        @govukInput(
-            InputViewModel(
-                field = form("value"),
-                label = LabelViewModel(messages("detailsOfSickness.heading")).asPageHeading()
+        @govukCharacterCount(
+            uk.gov.hmrc.govukfrontend.views.html.components.CharacterCount(
+                id = form("value").id,
+                name = form("value").id,
+                maxLength = Some(250),
+                label = Label(
+                    isPageHeading = true,
+                    classes = "govuk-label--xl",
+                    content = Text(messages("detailsOfSickness.heading"))
+                ),
+                value = form("value").value
             )
-            .withWidth(Full)
         )
+
+
 
         @govukButton(
             ButtonViewModel(messages("site.continue"))
