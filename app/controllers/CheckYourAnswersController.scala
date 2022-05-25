@@ -42,6 +42,7 @@ class CheckYourAnswersController @Inject()(
       val list = SummaryListViewModel(
         rows = Seq(
           WhatIsYourNameSummary.row(answers),
+          DoYouKnowYourNationalInsuranceNumberSummary.row(answers),
           WhatIsYourNinoSummary.row(answers),
           WhatIsYourDateOfBirthSummary.row(answers),
           DoYouKnowYourClockOrPayrollNumberSummary.row(answers),
