@@ -46,6 +46,7 @@ class CheckYourAnswersController @Inject()(
           WhatIsYourNinoSummary.row(answers),
           WhatIsYourDateOfBirthSummary.row(answers),
           DoYouKnowYourClockOrPayrollNumberSummary.row(answers),
+          PhoneNumberSummary.row(answers),
           WhatIsYourClockOrPayrollNumberSummary.row(answers),
           DetailsOfSicknessSummary.row(answers),
           DateSicknessBeganSummary.row(answers),
@@ -53,8 +54,7 @@ class CheckYourAnswersController @Inject()(
           DateSicknessEndedSummary.row(answers),
           WhenDidYouLastWorkSummary.row(answers),
           WhatTimeDidYouFinishSummary.row(answers),
-          CausedByAccidentOrIndustrialDiseaseSummary.row(answers),
-          PhoneNumberSummary.row(answers)
+          CausedByAccidentOrIndustrialDiseaseSummary.row(answers)
         ).flatten
       )
 
