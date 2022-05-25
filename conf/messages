@@ -37,11 +37,11 @@ error.summary.title = There is a problem
 
 index.title = Ask your employer for statutory sick pay
 index.heading = Ask your employer for statutory sick pay
-index.p1 = You may use this form to claim statutory sick pay (SSP) from your employer if you have been sick for 4 or more days in a row and are eligible.
+index.p1 = You may use this form to claim statutory sick pay (SSP) from your employer if you have been sick for 4 or more days in a row and are eligible for SSP.
 index.beforeYouStart.heading = Before you start
-index.beforeYouStart.p1 = You should check with your employer how to notify them of sickness to make sure you follow anything agreed in your employment contract. This may mean you receive more sick pay from your employer, in addition to the statutory sick pay rate.
-index.beforeYouStart.p2 = To claim SSP you must also give your employer a fit note if you’re off work for more than 7 days in a row (including non-working days).
-index.beforeYouStart.p3 = Once you have completed the form you will need to download it and send it to your employer. If you are sending it in the post you will need a printer.
+index.beforeYouStart.p1 = You should check your employment contract to ensure you are following any agreed sickness procedure. Your employer may give you extra sick pay on top of statutory sick pay if you do this.
+index.beforeYouStart.p2 = To claim SSP you must also give your employer a fit note (sometimes known as a sick note) if you’re off work for more than 7 days in a row (including non-working days).
+index.beforeYouStart.p3 = Once you have completed the form, you will need to download it and send it to your employer. If you are sending it in the post, you will need a printer.
 index.furtherInformation.heading = Further information
 index.furtherInformation.p1.1 = You can find out how much you can receive, whether you are eligible and how to claim on the
 index.furtherInformation.p1.a = Statutory Sick Pay guidance page
