@@ -17,15 +17,25 @@
 package forms
 
 import javax.inject.Inject
-
 import forms.mappings.Mappings
 import play.api.data.Form
+import play.api.data.validation._
 
 class WhatTimeDidYouFinishFormProvider @Inject() extends Mappings {
 
   def apply(): Form[String] =
     Form(
       "value" -> text("whatTimeDidYouFinish.error.required")
-        .verifying(maxLength(100, "whatTimeDidYouFinish.error.length"))
+        .verifying(formatConstraint)
     )
+
+  private val formatConstraint: Constraint[String] = Constraint {
+    case value if !(value.toLowerCase.contains("am") || value.toLowerCase.contains("pm")) =>
+      Invalid("whatTimeDidYouFinish.error.morningOrAfternoon")
+    case value if value.matches("^(?i)([0-9]|0[0-9]|1[0-2])([:\\. ][0-5][0-9])? ?(am|pm)$") =>
+      Valid
+    case _ =>
+      Invalid("whatTimeDidYouFinish.error.format")
+  }
+
 }

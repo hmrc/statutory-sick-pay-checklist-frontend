@@ -98,7 +98,7 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
       running(application) {
         val request =
           FakeRequest(POST, whatTimeDidYouFinishRoute)
-            .withFormUrlEncodedBody(("value", "answer"))
+            .withFormUrlEncodedBody(("value", "10:00am"))
 
         val result = route(application, request).value
 
