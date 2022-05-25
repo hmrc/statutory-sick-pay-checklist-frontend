@@ -29,13 +29,15 @@ class WhatTimeDidYouFinishFormProvider @Inject() extends Mappings {
         .verifying(formatConstraint)
     )
 
+  private val validSuffixes = List("am", "a.m", "a.m.", "pm", "p.m", "p.m.")
+
   private val formatConstraint: Constraint[String] = Constraint {
-    case value if !(value.toLowerCase.contains("am") || value.toLowerCase.contains("pm")) =>
-      Invalid("whatTimeDidYouFinish.error.morningOrAfternoon")
-    case value if value.matches("^(?i)([0-9]|0[0-9]|1[0-2])([:\\. ][0-5][0-9])? ?(am|pm)$") =>
+    case value if !validSuffixes.exists(value.toLowerCase.endsWith(_)) =>
+      Invalid("whatTimeDidYouFinish.error.morningOrAfternoon", value)
+    case value if value.matches("^(?i)([0-9]|0[0-9]|1[0-2])([:\\. ][0-5][0-9])? ?((a|p)\\.?m\\.?)$") =>
       Valid
-    case _ =>
-      Invalid("whatTimeDidYouFinish.error.format")
+    case value =>
+      Invalid("whatTimeDidYouFinish.error.format", value)
   }
 
 }
