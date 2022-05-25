@@ -31,7 +31,8 @@ class Navigator @Inject()() {
     case WhatIsYourNinoPage => _ => routes.WhatIsYourDateOfBirthController.onPageLoad(NormalMode)
     case WhatIsYourDateOfBirthPage => _ => routes.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(NormalMode)
     case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberRoutes
-    case WhatIsYourClockOrPayrollNumberPage => _ => routes.DetailsOfSicknessController.onPageLoad(NormalMode)
+    case WhatIsYourClockOrPayrollNumberPage => _ => routes.PhoneNumberController.onPageLoad(NormalMode)
+    case PhoneNumberPage => _ => routes.DetailsOfSicknessController.onPageLoad(NormalMode)
     case DetailsOfSicknessPage => _ => routes.DateSicknessBeganController.onPageLoad(NormalMode)
     case DateSicknessBeganPage => _ => routes.HasSicknessEndedController.onPageLoad(NormalMode)
     case HasSicknessEndedPage => hasSicknessEndedRoutes
@@ -39,7 +40,6 @@ class Navigator @Inject()() {
     case WhenDidYouLastWorkPage => _ => routes.WhatTimeDidYouFinishController.onPageLoad(NormalMode)
     case WhatTimeDidYouFinishPage => _ => routes.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(NormalMode)
     case CausedByAccidentOrIndustrialDiseasePage => causedByAccidentOrIndustrialDiseaseRoutes
-    case PhoneNumberPage => _ => routes.CheckYourAnswersController.onPageLoad
     case _ => _ => routes.IndexController.onPageLoad
   }
 
@@ -53,7 +53,7 @@ class Navigator @Inject()() {
   private def doYouKnowYourClockOrPayrollNumberRoutes(answers: UserAnswers): Call =
     answers.get(DoYouKnowYourClockOrPayrollNumberPage).map {
       case true  => routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(NormalMode)
-      case false => routes.DetailsOfSicknessController.onPageLoad(NormalMode)
+      case false => routes.PhoneNumberController.onPageLoad(NormalMode)
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
 
   private def doYouKnowYourClockOrPayrollNumberCheckRoutes(answers: UserAnswers): Call =
@@ -77,7 +77,7 @@ class Navigator @Inject()() {
   private def causedByAccidentOrIndustrialDiseaseRoutes(answers: UserAnswers): Call =
     answers.get(CausedByAccidentOrIndustrialDiseasePage).map {
       case true  => ???
-      case false => routes.PhoneNumberController.onPageLoad(NormalMode)
+      case false => routes.CheckYourAnswersController.onPageLoad
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
 
   private def causedByAccidentOrIndustrialDiseaseCheckRoutes(answers: UserAnswers): Call =
