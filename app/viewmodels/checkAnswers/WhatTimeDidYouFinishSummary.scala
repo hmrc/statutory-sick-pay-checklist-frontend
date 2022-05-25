@@ -18,26 +18,32 @@ package viewmodels.checkAnswers
 
 import controllers.routes
 import models.{CheckMode, UserAnswers}
-import pages.WhatTimeDidYouFinishPage
+import pages.{WhatTimeDidYouFinishPage, WhenDidYouLastWorkPage}
 import play.api.i18n.Messages
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import viewmodels.govuk.summarylist._
 import viewmodels.implicits._
 
+import java.time.format.DateTimeFormatter
+
 object WhatTimeDidYouFinishSummary  {
 
-  def row(answers: UserAnswers)(implicit messages: Messages): Option[SummaryListRow] =
-    answers.get(WhatTimeDidYouFinishPage).map {
-      answer =>
+  def row(answers: UserAnswers)(implicit messages: Messages): Option[SummaryListRow] = {
+    val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
-        SummaryListRowViewModel(
-          key     = "whatTimeDidYouFinish.checkYourAnswersLabel",
-          value   = ValueViewModel(HtmlFormat.escape(answer).toString),
-          actions = Seq(
-            ActionItemViewModel("site.change", routes.WhatTimeDidYouFinishController.onPageLoad(CheckMode).url)
-              .withVisuallyHiddenText(messages("whatTimeDidYouFinish.change.hidden"))
-          )
+    for {
+      time <- answers.get(WhatTimeDidYouFinishPage)
+      date <- answers.get(WhenDidYouLastWorkPage)
+    } yield {
+      SummaryListRowViewModel(
+        key = "whatTimeDidYouFinish.checkYourAnswersLabel",
+        value = ValueViewModel(HtmlFormat.escape(time).toString),
+        actions = Seq(
+          ActionItemViewModel("site.change", routes.WhatTimeDidYouFinishController.onPageLoad(CheckMode).url)
+            .withVisuallyHiddenText(messages("whatTimeDidYouFinish.change.hidden", dateFormatter.format(date)))
         )
+      )
     }
+  }
 }
