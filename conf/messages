@@ -177,3 +177,9 @@ phoneNumber.checkYourAnswersLabel = What is your telephone number?
 phoneNumber.error.required = Enter your telephone number
 phoneNumber.error.invalid = Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
 phoneNumber.change.hidden = your telephone number
+
+doYouKnowYourNationalInsuranceNumber.title = doYouKnowYourNationalInsuranceNumber
+doYouKnowYourNationalInsuranceNumber.heading = doYouKnowYourNationalInsuranceNumber
+doYouKnowYourNationalInsuranceNumber.checkYourAnswersLabel = doYouKnowYourNationalInsuranceNumber
+doYouKnowYourNationalInsuranceNumber.error.required = Select yes if doYouKnowYourNationalInsuranceNumber
+doYouKnowYourNationalInsuranceNumber.change.hidden = DoYouKnowYourNationalInsuranceNumber
