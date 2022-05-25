@@ -53,9 +53,9 @@ class NavigatorSpec extends SpecBase {
           navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, NormalMode, answers) mustBe routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(NormalMode)
         }
 
-        "to the details of sickness page when the user selects no" in {
+        "to the telephone number page when the user selects no" in {
           val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, false).success.value
-          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, NormalMode, answers) mustBe routes.DetailsOfSicknessController.onPageLoad(NormalMode)
+          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, NormalMode, answers) mustBe routes.PhoneNumberController.onPageLoad(NormalMode)
         }
 
         "to the journey recovery page when the user has no answer" in {
@@ -63,11 +63,15 @@ class NavigatorSpec extends SpecBase {
         }
       }
 
-      "must go from the what is your clock or payroll number to the details of sickness page" in {
-        navigator.nextPage(WhatIsYourClockOrPayrollNumberPage, NormalMode, emptyUserAnswers) mustBe routes.DetailsOfSicknessController.onPageLoad(NormalMode)
+      "must go from the what is your clock or payroll number to the telephone number page" in {
+        navigator.nextPage(WhatIsYourClockOrPayrollNumberPage, NormalMode, emptyUserAnswers) mustBe routes.PhoneNumberController.onPageLoad(NormalMode)
       }
 
-      "must go from the what is your clock or payroll number to the date sickness began page" in {
+      "must go from the phone number page to the details of sickness page" in {
+        navigator.nextPage(PhoneNumberPage, NormalMode, emptyUserAnswers) mustBe routes.DetailsOfSicknessController.onPageLoad(NormalMode)
+      }
+
+      "must go from the details of sickness page to the date sickness began page" in {
         navigator.nextPage(DetailsOfSicknessPage, NormalMode, emptyUserAnswers) mustBe routes.DateSicknessBeganController.onPageLoad(NormalMode)
       }
 
@@ -110,18 +114,14 @@ class NavigatorSpec extends SpecBase {
           // TODO
         }
 
-        "to the phone number page when the user selects no" in {
+        "to the check your answers page when the user selects no" in {
           val answers = emptyUserAnswers.set(CausedByAccidentOrIndustrialDiseasePage, false).success.value
-          navigator.nextPage(CausedByAccidentOrIndustrialDiseasePage, NormalMode, answers) mustBe routes.PhoneNumberController.onPageLoad(NormalMode)
+          navigator.nextPage(CausedByAccidentOrIndustrialDiseasePage, NormalMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
         }
 
         "to the journey recovery page when there are no user answers" in {
           navigator.nextPage(CausedByAccidentOrIndustrialDiseasePage, NormalMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
         }
-      }
-
-      "must go from the phone number page to the check your answers page" in {
-        navigator.nextPage(PhoneNumberPage, NormalMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
       }
     }
 
@@ -134,7 +134,7 @@ class NavigatorSpec extends SpecBase {
           navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, answers) mustBe routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(CheckMode)
         }
 
-        "to the details of sickness page when the user selects no" in {
+        "to the check your answers page when the user selects no" in {
           val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, false).success.value
           navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
         }
@@ -151,7 +151,7 @@ class NavigatorSpec extends SpecBase {
           navigator.nextPage(HasSicknessEndedPage, CheckMode, answers) mustBe routes.DateSicknessEndedController.onPageLoad(CheckMode)
         }
 
-        "to the when did you last work page when the user selects no" in {
+        "to the check your answers page when the user selects no" in {
           val answers = emptyUserAnswers.set(HasSicknessEndedPage, false).success.value
           navigator.nextPage(HasSicknessEndedPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
         }
@@ -167,7 +167,7 @@ class NavigatorSpec extends SpecBase {
           // TODO
         }
 
-        "to the phone number page when the user selects no" in {
+        "to the check your answers page when the user selects no" in {
           val answers = emptyUserAnswers.set(CausedByAccidentOrIndustrialDiseasePage, false).success.value
           navigator.nextPage(CausedByAccidentOrIndustrialDiseasePage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
         }
