@@ -32,7 +32,7 @@ class WhatTimeDidYouFinishFormProviderSpec extends StringFieldBehaviours {
     val fieldName = "value"
 
     "must bind valid values" in {
-      val validCases = List("9am", "9:30am", "12:15pm", "6 pm", "9.15pm", "3 20am", "09:29am", "11 59 pm", "0:12am", "00:39pm", "12:00am", "11:01pm", "12Am", "12PM", "12:01 aM")
+      val validCases = List("9am", "9:30am", "12:15pm", "6 pm", "10 p.m.", "10 p.m", "10 a.m", "9.15pm", "3 20am", "09:29am", "11 59 pm", "0:12a.m.", "00:39pm", "12:00am", "11:01pm", "12Am", "12PM", "12:01 aM")
       validCases.foreach {
         validCase =>
           val result = form.bind(Map(fieldName -> validCase)).apply(fieldName)
@@ -46,7 +46,7 @@ class WhatTimeDidYouFinishFormProviderSpec extends StringFieldBehaviours {
       missingAmPm.foreach {
         invalidCase =>
           val result = form.bind(Map(fieldName -> invalidCase)).apply(fieldName)
-          result.errors mustBe Seq(FormError("value", morningOrAfternoonErrorKey))
+          result.errors mustBe Seq(FormError("value", morningOrAfternoonErrorKey, Seq(invalidCase)))
       }
     }
 
@@ -55,7 +55,7 @@ class WhatTimeDidYouFinishFormProviderSpec extends StringFieldBehaviours {
       invalidFormat.foreach {
         invalidCase =>
           val result = form.bind(Map(fieldName -> invalidCase)).apply(fieldName)
-          result.errors mustBe Seq(FormError("value", formatErrorKey))
+          result.errors mustBe Seq(FormError("value", formatErrorKey, Seq(invalidCase)))
       }
     }
 
