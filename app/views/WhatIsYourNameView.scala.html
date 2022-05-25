@@ -28,7 +28,7 @@
 
 @layout(pageTitle = title(form, messages("whatIsYourName.title"))) {
 
-    @formHelper(action = routes.WhatIsYourNameController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = routes.WhatIsYourNameController.onSubmit(mode)) {
 
         @if(form.errors.nonEmpty) {
             @govukErrorSummary(ErrorSummaryViewModel(form))
@@ -42,6 +42,7 @@
                 label = LabelViewModel(messages("whatIsYourName.firstname"))
             )
             .withWidth(Full)
+            .withAutocomplete("given-name")
         )
 
         @govukInput(
@@ -50,6 +51,7 @@
                 label = LabelViewModel(messages("whatIsYourName.surname"))
             )
             .withWidth(Full)
+            .withAutocomplete("family-name")
         )
 
         @govukButton(
