@@ -22,8 +22,8 @@ import play.api.data.FormError
 class WhatTimeDidYouFinishFormProviderSpec extends StringFieldBehaviours {
 
   val requiredKey = "whatTimeDidYouFinish.error.required"
-  val lengthKey = "whatTimeDidYouFinish.error.length"
-  val maxLength = 100
+  val morningOrAfternoonErrorKey = "whatTimeDidYouFinish.error.morningOrAfternoon"
+  val formatErrorKey = "whatTimeDidYouFinish.error.format"
 
   val form = new WhatTimeDidYouFinishFormProvider()()
 
@@ -31,23 +31,39 @@ class WhatTimeDidYouFinishFormProviderSpec extends StringFieldBehaviours {
 
     val fieldName = "value"
 
-    behave like fieldThatBindsValidData(
-      form,
-      fieldName,
-      stringsWithMaxLength(maxLength)
-    )
+    "must bind valid values" in {
+      val validCases = List("9am", "9:30am", "12:15pm", "6 pm", "9.15pm", "3 20am", "09:29am", "11 59 pm", "0:12am", "00:39pm", "12:00am", "11:01pm", "12Am", "12PM", "12:01 aM")
+      validCases.foreach {
+        validCase =>
+          val result = form.bind(Map(fieldName -> validCase)).apply(fieldName)
+          result.value.value mustBe validCase
+          result.errors mustBe empty
+      }
+    }
 
-    behave like fieldWithMaxLength(
-      form,
-      fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
-    )
+    "must not bind values missing am/pm" in {
+      val missingAmPm = List("9", "10", "11:00", "12:15", "1 00", "10.30")
+      missingAmPm.foreach {
+        invalidCase =>
+          val result = form.bind(Map(fieldName -> invalidCase)).apply(fieldName)
+          result.errors mustBe Seq(FormError("value", morningOrAfternoonErrorKey))
+      }
+    }
+
+    "must not bind values in the wrong format" in {
+      val invalidFormat = List("23:00am", "am", "pm", "21am", "21:00pm", "20am", "1234pm", "aa:bbam")
+      invalidFormat.foreach {
+        invalidCase =>
+          val result = form.bind(Map(fieldName -> invalidCase)).apply(fieldName)
+          result.errors mustBe Seq(FormError("value", formatErrorKey))
+      }
+    }
 
     behave like mandatoryField(
       form,
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
     )
+
   }
 }

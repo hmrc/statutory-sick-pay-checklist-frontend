@@ -19,7 +19,12 @@ package views
 import play.api.data.Form
 import play.api.i18n.Messages
 
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
 object ViewUtils {
+
+  private val govUkDateFormatter = DateTimeFormatter.ofPattern("d MMMM y")
 
   def title(form: Form[_], title: String, section: Option[String] = None)(implicit messages: Messages): String =
     titleNoForm(
@@ -33,4 +38,6 @@ object ViewUtils {
   def errorPrefix(form: Form[_])(implicit messages: Messages): String = {
     if (form.hasErrors || form.hasGlobalErrors) messages("error.browser.title.prefix") else ""
   }
+
+  def govUkDateFormat(date: LocalDate): String = govUkDateFormatter.format(date)
 }

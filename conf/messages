@@ -156,12 +156,14 @@ whenDidYouLastWork.error.invalid = Enter a real date
 whenDidYouLastWork.error.future = The date you last worked must be in the past
 whenDidYouLastWork.change.hidden = when you last worked before the sickness began
 
-whatTimeDidYouFinish.title = whatTimeDidYouFinish
-whatTimeDidYouFinish.heading = whatTimeDidYouFinish
-whatTimeDidYouFinish.checkYourAnswersLabel = whatTimeDidYouFinish
-whatTimeDidYouFinish.error.required = Enter whatTimeDidYouFinish
-whatTimeDidYouFinish.error.length = WhatTimeDidYouFinish must be 100 characters or less
-whatTimeDidYouFinish.change.hidden = WhatTimeDidYouFinish
+whatTimeDidYouFinish.title = What time did you finish work on {0}?
+whatTimeDidYouFinish.heading = What time did you finish work on {0}?
+whatTimeDidYouFinish.hint = For example, 9am or 2:30pm - enter 12pm for midday.
+whatTimeDidYouFinish.checkYourAnswersLabel = what time you finished work on {0}
+whatTimeDidYouFinish.error.required = Enter the time you finished work
+whatTimeDidYouFinish.error.morningOrAfternoon = The time you finished must include AM for a time before midday or PM for a time after midday.
+whatTimeDidYouFinish.error.format = The time you finished must include the hour and AM for before midday or PM for after midday. If you enter minutes, you must include two numbers after a colon, for example 10:15am.
+whatTimeDidYouFinish.change.hidden = what time you finished work on {0}
 
 causedByAccidentOrIndustrialDisease.title = Was your sickness caused by an accident at work or an industrial disease?
 causedByAccidentOrIndustrialDisease.heading = Was your sickness caused by an accident at work or an industrial disease?

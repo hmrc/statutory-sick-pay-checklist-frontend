@@ -18,10 +18,11 @@ package controllers
 
 import controllers.actions._
 import forms.WhatTimeDidYouFinishFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.WhatTimeDidYouFinishPage
+import pages.{WhatTimeDidYouFinishPage, WhenDidYouLastWorkPage}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
@@ -45,28 +46,30 @@ class WhatTimeDidYouFinishController @Inject()(
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request =>
-
+    implicit request => request.userAnswers.get(WhenDidYouLastWorkPage).map { lastDate =>
       val preparedForm = request.userAnswers.get(WhatTimeDidYouFinishPage) match {
         case None => form
         case Some(value) => form.fill(value)
       }
 
-      Ok(view(preparedForm, mode))
+      Ok(view(preparedForm, lastDate, mode))
+
+    }.getOrElse(Redirect(routes.JourneyRecoveryController.onPageLoad()))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+    implicit request => request.userAnswers.get(WhenDidYouLastWorkPage).map { lastDate =>
 
       form.bindFromRequest().fold(
         formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode))),
+          Future.successful(BadRequest(view(formWithErrors, lastDate, mode))),
 
         value =>
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(WhatTimeDidYouFinishPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
+            _ <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(WhatTimeDidYouFinishPage, mode, updatedAnswers))
       )
+    }.getOrElse(Future.successful(Redirect(routes.JourneyRecoveryController.onPageLoad())))
   }
 }

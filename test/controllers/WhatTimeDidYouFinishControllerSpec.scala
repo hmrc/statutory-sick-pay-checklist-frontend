@@ -23,7 +23,7 @@ import navigation.{FakeNavigator, Navigator}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import pages.WhatTimeDidYouFinishPage
+import pages.{WhatTimeDidYouFinishPage, WhenDidYouLastWorkPage}
 import play.api.inject.bind
 import play.api.mvc.Call
 import play.api.test.FakeRequest
@@ -31,6 +31,7 @@ import play.api.test.Helpers._
 import repositories.SessionRepository
 import views.html.WhatTimeDidYouFinishView
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
@@ -39,6 +40,8 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
 
   val formProvider = new WhatTimeDidYouFinishFormProvider()
   val form = formProvider()
+  val lastWorkedDate = LocalDate.of(2010, 1, 1)
+  val userAnswersWithDate = emptyUserAnswers.set(WhenDidYouLastWorkPage, lastWorkedDate).success.value
 
   lazy val whatTimeDidYouFinishRoute = routes.WhatTimeDidYouFinishController.onPageLoad(NormalMode).url
 
@@ -46,7 +49,7 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
 
     "must return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
+      val application = applicationBuilder(userAnswers = Some(userAnswersWithDate)).build()
 
       running(application) {
         val request = FakeRequest(GET, whatTimeDidYouFinishRoute)
@@ -56,13 +59,13 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
         val view = application.injector.instanceOf[WhatTimeDidYouFinishView]
 
         status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form, NormalMode)(request, messages(application)).toString
+        contentAsString(result) mustEqual view(form, lastWorkedDate, NormalMode)(request, messages(application)).toString
       }
     }
 
     "must populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(WhatTimeDidYouFinishPage, "answer").success.value
+      val userAnswers = userAnswersWithDate.set(WhatTimeDidYouFinishPage, "10:00am").success.value
 
       val application = applicationBuilder(userAnswers = Some(userAnswers)).build()
 
@@ -74,7 +77,7 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
         val result = route(application, request).value
 
         status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form.fill("answer"), NormalMode)(request, messages(application)).toString
+        contentAsString(result) mustEqual view(form.fill("10:00am"), lastWorkedDate, NormalMode)(request, messages(application)).toString
       }
     }
 
@@ -85,7 +88,7 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
       when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
 
       val application =
-        applicationBuilder(userAnswers = Some(emptyUserAnswers))
+        applicationBuilder(userAnswers = Some(userAnswersWithDate))
           .overrides(
             bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
             bind[SessionRepository].toInstance(mockSessionRepository)
@@ -95,7 +98,7 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
       running(application) {
         val request =
           FakeRequest(POST, whatTimeDidYouFinishRoute)
-            .withFormUrlEncodedBody(("value", "answer"))
+            .withFormUrlEncodedBody(("value", "10:00am"))
 
         val result = route(application, request).value
 
@@ -106,7 +109,7 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
 
     "must return a Bad Request and errors when invalid data is submitted" in {
 
-      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
+      val application = applicationBuilder(userAnswers = Some(userAnswersWithDate)).build()
 
       running(application) {
         val request =
@@ -120,7 +123,21 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
         val result = route(application, request).value
 
         status(result) mustEqual BAD_REQUEST
-        contentAsString(result) mustEqual view(boundForm, NormalMode)(request, messages(application)).toString
+        contentAsString(result) mustEqual view(boundForm, lastWorkedDate, NormalMode)(request, messages(application)).toString
+      }
+    }
+
+    "must redirect to Journey Recovery for a GET if WhenDidYouLastWorkPage hasn't been answered" in {
+
+      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
+
+      running(application) {
+        val request = FakeRequest(GET, whatTimeDidYouFinishRoute)
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.JourneyRecoveryController.onPageLoad().url
       }
     }
 
@@ -138,6 +155,22 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
       }
     }
 
+    "must redirect to Journey Recovery for a POST if WhenDidYouLastWorkPage hasn't been answered" in {
+
+      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
+
+      running(application) {
+        val request =
+          FakeRequest(POST, whatTimeDidYouFinishRoute)
+            .withFormUrlEncodedBody(("value", "10:00am"))
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.JourneyRecoveryController.onPageLoad().url
+      }
+    }
+
     "must redirect to Journey Recovery for a POST if no existing data is found" in {
 
       val application = applicationBuilder(userAnswers = None).build()
@@ -145,7 +178,7 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
       running(application) {
         val request =
           FakeRequest(POST, whatTimeDidYouFinishRoute)
-            .withFormUrlEncodedBody(("value", "answer"))
+            .withFormUrlEncodedBody(("value", "10:00am"))
 
         val result = route(application, request).value
 
