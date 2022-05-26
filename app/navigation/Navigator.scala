@@ -27,7 +27,8 @@ import models._
 class Navigator @Inject()() {
 
   private val normalRoutes: Page => UserAnswers => Call = {
-    case WhatIsYourNamePage => _ => routes.WhatIsYourNinoController.onPageLoad(NormalMode)
+    case WhatIsYourNamePage => _ => routes.DoYouKnowYourNationalInsuranceNumberController.onPageLoad(NormalMode)
+    case DoYouKnowYourNationalInsuranceNumberPage => doYouKnowYourNationalInsuranceNumberRoutes
     case WhatIsYourNinoPage => _ => routes.WhatIsYourDateOfBirthController.onPageLoad(NormalMode)
     case WhatIsYourDateOfBirthPage => _ => routes.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(NormalMode)
     case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberRoutes
@@ -44,10 +45,26 @@ class Navigator @Inject()() {
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
+    case DoYouKnowYourNationalInsuranceNumberPage => doYouKnowYourNationalInsuranceNumberCheckRoutes
     case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberCheckRoutes
     case HasSicknessEndedPage => hasSicknessEndedCheckRoutes
     case CausedByAccidentOrIndustrialDiseasePage => causedByAccidentOrIndustrialDiseaseCheckRoutes
     case _ => _ => routes.CheckYourAnswersController.onPageLoad
+  }
+
+  private def doYouKnowYourNationalInsuranceNumberRoutes(answers: UserAnswers): Call =
+    answers.get(DoYouKnowYourNationalInsuranceNumberPage).map {
+      case true => routes.WhatIsYourNinoController.onPageLoad(NormalMode)
+      case false => routes.WhatIsYourDateOfBirthController.onPageLoad(NormalMode)
+    }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
+
+  private def doYouKnowYourNationalInsuranceNumberCheckRoutes(answers: UserAnswers): Call = {
+    (answers.get(DoYouKnowYourNationalInsuranceNumberPage), answers.get(WhatIsYourNinoPage)) match {
+      case (Some(false), _)       => routes.CheckYourAnswersController.onPageLoad
+      case (Some(true),  Some(_)) => routes.CheckYourAnswersController.onPageLoad
+      case (Some(true),  None)    => routes.WhatIsYourNinoController.onPageLoad(CheckMode)
+      case (_, _)                 => routes.JourneyRecoveryController.onPageLoad()
+    }
   }
 
   private def doYouKnowYourClockOrPayrollNumberRoutes(answers: UserAnswers): Call =

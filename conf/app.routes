@@ -84,3 +84,8 @@ GET        /what-is-your-phone-number                        controllers.PhoneNu
 POST       /what-is-your-phone-number                        controllers.PhoneNumberController.onSubmit(mode: Mode = NormalMode)
 GET        /change-your-phone-number                  controllers.PhoneNumberController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-your-phone-number                  controllers.PhoneNumberController.onSubmit(mode: Mode = CheckMode)
+
+GET        /do-you-know-your-national-insurance-number                        controllers.DoYouKnowYourNationalInsuranceNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /do-you-know-your-national-insurance-number                        controllers.DoYouKnowYourNationalInsuranceNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /change-if-you-know-your-national-insurance-number                  controllers.DoYouKnowYourNationalInsuranceNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-if-you-know-your-national-insurance-number                  controllers.DoYouKnowYourNationalInsuranceNumberController.onSubmit(mode: Mode = CheckMode)

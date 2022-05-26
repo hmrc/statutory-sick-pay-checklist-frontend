@@ -18,32 +18,27 @@ package viewmodels.checkAnswers
 
 import controllers.routes
 import models.{CheckMode, UserAnswers}
-import pages.{WhatTimeDidYouFinishPage, WhenDidYouLastWorkPage}
+import pages.DoYouKnowYourNationalInsuranceNumberPage
 import play.api.i18n.Messages
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import viewmodels.govuk.summarylist._
 import viewmodels.implicits._
 
-import java.time.format.DateTimeFormatter
+object DoYouKnowYourNationalInsuranceNumberSummary  {
 
-object WhatTimeDidYouFinishSummary  {
+  def row(answers: UserAnswers)(implicit messages: Messages): Option[SummaryListRow] =
+    answers.get(DoYouKnowYourNationalInsuranceNumberPage).map {
+      answer =>
 
-  def row(answers: UserAnswers)(implicit messages: Messages): Option[SummaryListRow] = {
-    val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
+        val value = if (answer) "site.yes" else "site.no"
 
-    for {
-      time <- answers.get(WhatTimeDidYouFinishPage)
-      date <- answers.get(WhenDidYouLastWorkPage)
-    } yield {
-      SummaryListRowViewModel(
-        key = "whatTimeDidYouFinish.checkYourAnswersLabel",
-        value = ValueViewModel(HtmlFormat.escape(time).toString),
-        actions = Seq(
-          ActionItemViewModel("site.change", routes.WhatTimeDidYouFinishController.onPageLoad(CheckMode).url)
-            .withVisuallyHiddenText(messages("whatTimeDidYouFinish.change.hidden", dateFormatter.format(date)))
+        SummaryListRowViewModel(
+          key     = "doYouKnowYourNationalInsuranceNumber.checkYourAnswersLabel",
+          value   = ValueViewModel(value),
+          actions = Seq(
+            ActionItemViewModel("site.change", routes.DoYouKnowYourNationalInsuranceNumberController.onPageLoad(CheckMode).url)
+              .withVisuallyHiddenText(messages("doYouKnowYourNationalInsuranceNumber.change.hidden"))
+          )
         )
-      )
     }
-  }
 }

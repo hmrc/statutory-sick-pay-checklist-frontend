@@ -20,6 +20,7 @@ import base.SpecBase
 import controllers.routes
 import pages._
 import models._
+import uk.gov.hmrc.domain.Nino
 
 class NavigatorSpec extends SpecBase {
 
@@ -34,8 +35,26 @@ class NavigatorSpec extends SpecBase {
         navigator.nextPage(UnknownPage, NormalMode, emptyUserAnswers) mustBe routes.IndexController.onPageLoad
       }
 
-      "must go from the what is your name page to the what is your nino page" in {
-        navigator.nextPage(WhatIsYourNamePage, NormalMode, emptyUserAnswers) mustBe routes.WhatIsYourNinoController.onPageLoad(NormalMode)
+      "must go from the what is your name page to the do you know your nino page" in {
+        navigator.nextPage(WhatIsYourNamePage, NormalMode, emptyUserAnswers) mustBe routes.DoYouKnowYourNationalInsuranceNumberController.onPageLoad(NormalMode)
+      }
+
+      "must go from the do you know your nino page" - {
+
+        "to the what is your nino page when yes" in {
+          val userAnswers = emptyUserAnswers
+            .set(DoYouKnowYourNationalInsuranceNumberPage, true).success.value
+
+          navigator.nextPage(DoYouKnowYourNationalInsuranceNumberPage, NormalMode, userAnswers) mustBe routes.WhatIsYourNinoController.onPageLoad(NormalMode)
+        }
+
+        "to the what is your date of birth page when no" in {
+          val userAnswers = emptyUserAnswers
+            .set(DoYouKnowYourNationalInsuranceNumberPage, false).success.value
+
+          navigator.nextPage(DoYouKnowYourNationalInsuranceNumberPage, NormalMode, userAnswers) mustBe routes.WhatIsYourDateOfBirthController.onPageLoad(NormalMode)
+        }
+
       }
 
       "must go from the what is your nino page to the what is your date of birth page" in {
@@ -126,6 +145,32 @@ class NavigatorSpec extends SpecBase {
     }
 
     "in Check mode" - {
+
+      "must go from the do you know your nino page" - {
+
+        "to check your answers when yes and nino has been given" in {
+          val userAnswers = emptyUserAnswers
+            .set(DoYouKnowYourNationalInsuranceNumberPage, true).success.value
+            .set(WhatIsYourNinoPage, Nino("AA123456A")).success.value
+
+          navigator.nextPage(DoYouKnowYourNationalInsuranceNumberPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+        }
+
+        "to the what is your nino page when yes and nino has not been given" in {
+          val userAnswers = emptyUserAnswers
+            .set(DoYouKnowYourNationalInsuranceNumberPage, true).success.value
+
+          navigator.nextPage(DoYouKnowYourNationalInsuranceNumberPage, CheckMode, userAnswers) mustBe routes.WhatIsYourNinoController.onPageLoad(CheckMode)
+        }
+
+        "to check your answers page when no" in {
+          val userAnswers = emptyUserAnswers
+            .set(DoYouKnowYourNationalInsuranceNumberPage, false).success.value
+
+          navigator.nextPage(DoYouKnowYourNationalInsuranceNumberPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+        }
+
+      }
 
       "must go from the do you know your clock or payroll number" - {
 

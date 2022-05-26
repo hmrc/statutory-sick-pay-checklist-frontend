@@ -42,18 +42,19 @@ class CheckYourAnswersController @Inject()(
       val list = SummaryListViewModel(
         rows = Seq(
           WhatIsYourNameSummary.row(answers),
+          DoYouKnowYourNationalInsuranceNumberSummary.row(answers),
           WhatIsYourNinoSummary.row(answers),
           WhatIsYourDateOfBirthSummary.row(answers),
           DoYouKnowYourClockOrPayrollNumberSummary.row(answers),
           WhatIsYourClockOrPayrollNumberSummary.row(answers),
+          PhoneNumberSummary.row(answers),
           DetailsOfSicknessSummary.row(answers),
           DateSicknessBeganSummary.row(answers),
           HasSicknessEndedSummary.row(answers),
           DateSicknessEndedSummary.row(answers),
           WhenDidYouLastWorkSummary.row(answers),
           WhatTimeDidYouFinishSummary.row(answers),
-          CausedByAccidentOrIndustrialDiseaseSummary.row(answers),
-          PhoneNumberSummary.row(answers)
+          CausedByAccidentOrIndustrialDiseaseSummary.row(answers)
         ).flatten
       )
 
