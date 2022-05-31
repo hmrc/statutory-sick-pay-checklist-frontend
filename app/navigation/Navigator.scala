@@ -37,10 +37,10 @@ class Navigator @Inject()() {
     case DetailsOfSicknessPage => _ => routes.DateSicknessBeganController.onPageLoad(NormalMode)
     case DateSicknessBeganPage => _ => routes.HasSicknessEndedController.onPageLoad(NormalMode)
     case HasSicknessEndedPage => hasSicknessEndedRoutes
-    case DateSicknessEndedPage => _ => routes.WhenDidYouLastWorkController.onPageLoad(NormalMode)
+    case DateSicknessEndedPage => _ => routes.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(NormalMode)
+    case CausedByAccidentOrIndustrialDiseasePage => _ => routes.WhenDidYouLastWorkController.onPageLoad(NormalMode)
     case WhenDidYouLastWorkPage => _ => routes.WhatTimeDidYouFinishController.onPageLoad(NormalMode)
-    case WhatTimeDidYouFinishPage => _ => routes.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(NormalMode)
-    case CausedByAccidentOrIndustrialDiseasePage => causedByAccidentOrIndustrialDiseaseRoutes
+    case WhatTimeDidYouFinishPage => _ => routes.CheckYourAnswersController.onPageLoad
     case _ => _ => routes.IndexController.onPageLoad
   }
 
@@ -48,7 +48,6 @@ class Navigator @Inject()() {
     case DoYouKnowYourNationalInsuranceNumberPage => doYouKnowYourNationalInsuranceNumberCheckRoutes
     case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberCheckRoutes
     case HasSicknessEndedPage => hasSicknessEndedCheckRoutes
-    case CausedByAccidentOrIndustrialDiseasePage => causedByAccidentOrIndustrialDiseaseCheckRoutes
     case _ => _ => routes.CheckYourAnswersController.onPageLoad
   }
 
@@ -82,24 +81,12 @@ class Navigator @Inject()() {
   private def hasSicknessEndedRoutes(answers: UserAnswers): Call =
     answers.get(HasSicknessEndedPage).map {
       case true  => routes.DateSicknessEndedController.onPageLoad(NormalMode)
-      case false => routes.WhenDidYouLastWorkController.onPageLoad(NormalMode)
+      case false => routes.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(NormalMode)
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
 
   private def hasSicknessEndedCheckRoutes(answers: UserAnswers): Call =
     answers.get(HasSicknessEndedPage).map {
       case true  => routes.DateSicknessEndedController.onPageLoad(CheckMode)
-      case false => routes.CheckYourAnswersController.onPageLoad
-    }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
-
-  private def causedByAccidentOrIndustrialDiseaseRoutes(answers: UserAnswers): Call =
-    answers.get(CausedByAccidentOrIndustrialDiseasePage).map {
-      case true  => ???
-      case false => routes.CheckYourAnswersController.onPageLoad
-    }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
-
-  private def causedByAccidentOrIndustrialDiseaseCheckRoutes(answers: UserAnswers): Call =
-    answers.get(CausedByAccidentOrIndustrialDiseasePage).map {
-      case true  => ???
       case false => routes.CheckYourAnswersController.onPageLoad
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
 

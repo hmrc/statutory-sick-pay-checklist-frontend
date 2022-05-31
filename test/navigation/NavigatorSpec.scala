@@ -105,9 +105,9 @@ class NavigatorSpec extends SpecBase {
           navigator.nextPage(HasSicknessEndedPage, NormalMode, answers) mustBe routes.DateSicknessEndedController.onPageLoad(NormalMode)
         }
 
-        "to the when did you last work page when the user selects no" in {
+        "to the caused by accident or industrial disease page when the user selects no" in {
           val answers = emptyUserAnswers.set(HasSicknessEndedPage, false).success.value
-          navigator.nextPage(HasSicknessEndedPage, NormalMode, answers) mustBe routes.WhenDidYouLastWorkController.onPageLoad(NormalMode)
+          navigator.nextPage(HasSicknessEndedPage, NormalMode, answers) mustBe routes.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(NormalMode)
         }
 
         "to the journey recovery page when the user has no answer" in {
@@ -115,32 +115,20 @@ class NavigatorSpec extends SpecBase {
         }
       }
 
-      "must go from the date sickness ended page to the when did you last work page" in {
-        navigator.nextPage(DateSicknessEndedPage, NormalMode, emptyUserAnswers) mustBe routes.WhenDidYouLastWorkController.onPageLoad(NormalMode)
+      "must go from the date sickness ended page to the caused by accident or industrial disease page" in {
+        navigator.nextPage(DateSicknessEndedPage, NormalMode, emptyUserAnswers) mustBe routes.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(NormalMode)
+      }
+
+      "must go from the caused by accident or industrial disease page to the when did you last work page" in {
+        navigator.nextPage(CausedByAccidentOrIndustrialDiseasePage, NormalMode, emptyUserAnswers) mustBe routes.WhenDidYouLastWorkController.onPageLoad(NormalMode)
       }
 
       "must go from the when did you last work page to the what time did you finish on that date page" in {
         navigator.nextPage(WhenDidYouLastWorkPage, NormalMode, emptyUserAnswers) mustBe routes.WhatTimeDidYouFinishController.onPageLoad(NormalMode)
       }
 
-      "must go from the what time did you finish page to the caused by accident or industrial disease page" in {
-        navigator.nextPage(WhatTimeDidYouFinishPage, NormalMode, emptyUserAnswers) mustBe routes.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(NormalMode)
-      }
-
-      "must go from the caused by accident or industrial disease page" - {
-
-        "to the guidance page when the user selects yes" ignore {
-          // TODO
-        }
-
-        "to the check your answers page when the user selects no" in {
-          val answers = emptyUserAnswers.set(CausedByAccidentOrIndustrialDiseasePage, false).success.value
-          navigator.nextPage(CausedByAccidentOrIndustrialDiseasePage, NormalMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
-        }
-
-        "to the journey recovery page when there are no user answers" in {
-          navigator.nextPage(CausedByAccidentOrIndustrialDiseasePage, NormalMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
-        }
+      "must go from the what time did you finish page to the check your answers page" in {
+        navigator.nextPage(WhatTimeDidYouFinishPage, NormalMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
       }
     }
 
@@ -203,22 +191,6 @@ class NavigatorSpec extends SpecBase {
 
         "to the journey recovery page when the user has no answer" in {
           navigator.nextPage(HasSicknessEndedPage, CheckMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
-        }
-      }
-
-      "must go from the caused by accident or industrial disease page" - {
-
-        "to the guidance page when the user selects yes" ignore {
-          // TODO
-        }
-
-        "to the check your answers page when the user selects no" in {
-          val answers = emptyUserAnswers.set(CausedByAccidentOrIndustrialDiseasePage, false).success.value
-          navigator.nextPage(CausedByAccidentOrIndustrialDiseasePage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
-        }
-
-        "to the journey recovery page when there are no user answers" in {
-          navigator.nextPage(CausedByAccidentOrIndustrialDiseasePage, CheckMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
         }
       }
 
