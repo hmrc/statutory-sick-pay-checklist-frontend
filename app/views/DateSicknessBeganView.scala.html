@@ -24,7 +24,7 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
-@layout(pageTitle = title(form, messages("dateSicknessBegan.title"))) {
+@layout(pageTitle = title(form, messages("dateSicknessBegan.title"), Some(messages("section.sicknessDetails")))) {
 
     @formHelper(action = routes.DateSicknessBeganController.onSubmit(mode), 'autoComplete -> "off") {
 
@@ -35,7 +35,10 @@
         @govukDateInput(
             DateViewModel(
                 field  = form("value"),
-                legend = LegendViewModel(messages("dateSicknessBegan.heading")).asPageHeading()
+                legend = HmrcPageHeadingLegend(
+                    content = messages("dateSicknessBegan.heading"),
+                    caption = HmrcSectionCaption(messages("section.sicknessDetails"))
+                )
             )
             .withHint(HintViewModel(messages("dateSicknessBegan.hint")))
         )

@@ -29,6 +29,7 @@ lazy val root = (project in file("."))
       "play.twirl.api.HtmlFormat",
       "play.twirl.api.HtmlFormat._",
       "uk.gov.hmrc.govukfrontend.views.html.components._",
+      "uk.gov.hmrc.hmrcfrontend.views.config._",
       "uk.gov.hmrc.hmrcfrontend.views.html.components._",
       "uk.gov.hmrc.hmrcfrontend.views.html.helpers._",
       "views.ViewUtils._",
