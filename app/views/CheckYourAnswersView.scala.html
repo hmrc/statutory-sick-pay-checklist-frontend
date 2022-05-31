@@ -19,11 +19,18 @@
     govukSummaryList: GovukSummaryList
 )
 
-@(list: SummaryList)(implicit request: Request[_], messages: Messages)
+@(personalDetails: SummaryList, sicknessDetails: SummaryList, employmentDetails: SummaryList)(implicit request: Request[_], messages: Messages)
 
 @layout(pageTitle = titleNoForm(messages("checkYourAnswers.title"))) {
 
     <h1 class="govuk-heading-xl">@messages("checkYourAnswers.heading")</h1>
 
-    @govukSummaryList(list)
+    <h2 class="govuk-heading-m">@messages("section.personalDetails")</h2>
+    @govukSummaryList(personalDetails.copy(classes = "govuk-!-margin-bottom-9"))
+
+    <h2 class="govuk-heading-m">@messages("section.sicknessDetails")</h2>
+    @govukSummaryList(sicknessDetails.copy(classes = "govuk-!-margin-bottom-9"))
+
+    <h2 class="govuk-heading-m">@messages("section.employmentDetails")</h2>
+    @govukSummaryList(employmentDetails)
 }
