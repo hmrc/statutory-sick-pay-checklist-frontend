@@ -55,7 +55,7 @@ class CheckYourAnswersControllerSpec extends SpecBase with SummaryListFluency {
 
       implicit val m: Messages = messages(application)
 
-      val expected = SummaryListViewModel(
+      val personalDetails = SummaryListViewModel(
         Seq(
           WhatIsYourNameSummary.row(answers),
           DoYouKnowYourNationalInsuranceNumberSummary.row(answers),
@@ -63,12 +63,22 @@ class CheckYourAnswersControllerSpec extends SpecBase with SummaryListFluency {
           WhatIsYourDateOfBirthSummary.row(answers),
           DoYouKnowYourClockOrPayrollNumberSummary.row(answers),
           WhatIsYourClockOrPayrollNumberSummary.row(answers),
-          PhoneNumberSummary.row(answers),
+          PhoneNumberSummary.row(answers)
+        ).flatten
+      )
+
+      val sicknessDetails = SummaryListViewModel(
+        Seq(
           DetailsOfSicknessSummary.row(answers),
           DateSicknessBeganSummary.row(answers),
           HasSicknessEndedSummary.row(answers),
           DateSicknessEndedSummary.row(answers),
-          CausedByAccidentOrIndustrialDiseaseSummary.row(answers),
+          CausedByAccidentOrIndustrialDiseaseSummary.row(answers)
+        ).flatten
+      )
+
+      val employmentDetails = SummaryListViewModel(
+        Seq(
           WhenDidYouLastWorkSummary.row(answers),
           WhatTimeDidYouFinishSummary.row(answers)
         ).flatten
@@ -82,7 +92,7 @@ class CheckYourAnswersControllerSpec extends SpecBase with SummaryListFluency {
         val view = application.injector.instanceOf[CheckYourAnswersView]
 
         status(result) mustEqual OK
-        contentAsString(result) mustEqual view(expected)(request, messages(application)).toString
+        contentAsString(result) mustEqual view(personalDetails, sicknessDetails, employmentDetails)(request, messages(application)).toString
       }
     }
 

@@ -21,7 +21,7 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import viewmodels.checkAnswers._
+import viewmodels.checkAnswers.{DoYouKnowYourClockOrPayrollNumberSummary, PhoneNumberSummary, _}
 import viewmodels.govuk.summarylist._
 import views.html.CheckYourAnswersView
 
@@ -39,7 +39,7 @@ class CheckYourAnswersController @Inject()(
 
       val answers = request.userAnswers
 
-      val list = SummaryListViewModel(
+      val personalDetails = SummaryListViewModel(
         rows = Seq(
           WhatIsYourNameSummary.row(answers),
           DoYouKnowYourNationalInsuranceNumberSummary.row(answers),
@@ -47,17 +47,27 @@ class CheckYourAnswersController @Inject()(
           WhatIsYourDateOfBirthSummary.row(answers),
           DoYouKnowYourClockOrPayrollNumberSummary.row(answers),
           WhatIsYourClockOrPayrollNumberSummary.row(answers),
-          PhoneNumberSummary.row(answers),
+          PhoneNumberSummary.row(answers)
+        ).flatten
+      )
+
+      val sicknessDetails = SummaryListViewModel(
+        rows = Seq(
           DetailsOfSicknessSummary.row(answers),
           DateSicknessBeganSummary.row(answers),
           HasSicknessEndedSummary.row(answers),
           DateSicknessEndedSummary.row(answers),
-          CausedByAccidentOrIndustrialDiseaseSummary.row(answers),
+          CausedByAccidentOrIndustrialDiseaseSummary.row(answers)
+        ).flatten
+      )
+
+      val employmentDetails = SummaryListViewModel(
+        rows = Seq(
           WhenDidYouLastWorkSummary.row(answers),
           WhatTimeDidYouFinishSummary.row(answers)
         ).flatten
       )
 
-      Ok(view(list))
+      Ok(view(personalDetails, sicknessDetails, employmentDetails))
   }
 }
