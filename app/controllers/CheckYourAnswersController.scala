@@ -52,9 +52,9 @@ class CheckYourAnswersController @Inject()(
           DateSicknessBeganSummary.row(answers),
           HasSicknessEndedSummary.row(answers),
           DateSicknessEndedSummary.row(answers),
+          CausedByAccidentOrIndustrialDiseaseSummary.row(answers),
           WhenDidYouLastWorkSummary.row(answers),
-          WhatTimeDidYouFinishSummary.row(answers),
-          CausedByAccidentOrIndustrialDiseaseSummary.row(answers)
+          WhatTimeDidYouFinishSummary.row(answers)
         ).flatten
       )
 

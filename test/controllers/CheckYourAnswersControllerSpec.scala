@@ -17,10 +17,17 @@
 package controllers
 
 import base.SpecBase
+import models.WhatIsYourName
+import pages._
+import play.api.i18n.Messages
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import uk.gov.hmrc.domain.Nino
+import viewmodels.checkAnswers._
 import viewmodels.govuk.SummaryListFluency
 import views.html.CheckYourAnswersView
+
+import java.time.LocalDate
 
 class CheckYourAnswersControllerSpec extends SpecBase with SummaryListFluency {
 
@@ -28,7 +35,44 @@ class CheckYourAnswersControllerSpec extends SpecBase with SummaryListFluency {
 
     "must return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
+      val answers = emptyUserAnswers
+        .set(WhatIsYourNamePage, WhatIsYourName("first", "last")).success.value
+        .set(DoYouKnowYourNationalInsuranceNumberPage, true).success.value
+        .set(WhatIsYourNinoPage, Nino("AA123456A")).success.value
+        .set(WhatIsYourDateOfBirthPage, LocalDate.of(2000, 2, 1)).success.value
+        .set(PhoneNumberPage, "07875242851").success.value
+        .set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
+        .set(WhatIsYourClockOrPayrollNumberPage, "prcn").success.value
+        .set(DetailsOfSicknessPage, "some details").success.value
+        .set(DateSicknessBeganPage, LocalDate.of(2001, 2, 1)).success.value
+        .set(HasSicknessEndedPage, true).success.value
+        .set(DateSicknessEndedPage, LocalDate.of(2002, 2, 1)).success.value
+        .set(CausedByAccidentOrIndustrialDiseasePage, true).success.value
+        .set(WhenDidYouLastWorkPage, LocalDate.of(2003, 2, 1)).success.value
+        .set(WhatTimeDidYouFinishPage, "9am").success.value
+
+      val application = applicationBuilder(userAnswers = Some(answers)).build()
+
+      implicit val m: Messages = messages(application)
+
+      val expected = SummaryListViewModel(
+        Seq(
+          WhatIsYourNameSummary.row(answers),
+          DoYouKnowYourNationalInsuranceNumberSummary.row(answers),
+          WhatIsYourNinoSummary.row(answers),
+          WhatIsYourDateOfBirthSummary.row(answers),
+          DoYouKnowYourClockOrPayrollNumberSummary.row(answers),
+          WhatIsYourClockOrPayrollNumberSummary.row(answers),
+          PhoneNumberSummary.row(answers),
+          DetailsOfSicknessSummary.row(answers),
+          DateSicknessBeganSummary.row(answers),
+          HasSicknessEndedSummary.row(answers),
+          DateSicknessEndedSummary.row(answers),
+          CausedByAccidentOrIndustrialDiseaseSummary.row(answers),
+          WhenDidYouLastWorkSummary.row(answers),
+          WhatTimeDidYouFinishSummary.row(answers)
+        ).flatten
+      )
 
       running(application) {
         val request = FakeRequest(GET, routes.CheckYourAnswersController.onPageLoad.url)
@@ -36,10 +80,9 @@ class CheckYourAnswersControllerSpec extends SpecBase with SummaryListFluency {
         val result = route(application, request).value
 
         val view = application.injector.instanceOf[CheckYourAnswersView]
-        val list = SummaryListViewModel(Seq.empty)
 
         status(result) mustEqual OK
-        contentAsString(result) mustEqual view(list)(request, messages(application)).toString
+        contentAsString(result) mustEqual view(expected)(request, messages(application)).toString
       }
     }
 
