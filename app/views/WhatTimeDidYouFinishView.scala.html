@@ -27,7 +27,7 @@
 
 @(form: Form[_], lastDate: LocalDate, mode: Mode)(implicit request: Request[_], messages: Messages)
 
-@layout(pageTitle = title(form, messages("whatTimeDidYouFinish.title", govUkDateFormat(lastDate)))) {
+@layout(pageTitle = title(form, messages("whatTimeDidYouFinish.title", govUkDateFormat(lastDate)), Some(messages("section.employmentDetails")))) {
 
     @formHelper(action = routes.WhatTimeDidYouFinishController.onSubmit(mode)) {
 
@@ -38,7 +38,10 @@
         @govukInput(
             InputViewModel(
                 field = form("value"),
-                label = LabelViewModel(messages("whatTimeDidYouFinish.heading", govUkDateFormat(lastDate))).asPageHeading()
+                label = HmrcPageHeadingLabel(
+                    content = messages("whatTimeDidYouFinish.heading", govUkDateFormat(lastDate)),
+                    caption = HmrcSectionCaption(messages("section.employmentDetails"))
+                )
             )
             .withWidth(Fixed5)
             .withHint(Hint(content = messages("whatTimeDidYouFinish.hint")))

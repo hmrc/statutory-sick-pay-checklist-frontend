@@ -11,6 +11,11 @@ site.startAgain = Start again
 site.signIn = Sign in
 site.govuk = GOV.UK
 
+thisSectionIs = This section is
+section.personalDetails = Personal details
+section.sicknessDetails = Sickness details
+section.employmentDetails = Employment details
+
 date.day = Day
 date.month = Month
 date.year = Year

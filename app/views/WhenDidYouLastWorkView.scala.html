@@ -24,7 +24,7 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
-@layout(pageTitle = title(form, messages("whenDidYouLastWork.title"))) {
+@layout(pageTitle = title(form, messages("whenDidYouLastWork.title"), Some(messages("section.employmentDetails")))) {
 
     @formHelper(action = routes.WhenDidYouLastWorkController.onSubmit(mode), 'autoComplete -> "off") {
 
@@ -35,7 +35,10 @@
         @govukDateInput(
             DateViewModel(
                 field  = form("value"),
-                legend = LegendViewModel(messages("whenDidYouLastWork.heading")).asPageHeading()
+                legend = HmrcPageHeadingLegend(
+                    content = messages("whenDidYouLastWork.heading"),
+                    caption = HmrcSectionCaption(messages("section.employmentDetails"))
+                )
             )
             .withHint(HintViewModel(messages("whenDidYouLastWork.hint")))
         )

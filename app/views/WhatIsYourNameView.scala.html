@@ -21,12 +21,13 @@
     formHelper: FormWithCSRF,
     govukErrorSummary: GovukErrorSummary,
     govukInput: GovukInput,
-    govukButton: GovukButton
+    govukButton: GovukButton,
+    h1WithCaption: components.h1WithCaption
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
-@layout(pageTitle = title(form, messages("whatIsYourName.title"))) {
+@layout(pageTitle = title(form, messages("whatIsYourName.title"), Some(messages("section.personalDetails")))) {
 
     @formHelper(action = routes.WhatIsYourNameController.onSubmit(mode)) {
 
@@ -34,7 +35,10 @@
             @govukErrorSummary(ErrorSummaryViewModel(form))
         }
 
-        <h1 class="govuk-heading-xl">@messages("whatIsYourName.heading")</h1>
+        @h1WithCaption(
+            content = messages("whatIsYourName.heading"),
+            caption = messages("section.personalDetails")
+        )
 
         @govukInput(
             InputViewModel(
