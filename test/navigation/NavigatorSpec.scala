@@ -61,29 +61,8 @@ class NavigatorSpec extends SpecBase {
         navigator.nextPage(WhatIsYourNinoPage, NormalMode, emptyUserAnswers) mustBe routes.WhatIsYourDateOfBirthController.onPageLoad(NormalMode)
       }
 
-      "must go from the what is your date of birth page to the do you know your clock or payroll page" in {
-        navigator.nextPage(WhatIsYourDateOfBirthPage, NormalMode, emptyUserAnswers) mustBe routes.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(NormalMode)
-      }
-
-      "must go from the do you know your clock or payroll page" - {
-
-        "to the what is your clock or payroll number page when the user selects yes" in {
-          val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
-          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, NormalMode, answers) mustBe routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(NormalMode)
-        }
-
-        "to the telephone number page when the user selects no" in {
-          val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, false).success.value
-          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, NormalMode, answers) mustBe routes.PhoneNumberController.onPageLoad(NormalMode)
-        }
-
-        "to the journey recovery page when the user has no answer" in {
-          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, NormalMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
-        }
-      }
-
-      "must go from the what is your clock or payroll number to the telephone number page" in {
-        navigator.nextPage(WhatIsYourClockOrPayrollNumberPage, NormalMode, emptyUserAnswers) mustBe routes.PhoneNumberController.onPageLoad(NormalMode)
+      "must go from the what is your date of birth page to the do you know your phone number" in {
+        navigator.nextPage(WhatIsYourDateOfBirthPage, NormalMode, emptyUserAnswers) mustBe routes.PhoneNumberController.onPageLoad(NormalMode)
       }
 
       "must go from the phone number page to the details of sickness page" in {
@@ -130,6 +109,27 @@ class NavigatorSpec extends SpecBase {
       "must go from the what time did you finish page to the check your answers page" in {
         navigator.nextPage(WhatTimeDidYouFinishPage, NormalMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
       }
+
+      "must go from the do you know your clock or payroll page" - {
+
+        "to the what is your clock or payroll number page when the user selects yes" in {
+          val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
+          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, NormalMode, answers) mustBe routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(NormalMode)
+        }
+
+        "to the check your answers page when the user selects no" in {
+          val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, false).success.value
+          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, NormalMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
+        }
+
+        "to the journey recovery page when the user has no answer" in {
+          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, NormalMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
+        }
+      }
+
+      "must go from the what is your clock or payroll number to the check your answers page" in {
+        navigator.nextPage(WhatIsYourClockOrPayrollNumberPage, NormalMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+      }
     }
 
     "in Check mode" - {
@@ -157,24 +157,6 @@ class NavigatorSpec extends SpecBase {
 
           navigator.nextPage(DoYouKnowYourNationalInsuranceNumberPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
         }
-
-      }
-
-      "must go from the do you know your clock or payroll number" - {
-
-        "to the what is your clock or payroll number page when the user selects yes" in {
-          val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
-          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, answers) mustBe routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(CheckMode)
-        }
-
-        "to the check your answers page when the user selects no" in {
-          val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, false).success.value
-          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
-        }
-
-        "to the journey recovery page when the user has no answer" in {
-          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
-        }
       }
 
       "must go from the has sickness ended page" - {
@@ -197,6 +179,23 @@ class NavigatorSpec extends SpecBase {
       "must go from a page that doesn't exist in the edit route map to CheckYourAnswers" in {
         case object UnknownPage extends Page
         navigator.nextPage(UnknownPage, CheckMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+      }
+    }
+
+    "must go from the do you know your clock or payroll number" - {
+
+      "to the what is your clock or payroll number page when the user selects yes" in {
+        val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
+        navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, answers) mustBe routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(CheckMode)
+      }
+
+      "to the check your answers page when the user selects no" in {
+        val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, false).success.value
+        navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
+      }
+
+      "to the journey recovery page when the user has no answer" in {
+        navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
       }
     }
   }

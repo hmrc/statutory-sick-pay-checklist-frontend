@@ -23,7 +23,7 @@ import play.api.i18n.Messages
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.domain.Nino
-import viewmodels.checkAnswers._
+import viewmodels.checkAnswers.{DoYouKnowYourClockOrPayrollNumberSummary, _}
 import viewmodels.govuk.SummaryListFluency
 import views.html.CheckYourAnswersView
 
@@ -41,8 +41,6 @@ class CheckYourAnswersControllerSpec extends SpecBase with SummaryListFluency {
         .set(WhatIsYourNinoPage, Nino("AA123456A")).success.value
         .set(WhatIsYourDateOfBirthPage, LocalDate.of(2000, 2, 1)).success.value
         .set(PhoneNumberPage, "07875242851").success.value
-        .set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
-        .set(WhatIsYourClockOrPayrollNumberPage, "prcn").success.value
         .set(DetailsOfSicknessPage, "some details").success.value
         .set(DateSicknessBeganPage, LocalDate.of(2001, 2, 1)).success.value
         .set(HasSicknessEndedPage, true).success.value
@@ -50,6 +48,8 @@ class CheckYourAnswersControllerSpec extends SpecBase with SummaryListFluency {
         .set(CausedByAccidentOrIndustrialDiseasePage, true).success.value
         .set(WhenDidYouLastWorkPage, LocalDate.of(2003, 2, 1)).success.value
         .set(WhatTimeDidYouFinishPage, "9am").success.value
+        .set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
+        .set(WhatIsYourClockOrPayrollNumberPage, "prcn").success.value
 
       val application = applicationBuilder(userAnswers = Some(answers)).build()
 
@@ -61,8 +61,6 @@ class CheckYourAnswersControllerSpec extends SpecBase with SummaryListFluency {
           DoYouKnowYourNationalInsuranceNumberSummary.row(answers),
           WhatIsYourNinoSummary.row(answers),
           WhatIsYourDateOfBirthSummary.row(answers),
-          DoYouKnowYourClockOrPayrollNumberSummary.row(answers),
-          WhatIsYourClockOrPayrollNumberSummary.row(answers),
           PhoneNumberSummary.row(answers)
         ).flatten
       )
@@ -80,7 +78,9 @@ class CheckYourAnswersControllerSpec extends SpecBase with SummaryListFluency {
       val employmentDetails = SummaryListViewModel(
         Seq(
           WhenDidYouLastWorkSummary.row(answers),
-          WhatTimeDidYouFinishSummary.row(answers)
+          WhatTimeDidYouFinishSummary.row(answers),
+          DoYouKnowYourClockOrPayrollNumberSummary.row(answers),
+          WhatIsYourClockOrPayrollNumberSummary.row(answers)
         ).flatten
       )
 
