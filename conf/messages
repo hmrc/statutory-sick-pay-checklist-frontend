@@ -187,3 +187,6 @@ doYouKnowYourNationalInsuranceNumber.hint = It’s on your National Insurance ca
 doYouKnowYourNationalInsuranceNumber.checkYourAnswersLabel = Do you know your National Insurance number?
 doYouKnowYourNationalInsuranceNumber.error.required = Select yes if you know your National Insurance number
 doYouKnowYourNationalInsuranceNumber.change.hidden = whether you know your National Insurance number
+
+print.title = print
+print.heading = print

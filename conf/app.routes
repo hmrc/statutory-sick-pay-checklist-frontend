@@ -89,3 +89,5 @@ GET        /do-you-know-your-national-insurance-number                        co
 POST       /do-you-know-your-national-insurance-number                        controllers.DoYouKnowYourNationalInsuranceNumberController.onSubmit(mode: Mode = NormalMode)
 GET        /change-if-you-know-your-national-insurance-number                  controllers.DoYouKnowYourNationalInsuranceNumberController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-if-you-know-your-national-insurance-number                  controllers.DoYouKnowYourNationalInsuranceNumberController.onSubmit(mode: Mode = CheckMode)
+
+GET        /print                       controllers.PrintController.onPageLoad()
