@@ -30,9 +30,7 @@ class Navigator @Inject()() {
     case WhatIsYourNamePage => _ => routes.DoYouKnowYourNationalInsuranceNumberController.onPageLoad(NormalMode)
     case DoYouKnowYourNationalInsuranceNumberPage => doYouKnowYourNationalInsuranceNumberRoutes
     case WhatIsYourNinoPage => _ => routes.WhatIsYourDateOfBirthController.onPageLoad(NormalMode)
-    case WhatIsYourDateOfBirthPage => _ => routes.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(NormalMode)
-    case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberRoutes
-    case WhatIsYourClockOrPayrollNumberPage => _ => routes.PhoneNumberController.onPageLoad(NormalMode)
+    case WhatIsYourDateOfBirthPage => _ => routes.PhoneNumberController.onPageLoad(NormalMode)
     case PhoneNumberPage => _ => routes.DetailsOfSicknessController.onPageLoad(NormalMode)
     case DetailsOfSicknessPage => _ => routes.DateSicknessBeganController.onPageLoad(NormalMode)
     case DateSicknessBeganPage => _ => routes.HasSicknessEndedController.onPageLoad(NormalMode)
@@ -41,13 +39,15 @@ class Navigator @Inject()() {
     case CausedByAccidentOrIndustrialDiseasePage => _ => routes.WhenDidYouLastWorkController.onPageLoad(NormalMode)
     case WhenDidYouLastWorkPage => _ => routes.WhatTimeDidYouFinishController.onPageLoad(NormalMode)
     case WhatTimeDidYouFinishPage => _ => routes.CheckYourAnswersController.onPageLoad
+    case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberRoutes
+    case WhatIsYourClockOrPayrollNumberPage => _ => routes.CheckYourAnswersController.onPageLoad
     case _ => _ => routes.IndexController.onPageLoad
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
     case DoYouKnowYourNationalInsuranceNumberPage => doYouKnowYourNationalInsuranceNumberCheckRoutes
-    case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberCheckRoutes
     case HasSicknessEndedPage => hasSicknessEndedCheckRoutes
+    case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberCheckRoutes
     case _ => _ => routes.CheckYourAnswersController.onPageLoad
   }
 
@@ -69,7 +69,7 @@ class Navigator @Inject()() {
   private def doYouKnowYourClockOrPayrollNumberRoutes(answers: UserAnswers): Call =
     answers.get(DoYouKnowYourClockOrPayrollNumberPage).map {
       case true  => routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(NormalMode)
-      case false => routes.PhoneNumberController.onPageLoad(NormalMode)
+      case false => routes.CheckYourAnswersController.onPageLoad
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
 
   private def doYouKnowYourClockOrPayrollNumberCheckRoutes(answers: UserAnswers): Call =

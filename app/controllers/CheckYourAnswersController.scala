@@ -45,8 +45,6 @@ class CheckYourAnswersController @Inject()(
           DoYouKnowYourNationalInsuranceNumberSummary.row(answers),
           WhatIsYourNinoSummary.row(answers),
           WhatIsYourDateOfBirthSummary.row(answers),
-          DoYouKnowYourClockOrPayrollNumberSummary.row(answers),
-          WhatIsYourClockOrPayrollNumberSummary.row(answers),
           PhoneNumberSummary.row(answers)
         ).flatten
       )
@@ -64,7 +62,9 @@ class CheckYourAnswersController @Inject()(
       val employmentDetails = SummaryListViewModel(
         rows = Seq(
           WhenDidYouLastWorkSummary.row(answers),
-          WhatTimeDidYouFinishSummary.row(answers)
+          WhatTimeDidYouFinishSummary.row(answers),
+          DoYouKnowYourClockOrPayrollNumberSummary.row(answers),
+          WhatIsYourClockOrPayrollNumberSummary.row(answers)
         ).flatten
       )
 
