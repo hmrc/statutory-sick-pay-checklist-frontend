@@ -1,0 +1,63 @@
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this(
+        layout: templates.Layout,
+        govukInset: GovukInsetText,
+        govukPanel : GovukPanel,
+        govukButton: GovukButton
+)
+
+@(model: JourneyModel)(implicit request: Request[_], messages: Messages)
+
+@inset = {
+  <p class="govuk-body">
+    @messages("print.p3.pre")
+    <a class="govuk-link" href="#">@messages("print.p3.link")</a>
+    @messages("print.p3.post")
+  </p>
+}
+
+@layout(pageTitle = titleNoForm(messages("print.title"))) {
+
+  @govukPanel(Panel(title = messages("print.heading")))
+
+  <p class="govuk-body govuk-!-margin-top-5">@messages("print.p1")</p>
+
+  <p class="govuk-body">
+    @messages("print.p2.pre")
+    <a class="govuk-link" href="@routes.CheckYourAnswersController.onPageLoad">@messages("print.p2.link.1")</a>
+    @messages("print.p2.or")
+    <a class="govuk-link" href="#">@messages("print.p2.link.2")</a>
+    @messages("print.p2.post")
+  </p>
+
+  @if(model.causedByIndustrialDiseaseOrAccident) {
+    @govukInset(InsetText(content = HtmlContent(inset)))
+  }
+
+  <h2 class="govuk-heading-m">@messages("print.whatHappensNext")</h2>
+
+  <p class="govuk-body">@messages("print.p4")</p>
+  <p class="govuk-body">@messages("print.p5")</p>
+  <p class="govuk-body govuk-!-margin-bottom-9">
+    @messages("print.p6.pre")
+    <a class="govuk-link" href="#">@messages("print.p6.link")</a>
+    @messages("print.p6.post")
+  </p>
+
+  <a id="download" href="#" class="govuk-button" download>@messages("print.button")</a>
+}
