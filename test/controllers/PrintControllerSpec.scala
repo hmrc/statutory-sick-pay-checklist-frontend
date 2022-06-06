@@ -16,10 +16,17 @@
 
 package controllers
 
+import audit.AuditService
 import base.SpecBase
+import com.dmanchester.playfop.sapi.PlayFop
 import models.{JourneyModel, WhatIsYourName}
+import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchersSugar.eqTo
+import org.mockito.Mockito.{times, verify, when}
 import org.scalatest.EitherValues
-import pages.{CausedByAccidentOrIndustrialDiseasePage, DateSicknessBeganPage, DateSicknessEndedPage, DetailsOfSicknessPage, DoYouKnowYourClockOrPayrollNumberPage, DoYouKnowYourNationalInsuranceNumberPage, HasSicknessEndedPage, PhoneNumberPage, WhatIsYourClockOrPayrollNumberPage, WhatIsYourDateOfBirthPage, WhatIsYourNamePage, WhatIsYourNinoPage, WhatTimeDidYouFinishPage, WhenDidYouLastWorkPage}
+import org.scalatestplus.mockito.MockitoSugar
+import pages._
+import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.domain.Nino
@@ -27,41 +34,78 @@ import views.html.PrintView
 
 import java.time.LocalDate
 
-class PrintControllerSpec extends SpecBase with EitherValues {
+class PrintControllerSpec extends SpecBase with EitherValues with MockitoSugar {
 
-  "Print Controller" - {
+  val answers = emptyUserAnswers
+    .set(WhatIsYourNamePage, WhatIsYourName("first", "last")).success.value
+    .set(DoYouKnowYourNationalInsuranceNumberPage, true).success.value
+    .set(WhatIsYourNinoPage, Nino("AA123456A")).success.value
+    .set(WhatIsYourDateOfBirthPage, LocalDate.of(2000, 2, 1)).success.value
+    .set(PhoneNumberPage, "07875242851").success.value
+    .set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
+    .set(WhatIsYourClockOrPayrollNumberPage, "prcn").success.value
+    .set(DetailsOfSicknessPage, "some details").success.value
+    .set(DateSicknessBeganPage, LocalDate.of(2001, 2, 1)).success.value
+    .set(HasSicknessEndedPage, true).success.value
+    .set(DateSicknessEndedPage, LocalDate.of(2002, 2, 1)).success.value
+    .set(CausedByAccidentOrIndustrialDiseasePage, true).success.value
+    .set(WhenDidYouLastWorkPage, LocalDate.of(2003, 2, 1)).success.value
+    .set(WhatTimeDidYouFinishPage, "9am").success.value
 
-    "must return OK and the correct view for a GET" in {
+  val model = JourneyModel.from(answers).right.value
 
-      val answers = emptyUserAnswers
-        .set(WhatIsYourNamePage, WhatIsYourName("first", "last")).success.value
-        .set(DoYouKnowYourNationalInsuranceNumberPage, true).success.value
-        .set(WhatIsYourNinoPage, Nino("AA123456A")).success.value
-        .set(WhatIsYourDateOfBirthPage, LocalDate.of(2000, 2, 1)).success.value
-        .set(PhoneNumberPage, "07875242851").success.value
-        .set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
-        .set(WhatIsYourClockOrPayrollNumberPage, "prcn").success.value
-        .set(DetailsOfSicknessPage, "some details").success.value
-        .set(DateSicknessBeganPage, LocalDate.of(2001, 2, 1)).success.value
-        .set(HasSicknessEndedPage, true).success.value
-        .set(DateSicknessEndedPage, LocalDate.of(2002, 2, 1)).success.value
-        .set(CausedByAccidentOrIndustrialDiseasePage, true).success.value
-        .set(WhenDidYouLastWorkPage, LocalDate.of(2003, 2, 1)).success.value
-        .set(WhatTimeDidYouFinishPage, "9am").success.value
+  "next steps" - {
 
-      val model = JourneyModel.from(answers).right.value
-
+    "must return OK and the correct view" in {
       val application = applicationBuilder(userAnswers = Some(answers)).build()
-
       running(application) {
         val request = FakeRequest(GET, routes.PrintController.onPageLoad().url)
-
         val result = route(application, request).value
-
         val view = application.injector.instanceOf[PrintView]
-
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(model)(request, messages(application)).toString
+      }
+    }
+
+    "must redirect to the journey recovery controller when the user answers are incomplete" in {
+      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
+      running(application) {
+        val request = FakeRequest(GET, routes.PrintController.onPageLoad().url)
+        val result = route(application, request).value
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.JourneyRecoveryController.onPageLoad().url
+      }
+    }
+  }
+
+  "print form" - {
+
+    "must return OK and the correct view" in {
+      val mockAuditService = mock[AuditService]
+      val mockPlayFop = mock[PlayFop]
+      val application = applicationBuilder(userAnswers = Some(answers))
+        .overrides(
+          bind[AuditService].toInstance(mockAuditService),
+          bind[PlayFop].toInstance(mockPlayFop)
+        )
+        .build()
+      when(mockPlayFop.processTwirlXml(any(), any(), any(), any())).thenReturn("hello".getBytes)
+      running(application) {
+        val request = FakeRequest(GET, routes.PrintController.onDownload().url)
+        val result = route(application, request).value
+        verify(mockAuditService, times(1)).auditDownload(eqTo(model))(any())
+        status(result) mustEqual OK
+        contentAsString(result) mustEqual "hello"
+      }
+    }
+
+    "must redirect to the journey recovery controller when the user answers are incomplete" in {
+      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
+      running(application) {
+        val request = FakeRequest(GET, routes.PrintController.onDownload().url)
+        val result = route(application, request).value
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.JourneyRecoveryController.onPageLoad().url
       }
     }
   }
