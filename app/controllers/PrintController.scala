@@ -17,6 +17,8 @@
 package controllers
 
 import controllers.actions._
+import models.JourneyModel
+
 import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -34,6 +36,8 @@ class PrintController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
-      Ok(view())
+      JourneyModel.from(request.userAnswers).map { model =>
+        Ok(view(model))
+      }.getOrElse(Redirect(routes.JourneyRecoveryController.onPageLoad()))
   }
 }
