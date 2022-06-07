@@ -106,8 +106,8 @@ class NavigatorSpec extends SpecBase {
         navigator.nextPage(WhenDidYouLastWorkPage, NormalMode, emptyUserAnswers) mustBe routes.WhatTimeDidYouFinishController.onPageLoad(NormalMode)
       }
 
-      "must go from the what time did you finish page to the check your answers page" in {
-        navigator.nextPage(WhatTimeDidYouFinishPage, NormalMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+      "must go from the what time did you finish page to the do you know your clock or payroll number page" in {
+        navigator.nextPage(WhatTimeDidYouFinishPage, NormalMode, emptyUserAnswers) mustBe routes.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(NormalMode)
       }
 
       "must go from the do you know your clock or payroll page" - {

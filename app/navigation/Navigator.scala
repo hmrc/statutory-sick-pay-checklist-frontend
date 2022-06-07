@@ -38,7 +38,7 @@ class Navigator @Inject()() {
     case DateSicknessEndedPage => _ => routes.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(NormalMode)
     case CausedByAccidentOrIndustrialDiseasePage => _ => routes.WhenDidYouLastWorkController.onPageLoad(NormalMode)
     case WhenDidYouLastWorkPage => _ => routes.WhatTimeDidYouFinishController.onPageLoad(NormalMode)
-    case WhatTimeDidYouFinishPage => _ => routes.CheckYourAnswersController.onPageLoad
+    case WhatTimeDidYouFinishPage => _ => routes.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(NormalMode)
     case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberRoutes
     case WhatIsYourClockOrPayrollNumberPage => _ => routes.CheckYourAnswersController.onPageLoad
     case _ => _ => routes.IndexController.onPageLoad
