@@ -18,10 +18,11 @@ package controllers
 
 import controllers.actions._
 import forms.WhenDidYouLastWorkFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.WhenDidYouLastWorkPage
+import pages.{DateSicknessBeganPage, WhenDidYouLastWorkPage}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
@@ -40,33 +41,37 @@ class WhenDidYouLastWorkController @Inject()(
                                         formProvider: WhenDidYouLastWorkFormProvider,
                                         val controllerComponents: MessagesControllerComponents,
                                         view: WhenDidYouLastWorkView
-                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
-
-  def form = formProvider()
+                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with AnswerExtractor {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
+      getAnswer(DateSicknessBeganPage) { startDate =>
+        val form = formProvider(startDate)
 
-      val preparedForm = request.userAnswers.get(WhenDidYouLastWorkPage) match {
-        case None => form
-        case Some(value) => form.fill(value)
+        val preparedForm = request.userAnswers.get(WhenDidYouLastWorkPage) match {
+          case None => form
+          case Some(value) => form.fill(value)
+        }
+
+        Ok(view(preparedForm, mode))
       }
-
-      Ok(view(preparedForm, mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
+      getAnswerAsync(DateSicknessBeganPage) { startDate =>
+        val form = formProvider(startDate)
 
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode))),
+        form.bindFromRequest().fold(
+          formWithErrors =>
+            Future.successful(BadRequest(view(formWithErrors, mode))),
 
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(WhenDidYouLastWorkPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(WhenDidYouLastWorkPage, mode, updatedAnswers))
-      )
+          value =>
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(WhenDidYouLastWorkPage, value))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(WhenDidYouLastWorkPage, mode, updatedAnswers))
+        )
+      }
   }
 }

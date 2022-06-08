@@ -162,7 +162,8 @@ whenDidYouLastWork.error.required.all = Enter the when you last worked before th
 whenDidYouLastWork.error.required.two = The date must include {0} and {1}
 whenDidYouLastWork.error.required = The date must include {0}
 whenDidYouLastWork.error.invalid = Enter a real date
-whenDidYouLastWork.error.future = The date you last worked must be in the past
+whenDidYouLastWork.error.beforeMinimum = The date you last worked before the sickness began must be on or after {0}
+whenDidYouLastWork.error.afterMaximum = The date you last worked before the sickness began must be on or before {0}
 whenDidYouLastWork.change.hidden = when you last worked before the sickness began
 
 whatTimeDidYouFinish.title = What time did you finish work on {0}?

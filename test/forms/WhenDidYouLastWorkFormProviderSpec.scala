@@ -16,18 +16,28 @@
 
 package forms
 
-import java.time.{LocalDate, ZoneOffset}
+import java.time.{Clock, LocalDate, ZoneId, ZoneOffset}
 import forms.behaviours.DateBehaviours
 import play.api.data.FormError
 
+import java.time.format.DateTimeFormatter
+
 class WhenDidYouLastWorkFormProviderSpec extends DateBehaviours {
 
-  val form = new WhenDidYouLastWorkFormProvider()()
+  private val fixedInstant = LocalDate.now.atStartOfDay(ZoneId.systemDefault).toInstant
+  private val clock = Clock.fixed(fixedInstant, ZoneId.systemDefault)
+  private val startDate = LocalDate.now()
+  val form = new WhenDidYouLastWorkFormProvider(clock)(startDate)
+
+  private val minDate = LocalDate.now(clock).minusYears(1)
+  private val maxDate = LocalDate.now(clock)
+
+  private def dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
   ".value" - {
 
     val validData = datesBetween(
-      min = LocalDate.of(2000, 1, 1),
+      min = LocalDate.now().minusYears(1),
       max = LocalDate.now(ZoneOffset.UTC)
     )
 
@@ -35,6 +45,8 @@ class WhenDidYouLastWorkFormProviderSpec extends DateBehaviours {
 
     behave like mandatoryDateField(form, "value", "whenDidYouLastWork.error.required.all")
 
-    behave like dateFieldWithMax(form, "value", LocalDate.now, FormError("value", "whenDidYouLastWork.error.future"))
+    behave like dateFieldWithMax(form, "value", maxDate, FormError("value", "whenDidYouLastWork.error.afterMaximum", Seq(maxDate.format(dateFormatter))))
+
+    behave like dateFieldWithMin(form, "value", minDate, FormError("value", "whenDidYouLastWork.error.beforeMinimum", Seq(minDate.format(dateFormatter))))
   }
 }
