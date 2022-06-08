@@ -11,6 +11,7 @@ GET         /language/:lang                              controllers.LanguageSwi
 GET         /refresh-session                             controllers.KeepAliveController.keepAlive
 
 GET         /there-is-a-problem                          controllers.JourneyRecoveryController.onPageLoad(continueUrl: Option[RedirectUrl] ?= None)
+GET         /start-again                                 controllers.JourneyRecoveryController.onStartAgain
 
 GET         /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
 

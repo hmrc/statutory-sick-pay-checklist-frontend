@@ -84,5 +84,19 @@ class JourneyRecoveryControllerSpec extends SpecBase {
         }
       }
     }
+
+    "start again must create a new session and redirect to index page" in {
+      val application = applicationBuilder(userAnswers = None).build()
+
+      running(application) {
+        val request = FakeRequest(GET, routes.JourneyRecoveryController.onStartAgain.url).withSession("key" -> "value")
+
+        val result = route(application, request).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.IndexController.onPageLoad.url
+        session(result).get("key") must not be defined
+      }
+    }
   }
 }
