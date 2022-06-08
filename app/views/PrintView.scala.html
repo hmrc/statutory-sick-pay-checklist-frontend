@@ -26,7 +26,7 @@
 @inset = {
   <p class="govuk-body">
     @messages("print.p3.pre")
-    <a class="govuk-link" href="#">@messages("print.p3.link")</a>
+    <a class="govuk-link" href="https://www.gov.uk/industrial-injuries-disablement-benefit">@messages("print.p3.link")</a>
     @messages("print.p3.post")
   </p>
 }
@@ -39,9 +39,9 @@
 
   <p class="govuk-body">
     @messages("print.p2.pre")
-    <a class="govuk-link" href="@routes.CheckYourAnswersController.onPageLoad">@messages("print.p2.link.1")</a>
+    <a class="govuk-link" href="@routes.CheckYourAnswersController.onPageLoad.url">@messages("print.p2.link.1")</a>
     @messages("print.p2.or")
-    <a class="govuk-link" href="#">@messages("print.p2.link.2")</a>
+    <a class="govuk-link" href="@routes.IndexController.onPageLoad.url">@messages("print.p2.link.2")</a>
     @messages("print.p2.post")
   </p>
 
@@ -55,9 +55,9 @@
   <p class="govuk-body">@messages("print.p5")</p>
   <p class="govuk-body govuk-!-margin-bottom-9">
     @messages("print.p6.pre")
-    <a class="govuk-link" href="#">@messages("print.p6.link")</a>
+    <a class="govuk-link" href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/statutory-payment-dispute-team">@messages("print.p6.link")</a>
     @messages("print.p6.post")
   </p>
 
-  <a id="download" href="#" class="govuk-button" download>@messages("print.button")</a>
+  <a id="download" href="@routes.PrintController.onDownload.url" class="govuk-button">@messages("print.button")</a>
 }
