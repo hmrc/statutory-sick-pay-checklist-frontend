@@ -120,7 +120,7 @@ detailsOfSickness.title = Enter brief details of your sickness
 detailsOfSickness.heading = Enter brief details of your sickness
 detailsOfSickness.checkYourAnswersLabel = Brief details of your sickness
 detailsOfSickness.error.required = Enter brief details of your sickness
-detailsOfSickness.error.length = Details of your sickness must be 100 characters or less
+detailsOfSickness.error.length = Details of your sickness must be 250 characters or less
 detailsOfSickness.change.hidden = details of your sickness
 
 dateSicknessBegan.title = When did your sickness begin?
