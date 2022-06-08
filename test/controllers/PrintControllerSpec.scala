@@ -26,6 +26,7 @@ import org.mockito.Mockito.{times, verify, when}
 import org.scalatest.EitherValues
 import org.scalatestplus.mockito.MockitoSugar
 import pages._
+import play.api.http.HeaderNames
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -96,6 +97,7 @@ class PrintControllerSpec extends SpecBase with EitherValues with MockitoSugar {
         verify(mockAuditService, times(1)).auditDownload(eqTo(model))(any())
         status(result) mustEqual OK
         contentAsString(result) mustEqual "hello"
+        header(HeaderNames.CONTENT_DISPOSITION, result).value mustEqual "attachment; filename=claim-statutory-sick-pay-sc2.pdf"
       }
     }
 

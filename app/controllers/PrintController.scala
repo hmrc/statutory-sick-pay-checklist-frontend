@@ -54,13 +54,9 @@ class PrintController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
-      JourneyModel.from(request.userAnswers).fold(
-        errors => {
-          println(errors.toChain.toList)
-          Redirect(routes.JourneyRecoveryController.onPageLoad())
-        },
-        model => Ok(view(model))
-      )
+      JourneyModel.from(request.userAnswers).map { model =>
+        Ok(view(model))
+      }.getOrElse(Redirect(routes.JourneyRecoveryController.onPageLoad()))
   }
 
   def onDownload: Action[AnyContent] = (identify andThen getData andThen requireData) {
@@ -69,9 +65,8 @@ class PrintController @Inject()(
         auditService.auditDownload(model)
         val pdf = fop.processTwirlXml(pdfView(model), MimeConstants.MIME_PDF, foUserAgentBlock = userAgentBlock)
         Ok(pdf)
-          .as("application/pdf")
-//          .as("application/octet-stream")
-//          .withHeaders(CONTENT_DISPOSITION -> "attachment; filename=claim-statutory-sick-pay-sc2.pdf")
+          .as("application/octet-stream")
+          .withHeaders(CONTENT_DISPOSITION -> "attachment; filename=claim-statutory-sick-pay-sc2.pdf")
       }.getOrElse(Redirect(routes.JourneyRecoveryController.onPageLoad()))
   }
 }
