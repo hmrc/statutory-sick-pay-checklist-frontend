@@ -18,10 +18,11 @@ package controllers
 
 import controllers.actions._
 import forms.DateSicknessEndedFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.DateSicknessEndedPage
+import pages.{DateSicknessBeganPage, DateSicknessEndedPage}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
@@ -40,33 +41,38 @@ class DateSicknessEndedController @Inject()(
                                         formProvider: DateSicknessEndedFormProvider,
                                         val controllerComponents: MessagesControllerComponents,
                                         view: DateSicknessEndedView
-                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
-
-  def form = formProvider()
+                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with AnswerExtractor {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
+      getAnswer(DateSicknessBeganPage) { startDate =>
+        val form = formProvider(startDate)
 
-      val preparedForm = request.userAnswers.get(DateSicknessEndedPage) match {
-        case None => form
-        case Some(value) => form.fill(value)
+        val preparedForm = request.userAnswers.get(DateSicknessEndedPage) match {
+          case None => form
+          case Some(value) => form.fill(value)
+        }
+
+        Ok(view(preparedForm, mode))
       }
-
-      Ok(view(preparedForm, mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode))),
+      getAnswerAsync(DateSicknessBeganPage) { startDate =>
+        val form = formProvider(startDate)
 
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(DateSicknessEndedPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(DateSicknessEndedPage, mode, updatedAnswers))
-      )
+        form.bindFromRequest().fold(
+          formWithErrors =>
+            Future.successful(BadRequest(view(formWithErrors, mode))),
+
+          value =>
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(DateSicknessEndedPage, value))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(DateSicknessEndedPage, mode, updatedAnswers))
+        )
+      }
   }
 }

@@ -150,7 +150,8 @@ dateSicknessEnded.error.required.all = Enter the date your sickness ended
 dateSicknessEnded.error.required.two = The date must include {0} and {1}
 dateSicknessEnded.error.required = The date must include {0}
 dateSicknessEnded.error.invalid = Enter a real date
-dateSicknessEnded.error.future = The date your sickness ended must be in the past
+dateSicknessEnded.error.beforeMinimum = The date your sickness ended must be on or after {0}
+dateSicknessEnded.error.afterMaximum = The date your sickness ended must be on or before {0}
 dateSicknessEnded.change.hidden = the date your sickness ended
 
 whenDidYouLastWork.title = When did you last work before the sickness began?

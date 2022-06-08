@@ -16,8 +16,6 @@
 
 package controllers
 
-import java.time.{LocalDate, ZoneOffset}
-
 import base.SpecBase
 import forms.DateSicknessEndedFormProvider
 import models.{NormalMode, UserAnswers}
@@ -25,7 +23,7 @@ import navigation.{FakeNavigator, Navigator}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import pages.DateSicknessEndedPage
+import pages.{DateSicknessBeganPage, DateSicknessEndedPage}
 import play.api.inject.bind
 import play.api.mvc.{AnyContentAsEmpty, AnyContentAsFormUrlEncoded, Call}
 import play.api.test.FakeRequest
@@ -33,20 +31,26 @@ import play.api.test.Helpers._
 import repositories.SessionRepository
 import views.html.DateSicknessEndedView
 
+import java.time.{LocalDate, ZoneOffset}
 import scala.concurrent.Future
 
 class DateSicknessEndedControllerSpec extends SpecBase with MockitoSugar {
 
+  val validAnswer = LocalDate.now(ZoneOffset.UTC)
+  val startDate = validAnswer.minusDays(1)
+
   val formProvider = new DateSicknessEndedFormProvider()
-  private def form = formProvider()
+  private val form = formProvider(startDate)
 
   def onwardRoute = Call("GET", "/foo")
-
-  val validAnswer = LocalDate.now(ZoneOffset.UTC)
 
   lazy val dateSicknessEndedRoute = routes.DateSicknessEndedController.onPageLoad(NormalMode).url
 
   override val emptyUserAnswers = UserAnswers(userAnswersId)
+
+  private val baseAnswers =
+    emptyUserAnswers
+      .set(DateSicknessBeganPage, startDate).success.value
 
   def getRequest(): FakeRequest[AnyContentAsEmpty.type] =
     FakeRequest(GET, dateSicknessEndedRoute)
@@ -63,7 +67,7 @@ class DateSicknessEndedControllerSpec extends SpecBase with MockitoSugar {
 
     "must return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
+      val application = applicationBuilder(userAnswers = Some(baseAnswers)).build()
 
       running(application) {
         val result = route(application, getRequest).value
@@ -77,7 +81,7 @@ class DateSicknessEndedControllerSpec extends SpecBase with MockitoSugar {
 
     "must populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(DateSicknessEndedPage, validAnswer).success.value
+      val userAnswers = baseAnswers.set(DateSicknessEndedPage, validAnswer).success.value
 
       val application = applicationBuilder(userAnswers = Some(userAnswers)).build()
 
@@ -98,7 +102,7 @@ class DateSicknessEndedControllerSpec extends SpecBase with MockitoSugar {
       when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
 
       val application =
-        applicationBuilder(userAnswers = Some(emptyUserAnswers))
+        applicationBuilder(userAnswers = Some(baseAnswers))
           .overrides(
             bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
             bind[SessionRepository].toInstance(mockSessionRepository)
@@ -115,7 +119,7 @@ class DateSicknessEndedControllerSpec extends SpecBase with MockitoSugar {
 
     "must return a Bad Request and errors when invalid data is submitted" in {
 
-      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
+      val application = applicationBuilder(userAnswers = Some(baseAnswers)).build()
 
       val request =
         FakeRequest(POST, dateSicknessEndedRoute)
@@ -145,9 +149,33 @@ class DateSicknessEndedControllerSpec extends SpecBase with MockitoSugar {
       }
     }
 
+    "must redirect to Journey Recovery for a GET if no answer for start date is found" in {
+
+      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
+
+      running(application) {
+        val result = route(application, getRequest).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.JourneyRecoveryController.onPageLoad().url
+      }
+    }
+
     "must redirect to Journey Recovery for a POST if no existing data is found" in {
 
       val application = applicationBuilder(userAnswers = None).build()
+
+      running(application) {
+        val result = route(application, postRequest).value
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.JourneyRecoveryController.onPageLoad().url
+      }
+    }
+
+    "must redirect to Journey Recovery for a POST if no answer for start date is found" in {
+
+      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
 
       running(application) {
         val result = route(application, postRequest).value

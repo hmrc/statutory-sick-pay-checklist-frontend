@@ -20,14 +20,19 @@ import java.time.{LocalDate, ZoneOffset}
 import forms.behaviours.DateBehaviours
 import play.api.data.FormError
 
+import java.time.format.DateTimeFormatter
+
 class DateSicknessEndedFormProviderSpec extends DateBehaviours {
 
-  val form = new DateSicknessEndedFormProvider()()
+  private val startDate = LocalDate.now().minusDays(5)
+  val form = new DateSicknessEndedFormProvider()(startDate)
+
+  private def dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
   ".value" - {
 
     val validData = datesBetween(
-      min = LocalDate.of(2000, 1, 1),
+      min = LocalDate.now().minusDays(5),
       max = LocalDate.now(ZoneOffset.UTC)
     )
 
@@ -35,6 +40,8 @@ class DateSicknessEndedFormProviderSpec extends DateBehaviours {
 
     behave like mandatoryDateField(form, "value", "dateSicknessEnded.error.required.all")
 
-    behave like dateFieldWithMax(form, "value", LocalDate.now, FormError("value", "dateSicknessEnded.error.future"))
+    behave like dateFieldWithMax(form, "value", LocalDate.now, FormError("value", "dateSicknessEnded.error.afterMaximum", Seq(LocalDate.now().format(dateFormatter))))
+
+    behave like dateFieldWithMin(form, "value", LocalDate.now().minusDays(5), FormError("value", "dateSicknessEnded.error.beforeMinimum", Seq(startDate.format(dateFormatter))))
   }
 }
