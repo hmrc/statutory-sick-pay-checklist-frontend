@@ -54,6 +54,9 @@ index.furtherInformation.heading = Further information
 
 checkYourAnswers.title = Check Your Answers
 checkYourAnswers.heading = Check Your Answers
+checkYourAnswers.beforeYouContinue = Before you continue
+checkYourAnswers.byContinuing = By continuing this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
+checkYourAnswers.acceptAndContinue = Accept and continue
 
 journeyRecovery.continue.title = Sorry, there is a problem with the service
 journeyRecovery.continue.heading = Sorry, there is a problem with the service
