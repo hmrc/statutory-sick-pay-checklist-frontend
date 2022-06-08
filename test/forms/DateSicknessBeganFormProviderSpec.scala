@@ -16,25 +16,44 @@
 
 package forms
 
-import java.time.{LocalDate, ZoneOffset}
+import java.time.{Clock, LocalDate, ZoneId, ZoneOffset}
 import forms.behaviours.DateBehaviours
 import play.api.data.FormError
 
+import java.time.format.DateTimeFormatter
+
 class DateSicknessBeganFormProviderSpec extends DateBehaviours {
 
-  val form = new DateSicknessBeganFormProvider()()
+  private val fixedInstant = LocalDate.now.atStartOfDay(ZoneId.systemDefault).toInstant
+  private val clock = Clock.fixed(fixedInstant, ZoneId.systemDefault)
+  val form = new DateSicknessBeganFormProvider(clock)()
+
+  private val minDate = LocalDate.now(clock).minusYears(1)
+  private val maxDate = LocalDate.now(clock)
+
+  private def dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
   ".value" - {
 
     val validData = datesBetween(
-      min = LocalDate.of(2000, 1, 1),
-      max = LocalDate.now(ZoneOffset.UTC)
+      min = LocalDate.now().minusYears(1),
+      max = LocalDate.now()
     )
 
     behave like dateField(form, "value", validData)
 
-    behave like mandatoryDateField(form, "value", "dateSicknessBegan.error.required.all")
+    behave like dateFieldWithMax(
+      form      = form,
+      key       = "value",
+      max       = maxDate,
+      formError = FormError("value", "dateSicknessBegan.error.afterMaximum", Seq(maxDate.format(dateFormatter)))
+    )
 
-    behave like dateFieldWithMax(form, "value", LocalDate.now, FormError("value", "dateSicknessBegan.error.future"))
+    behave like dateFieldWithMin(
+      form      = form,
+      key       = "value",
+      min       = minDate,
+      formError = FormError("value", "dateSicknessBegan.error.beforeMinimum", Seq(minDate.format(dateFormatter)))
+    )
   }
 }
