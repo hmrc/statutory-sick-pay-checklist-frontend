@@ -1,0 +1,199 @@
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this()
+
+@(model: JourneyModel)(implicit request: RequestHeader, messages: Messages)
+
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:fox="http://xmlgraphics.apache.org/fop/extensions" font-family="sans-serif">
+
+    <fo:layout-master-set>
+        <fo:simple-page-master master-name="main" page-height="297mm" page-width="210mm" margin="2cm">
+            <fo:region-body region-name="xsl-region-body" margin-top="3cm"/>
+            <fo:region-before region-name="xsl-region-before"/>
+            <fo:region-after region-name="xsl-region-after"/>
+        </fo:simple-page-master>
+    </fo:layout-master-set>
+
+    <fo:page-sequence master-reference="main">
+
+        <!-- Header -->
+        <fo:static-content flow-name="xsl-region-before">
+            <fo:block>
+                <fo:external-graphic src="url(conf/resources/logo.jpg)" padding-right="1cm" fox:alt-text="HM Revenue and Customs logo" />
+                <fo:block margin-left="3cm" margin-top="-1.25cm" text-align="right" font-size="16pt" font-weight="bold">@messages("pdf.title")</fo:block>
+            </fo:block>
+        </fo:static-content>
+
+        <!-- Body -->
+        <fo:flow flow-name="xsl-region-body">
+            <fo:block-container>
+
+                <!-- Personal Details -->
+                <fo:block font-size="18pt" font-weight="bold" margin-bottom="5mm">@messages("section.personalDetails")</fo:block>
+
+                <fo:block-container>
+
+                    <!-- Name -->
+                    <fo:block-container margin-bottom="3mm">
+                        <fo:block>
+                            <fo:inline font-weight="bold">@messages("pdf.name"): </fo:inline>
+                            <fo:inline>@model.firstName @model.surname</fo:inline>
+                        </fo:block>
+                    </fo:block-container>
+
+                    <!-- Nino -->
+                    @model.nino.map { nino =>
+                    <fo:block-container margin-bottom="3mm">
+                        <fo:block>
+                            <fo:inline font-weight="bold">@messages("pdf.nino"): </fo:inline>
+                            <fo:inline>@nino</fo:inline>
+                        </fo:block>
+                    </fo:block-container>
+                    }
+
+                    <!-- Date of birth -->
+                    <fo:block-container margin-bottom="3mm">
+                        <fo:block>
+                            <fo:inline font-weight="bold">@messages("pdf.dob"): </fo:inline>
+                            <fo:inline>@govUkDateFormat(model.dob)</fo:inline>
+                        </fo:block>
+                    </fo:block-container>
+
+                    <!-- Telephone number -->
+                    <fo:block-container margin-bottom="3mm">
+                        <fo:block>
+                            <fo:inline font-weight="bold">@messages("pdf.telephone"): </fo:inline>
+                            <fo:inline>@model.telephoneNumber</fo:inline>
+                        </fo:block>
+                    </fo:block-container>
+
+                </fo:block-container>
+
+                <!-- Sickness Details -->
+                <fo:block font-size="18pt" font-weight="bold" margin-bottom="5mm" margin-top="7mm">@messages("section.sicknessDetails")</fo:block>
+
+                <fo:block-container>
+
+                    <!-- Details of sickness -->
+                    <fo:block-container margin-bottom="3mm">
+                        <fo:block>
+                            <fo:inline font-weight="bold">@messages("pdf.sicknessDetails"): </fo:inline>
+                            <fo:block margin-left="5mm">@model.sicknessDetails</fo:block>
+                        </fo:block>
+                    </fo:block-container>
+
+                    <!-- Sickness start -->
+                    <fo:block-container margin-bottom="3mm">
+                        <fo:block>
+                            <fo:inline font-weight="bold">@messages("pdf.sicknessStart"): </fo:inline>
+                            <fo:inline>@govUkDateFormat(model.sicknessStartDate)</fo:inline>
+                        </fo:block>
+                    </fo:block-container>
+
+                    <!-- Sickness end -->
+                    @model.sicknessEndDate.map { sicknessEndDate =>
+                    <fo:block-container margin-bottom="3mm">
+                        <fo:block>
+                            <fo:inline font-weight="bold">@messages("pdf.sicknessEnd"): </fo:inline>
+                            <fo:inline>@govUkDateFormat(sicknessEndDate)</fo:inline>
+                        </fo:block>
+                    </fo:block-container>
+                    }
+
+                    <!-- Caused by industrial disease or accident -->
+                    <fo:block-container margin-bottom="3mm">
+                        <fo:block>
+                            <fo:inline font-weight="bold">@messages("pdf.industrialDiseaseOrAccident"): </fo:inline>
+                            <fo:inline>@messages(s"pdf.boolean.${model.causedByIndustrialDiseaseOrAccident}")</fo:inline>
+                        </fo:block>
+                    </fo:block-container>
+
+                </fo:block-container>
+
+                <!-- Employment Details -->
+                <fo:block font-size="18pt" font-weight="bold" margin-bottom="5mm" margin-top="7mm">@messages("section.employmentDetails")</fo:block>
+
+                <fo:block-container>
+
+                    <!-- Last working date -->
+                    <fo:block-container margin-bottom="3mm">
+                        <fo:block>
+                            <fo:inline font-weight="bold">@messages("pdf.lastWorkingDate"): </fo:inline>
+                            <fo:inline>@govUkDateFormat(model.whenDidYouLastWork)</fo:inline>
+                        </fo:block>
+                    </fo:block-container>
+
+                    <!-- Finishing time on last working day -->
+                    <fo:block-container margin-bottom="3mm">
+                        <fo:block>
+                            <fo:inline font-weight="bold">@messages("pdf.finishingTime", govUkDateFormat(model.whenDidYouLastWork)): </fo:inline>
+                            <fo:inline>@model.whatTimeDidYouFinish</fo:inline>
+                        </fo:block>
+                    </fo:block-container>
+
+                    <!-- Payroll Clock Number -->
+                    @model.payrollOrClockNumber.map { payrollOrClockNumber =>
+                    <fo:block-container margin-bottom="3mm">
+                        <fo:block>
+                            <fo:inline font-weight="bold">@messages("pdf.payrollOrClockNumber"): </fo:inline>
+                            <fo:inline>@payrollOrClockNumber</fo:inline>
+                        </fo:block>
+                    </fo:block-container>
+                    }
+
+                </fo:block-container>
+
+            </fo:block-container>
+        </fo:flow>
+
+    </fo:page-sequence>
+
+    <fo:page-sequence master-reference="main">
+
+        <!-- Header -->
+        <fo:static-content flow-name="xsl-region-before">
+            <fo:block>
+                <fo:external-graphic src="url(conf/resources/logo.jpg)" padding-right="1cm" fox:alt-text="HM Revenue and Customs logo" />
+                <fo:block margin-left="3cm" margin-top="-1.25cm" text-align="right" font-size="16pt" font-weight="bold">@messages("pdf.title")</fo:block>
+            </fo:block>
+        </fo:static-content>
+
+        <!-- Instructions -->
+        <fo:flow flow-name="xsl-region-body">
+            <fo:block font-size="18pt" font-weight="bold" margin-bottom="5mm">@messages("print.whatHappensNext")</fo:block>
+
+            @if(model.causedByIndustrialDiseaseOrAccident) {
+                <fo:block margin-bottom="5mm" margin-left="0" padding-left="5mm" border-left="2mm solid #b1b4b6">
+                    <fo:inline>@messages("print.p3.pre")</fo:inline>
+                    <fo:basic-link external-destination="https://www.gov.uk/industrial-injuries-disablement-benefit" text-decoration="underline">@messages("print.p3.link")</fo:basic-link>
+                    <fo:inline>(https://www.gov.uk/industrial-injuries-disablement-benefit)</fo:inline>
+                    <fo:inline>@messages("print.p3.post")</fo:inline>
+                </fo:block>
+            }
+
+            <fo:block margin-bottom="3mm">@messages("print.p4")</fo:block>
+            <fo:block margin-bottom="3mm">@messages("print.p5")</fo:block>
+            <fo:block margin-bottom="3mm">
+                <fo:inline>@messages("print.p6.pre")</fo:inline>
+                <fo:basic-link external-destination="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/statutory-payment-dispute-team" text-decoration="underline">@messages("print.p6.link")</fo:basic-link>
+                <fo:inline>(https://www.gov.uk/government/organisations/hm-revenue-customs/contact/statutory-payment-dispute-team)</fo:inline><fo:inline>@messages("print.p6.post")</fo:inline>
+            </fo:block>
+        </fo:flow>
+
+    </fo:page-sequence>
+
+</fo:root>
