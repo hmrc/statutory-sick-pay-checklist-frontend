@@ -16,11 +16,11 @@
 
 package forms
 
-import java.time.{Clock, LocalDate, ZoneId, ZoneOffset}
 import forms.behaviours.DateBehaviours
 import play.api.data.FormError
 
 import java.time.format.DateTimeFormatter
+import java.time.{Clock, LocalDate, ZoneId}
 
 class DateSicknessBeganFormProviderSpec extends DateBehaviours {
 
@@ -55,5 +55,7 @@ class DateSicknessBeganFormProviderSpec extends DateBehaviours {
       min       = minDate,
       formError = FormError("value", "dateSicknessBegan.error.beforeMinimum", Seq(minDate.format(dateFormatter)))
     )
+
+    behave like mandatoryDateField(form, "value", "dateSicknessBegan.error.required.all")
   }
 }

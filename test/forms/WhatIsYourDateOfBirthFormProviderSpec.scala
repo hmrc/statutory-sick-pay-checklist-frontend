@@ -55,5 +55,7 @@ class WhatIsYourDateOfBirthFormProviderSpec extends DateBehaviours {
       min       = minDate,
       formError = FormError("value", "whatIsYourDateOfBirth.error.beforeMinimum", Seq(minDate.format(dateFormatter)))
     )
+
+    behave like mandatoryDateField(form, "value", "whatIsYourDateOfBirth.error.required.all")
   }
 }
