@@ -159,6 +159,25 @@ class NavigatorSpec extends SpecBase {
         }
       }
 
+      "must go from the date sickness began page" - {
+
+        "to the date sickness ended page when the user has selected yes for the has sickness ended page but has no answer for the date sickness ended page" in {
+          fail
+        }
+
+        "to the check your answers page when the user has selected yes for the has sickness ended page and has an answer for the date sickness ened page" in {
+          fail
+        }
+
+        "to the check your answers page when the user has selected no for the has sickness ended page" in {
+          fail
+        }
+
+        "to the journey recovery page when the user has no answer" in {
+          fail
+        }
+      }
+
       "must go from the has sickness ended page" - {
 
         "to the date sickness ended page when the user selects yes" in {

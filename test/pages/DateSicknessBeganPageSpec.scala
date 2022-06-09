@@ -16,12 +16,14 @@
 
 package pages
 
-import java.time.LocalDate
+import models.UserAnswers
 
+import java.time.LocalDate
 import org.scalacheck.Arbitrary
+import org.scalatest.TryValues
 import pages.behaviours.PageBehaviours
 
-class DateSicknessBeganPageSpec extends PageBehaviours {
+class DateSicknessBeganPageSpec extends PageBehaviours with TryValues {
 
   "DateSicknessBeganPage" - {
 
@@ -34,5 +36,19 @@ class DateSicknessBeganPageSpec extends PageBehaviours {
     beSettable[LocalDate](DateSicknessBeganPage)
 
     beRemovable[LocalDate](DateSicknessBeganPage)
+
+    "must remove DateSicknessEnded page if it is before this date" in {
+      val answers = UserAnswers("id")
+        .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 1)).success.value
+        .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
+      answers.get(DateSicknessEndedPage) mustBe empty
+    }
+
+    "must not remove DateSicknessEnded page if it is not before this date" in {
+      val answers = UserAnswers("id")
+        .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 1)).success.value
+        .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 1)).success.value
+      answers.get(DateSicknessEndedPage).value mustEqual LocalDate.of(2022, 2, 1)
+    }
   }
 }

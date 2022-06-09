@@ -16,13 +16,23 @@
 
 package pages
 
-import java.time.LocalDate
+import models.UserAnswers
 
+import java.time.LocalDate
 import play.api.libs.json.JsPath
+
+import scala.util.Try
 
 case object DateSicknessBeganPage extends QuestionPage[LocalDate] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "dateSicknessBegan"
+
+  override def cleanup(value: Option[LocalDate], userAnswers: UserAnswers): Try[UserAnswers] = {
+    for {
+      startDate <- value
+      endDate   <- userAnswers.get(DateSicknessEndedPage)
+    } yield if (endDate isBefore startDate) userAnswers.remove(DateSicknessEndedPage) else super.cleanup(value, userAnswers)
+  }.getOrElse(super.cleanup(value, userAnswers))
 }
