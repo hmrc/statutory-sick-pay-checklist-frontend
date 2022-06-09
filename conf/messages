@@ -1,4 +1,4 @@
-service.name = Ask your employer for statutory sick pay
+service.name = Ask your employer for Statutory Sick Pay
 
 site.back = Back
 site.remove = Remove
@@ -40,15 +40,15 @@ error.number = Please enter a valid number
 error.required = Please enter a value
 error.summary.title = There is a problem
 
-index.title = Ask your employer for statutory sick pay
-index.heading = Ask your employer for statutory sick pay
-index.p1 = You may use this form to ask your employer for statutory sick pay (SSP). You must have been off work due to sickness for more than 3 days in a row to be eligible.
+index.title = Ask your employer for Statutory Sick Pay
+index.heading = Ask your employer for Statutory Sick Pay
+index.p1 = You may use this form to ask your employer for Statutory Sick Pay (SSP). You must have been off work due to sickness for more than 3 days in a row to be eligible.
 index.p2 = If you are off work for more than 7 days in a row due to sickness, you must also give your employer a fit note (sometimes known as a sick note). You should count non-working days, including weekends and bank holidays.
 index.p3.1 = You can find out how much you can receive and eligibility on the
 index.p3.a = Statutory Sick Pay guidance page
 index.p3.2 = .
 index.beforeYouStart.heading = Before you start
-index.beforeYouStart.p1 = You should check your employment contract to ensure you are following any agreed sickness procedure. Your employer may give you extra sick pay on top of statutory sick pay if you do this.
+index.beforeYouStart.p1 = You should check your employment contract to ensure you are following any agreed sickness procedure. Your employer may give you extra sick pay on top of Statutory Sick Pay if you do this.
 index.beforeYouStart.p2 = Once you have completed the form, you will need to download it and send it to your employer. If you are sending it in the post, you will need a printer.
 index.furtherInformation.heading = Further information
 
@@ -207,7 +207,7 @@ print.p3.pre = You may be able to get Industrial Injuries Disablement Benefit. I
 print.p3.link = Industrial Injuries Disablement Benefit
 print.p3.post = guidance.
 print.whatHappensNext = What happens next
-print.p4 = Your employer will use this information to assess your eligibility for statutory sick pay (SSP). If your request is approved, you will receive your SSP from your employer.
+print.p4 = Your employer will use this information to assess your eligibility for Statutory Sick Pay (SSP). If your request is approved, you will receive your SSP from your employer.
 print.p5 = If your employer does not approve your request, they must give you an SSP1 form to tell you why. You can use the SSP1 form to support a claim for Employment and Support Allowance.
 print.p6.pre = If you disagree with your employer''s decision you can contact the
 print.p6.link = Statutory Payments Dispute Team
