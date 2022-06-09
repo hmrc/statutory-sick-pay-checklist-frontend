@@ -16,8 +16,7 @@
 
 package controllers
 
-import java.time.{LocalDate, ZoneOffset}
-
+import java.time.{Clock, LocalDate, ZoneId, ZoneOffset}
 import base.SpecBase
 import forms.DateSicknessBeganFormProvider
 import models.{NormalMode, UserAnswers}
@@ -37,12 +36,15 @@ import scala.concurrent.Future
 
 class DateSicknessBeganControllerSpec extends SpecBase with MockitoSugar {
 
-  val formProvider = new DateSicknessBeganFormProvider()
+  private val fixedInstant = LocalDate.now.atStartOfDay(ZoneId.systemDefault).toInstant
+  private val clock = Clock.fixed(fixedInstant, ZoneId.systemDefault)
+
+  val formProvider = new DateSicknessBeganFormProvider(clock)
   private def form = formProvider()
 
   def onwardRoute = Call("GET", "/foo")
 
-  val validAnswer = LocalDate.now(ZoneOffset.UTC)
+  val validAnswer = LocalDate.now(ZoneOffset.UTC).minusMonths(1)
 
   lazy val dateSicknessBeganRoute = routes.DateSicknessBeganController.onPageLoad(NormalMode).url
 

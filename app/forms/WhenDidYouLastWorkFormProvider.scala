@@ -16,21 +16,30 @@
 
 package forms
 
-import java.time.LocalDate
-
+import java.time.{Clock, LocalDate}
 import forms.mappings.Mappings
+
 import javax.inject.Inject
 import play.api.data.Form
 
-class WhenDidYouLastWorkFormProvider @Inject() extends Mappings {
+import java.time.format.DateTimeFormatter
 
-  def apply(): Form[LocalDate] =
+class WhenDidYouLastWorkFormProvider @Inject()(clock: Clock) extends Mappings {
+
+  val minDate: LocalDate = LocalDate.now(clock).minusYears(1)
+
+  private def dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
+
+  def apply(startDate: LocalDate): Form[LocalDate] =
     Form(
       "value" -> localDate(
         invalidKey     = "whenDidYouLastWork.error.invalid",
         allRequiredKey = "whenDidYouLastWork.error.required.all",
         twoRequiredKey = "whenDidYouLastWork.error.required.two",
         requiredKey    = "whenDidYouLastWork.error.required"
-      ).verifying(maxDate(LocalDate.now, "whenDidYouLastWork.error.future"))
+      ).verifying(
+        maxDate(startDate, "whenDidYouLastWork.error.afterMaximum", startDate.format(dateFormatter)),
+        minDate(minDate, "whenDidYouLastWork.error.beforeMinimum", minDate.format(dateFormatter))
+      )
     )
 }

@@ -17,20 +17,27 @@
 package forms
 
 import java.time.LocalDate
-
 import forms.mappings.Mappings
+
 import javax.inject.Inject
 import play.api.data.Form
 
+import java.time.format.DateTimeFormatter
+
 class DateSicknessEndedFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[LocalDate] =
+  private def dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
+
+  def apply(startDate: LocalDate): Form[LocalDate] =
     Form(
       "value" -> localDate(
         invalidKey     = "dateSicknessEnded.error.invalid",
         allRequiredKey = "dateSicknessEnded.error.required.all",
         twoRequiredKey = "dateSicknessEnded.error.required.two",
         requiredKey    = "dateSicknessEnded.error.required"
-      ).verifying(maxDate(LocalDate.now, "dateSicknessEnded.error.future"))
+      ).verifying(
+        minDate(startDate, "dateSicknessEnded.error.beforeMinimum", dateFormatter.format(startDate)),
+        maxDate(LocalDate.now, "dateSicknessEnded.error.afterMaximum", dateFormatter.format(LocalDate.now()))
+      )
     )
 }
