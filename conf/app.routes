@@ -71,10 +71,10 @@ POST       /when-did-you-last-work                  controllers.WhenDidYouLastWo
 GET        /change-when-you-last-worked                        controllers.WhenDidYouLastWorkController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-when-you-last-worked                        controllers.WhenDidYouLastWorkController.onSubmit(mode: Mode = CheckMode)
 
-GET        /whatTimeDidYouFinish                        controllers.WhatTimeDidYouFinishController.onPageLoad(mode: Mode = NormalMode)
-POST       /whatTimeDidYouFinish                        controllers.WhatTimeDidYouFinishController.onSubmit(mode: Mode = NormalMode)
-GET        /changeWhatTimeDidYouFinish                  controllers.WhatTimeDidYouFinishController.onPageLoad(mode: Mode = CheckMode)
-POST       /changeWhatTimeDidYouFinish                  controllers.WhatTimeDidYouFinishController.onSubmit(mode: Mode = CheckMode)
+GET        /what-time-did-you-finish                        controllers.WhatTimeDidYouFinishController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-time-did-you-finish                        controllers.WhatTimeDidYouFinishController.onSubmit(mode: Mode = NormalMode)
+GET        /change-what-time-you-finished                  controllers.WhatTimeDidYouFinishController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-what-time-you-finished                  controllers.WhatTimeDidYouFinishController.onSubmit(mode: Mode = CheckMode)
 
 GET        /caused-by-accident-or-industrial-disease                        controllers.CausedByAccidentOrIndustrialDiseaseController.onPageLoad(mode: Mode = NormalMode)
 POST       /caused-by-accident-or-industrial-disease                        controllers.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode: Mode = NormalMode)
