@@ -21,6 +21,7 @@ import models.{CheckMode, UserAnswers}
 import pages.DetailsOfSicknessPage
 import play.api.i18n.Messages
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.Aliases.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import viewmodels.govuk.summarylist._
 import viewmodels.implicits._
@@ -33,7 +34,7 @@ object DetailsOfSicknessSummary  {
 
         SummaryListRowViewModel(
           key     = "detailsOfSickness.checkYourAnswersLabel",
-          value   = ValueViewModel(HtmlFormat.escape(answer).toString),
+          value   = ValueViewModel(Text(answer)),
           actions = Seq(
             ActionItemViewModel("site.change", routes.DetailsOfSicknessController.onPageLoad(CheckMode).url)
               .withVisuallyHiddenText(messages("detailsOfSickness.change.hidden"))
