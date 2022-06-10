@@ -52,8 +52,8 @@ index.beforeYouStart.p1 = You should check your employment contract to ensure yo
 index.beforeYouStart.p2 = Once you have completed the form, you will need to download it and send it to your employer. If you are sending it in the post, you will need a printer.
 index.furtherInformation.heading = Further information
 
-checkYourAnswers.title = Check Your Answers
-checkYourAnswers.heading = Check Your Answers
+checkYourAnswers.title = Check your answers
+checkYourAnswers.heading = Check your answers
 checkYourAnswers.beforeYouContinue = Before you continue
 checkYourAnswers.byContinuing = By continuing this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
 checkYourAnswers.acceptAndContinue = Accept and continue
@@ -187,6 +187,7 @@ phoneNumber.checkYourAnswersLabel = What is your telephone number?
 phoneNumber.error.required = Enter your telephone number
 phoneNumber.error.invalid = Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
 phoneNumber.change.hidden = your telephone number
+phoneNumber.hint = Your employer may use this to contact you about your sickness.
 
 doYouKnowYourNationalInsuranceNumber.title = Do you know your National Insurance number?
 doYouKnowYourNationalInsuranceNumber.heading = Do you know your National Insurance number?
@@ -211,7 +212,7 @@ print.p4 = Your employer will use this information to assess your eligibility fo
 print.p5 = If your employer does not approve your request, they must give you an SSP1 form to tell you why. You can use the SSP1 form to support a claim for Employment and Support Allowance.
 print.p6.pre = If you disagree with your employer''s decision you can contact the
 print.p6.link = Statutory Payments Dispute Team
-print.p6.post = . You must do this within 6 months of the day you were notified of your employer''s decision
+print.p6.post = . You must do this within 6 months of the day you were notified of your employer''s decision.
 print.button = Download form
 
 pdf.title = Employee’s statement of sickness to claim Statutory Sick Pay (SC2)
