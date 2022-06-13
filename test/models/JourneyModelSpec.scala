@@ -43,7 +43,7 @@ class JourneyModelSpec extends AnyFreeSpec with Matchers with OptionValues with 
         .set(HasSicknessEndedPage, true).success.value
         .set(DateSicknessEndedPage, LocalDate.of(2000, 4, 3)).success.value
         .set(WhenDidYouLastWorkPage, LocalDate.of(2000, 2, 1)).success.value
-        .set(WhatTimeDidYouFinishPage, "12:00pm").success.value
+        .set(WhatTimeDidYouFinishPage, WhatTimeDidYouFinish(12, 0, "pm")).success.value
         .set(CausedByAccidentOrIndustrialDiseasePage, true).success.value
 
       val expected = JourneyModel(
@@ -57,7 +57,7 @@ class JourneyModelSpec extends AnyFreeSpec with Matchers with OptionValues with 
         sicknessStartDate = LocalDate.of(2000, 3, 2),
         sicknessEndDate = Some(LocalDate.of(2000, 4, 3)),
         whenDidYouLastWork = LocalDate.of(2000, 2, 1),
-        whatTimeDidYouFinish = "12:00pm",
+        whatTimeDidYouFinish = WhatTimeDidYouFinish(12, 0, "pm"),
         causedByIndustrialDiseaseOrAccident = true
       )
 
@@ -76,7 +76,7 @@ class JourneyModelSpec extends AnyFreeSpec with Matchers with OptionValues with 
         .set(DateSicknessBeganPage, LocalDate.of(2000, 3, 2)).success.value
         .set(HasSicknessEndedPage, false).success.value
         .set(WhenDidYouLastWorkPage, LocalDate.of(2000, 2, 1)).success.value
-        .set(WhatTimeDidYouFinishPage, "12:00pm").success.value
+        .set(WhatTimeDidYouFinishPage, WhatTimeDidYouFinish(12, 0, "pm")).success.value
         .set(CausedByAccidentOrIndustrialDiseasePage, true).success.value
 
       val expected = JourneyModel(
@@ -90,7 +90,7 @@ class JourneyModelSpec extends AnyFreeSpec with Matchers with OptionValues with 
         sicknessStartDate = LocalDate.of(2000, 3, 2),
         sicknessEndDate = None,
         whenDidYouLastWork = LocalDate.of(2000, 2, 1),
-        whatTimeDidYouFinish = "12:00pm",
+        whatTimeDidYouFinish = WhatTimeDidYouFinish(12, 0, "pm"),
         causedByIndustrialDiseaseOrAccident = true
       )
 

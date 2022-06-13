@@ -18,7 +18,7 @@ package controllers
 
 import base.SpecBase
 import forms.WhatTimeDidYouFinishFormProvider
-import models.{NormalMode, UserAnswers}
+import models.{NormalMode, UserAnswers, WhatTimeDidYouFinish}
 import navigation.{FakeNavigator, Navigator}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
@@ -65,7 +65,7 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
 
     "must populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = userAnswersWithDate.set(WhatTimeDidYouFinishPage, "10:00am").success.value
+      val userAnswers = userAnswersWithDate.set(WhatTimeDidYouFinishPage, WhatTimeDidYouFinish(10, 0, "am")).success.value
 
       val application = applicationBuilder(userAnswers = Some(userAnswers)).build()
 
@@ -77,7 +77,7 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
         val result = route(application, request).value
 
         status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form.fill("10:00am"), lastWorkedDate, NormalMode)(request, messages(application)).toString
+        contentAsString(result) mustEqual view(form.fill(WhatTimeDidYouFinish(10, 0, "am")), lastWorkedDate, NormalMode)(request, messages(application)).toString
       }
     }
 
@@ -98,7 +98,11 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
       running(application) {
         val request =
           FakeRequest(POST, whatTimeDidYouFinishRoute)
-            .withFormUrlEncodedBody(("value", "10:00am"))
+            .withFormUrlEncodedBody(
+              "time-finished-hour" -> "10",
+              "time-finished-minute" -> "0",
+              "time-finished-ampm" -> "am"
+            )
 
         val result = route(application, request).value
 

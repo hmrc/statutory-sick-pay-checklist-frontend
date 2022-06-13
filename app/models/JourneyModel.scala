@@ -35,7 +35,7 @@ final case class JourneyModel(
                                sicknessStartDate: LocalDate,
                                sicknessEndDate: Option[LocalDate],
                                whenDidYouLastWork: LocalDate,
-                               whatTimeDidYouFinish: String,
+                               whatTimeDidYouFinish: WhatTimeDidYouFinish,
                                causedByIndustrialDiseaseOrAccident: Boolean
                              )
 

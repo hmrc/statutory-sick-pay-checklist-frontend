@@ -16,54 +16,114 @@
 
 package forms
 
-import forms.behaviours.StringFieldBehaviours
+import forms.behaviours.{IntFieldBehaviours, StringFieldBehaviours}
+import org.scalacheck.{Arbitrary, Gen, Shrink}
 import play.api.data.FormError
 
-class WhatTimeDidYouFinishFormProviderSpec extends StringFieldBehaviours {
-
-  val requiredKey = "whatTimeDidYouFinish.error.required"
-  val morningOrAfternoonErrorKey = "whatTimeDidYouFinish.error.morningOrAfternoon"
-  val formatErrorKey = "whatTimeDidYouFinish.error.format"
+class WhatTimeDidYouFinishFormProviderSpec extends StringFieldBehaviours with IntFieldBehaviours {
 
   val form = new WhatTimeDidYouFinishFormProvider()()
 
-  ".value" - {
+  ".time-finished-hour" - {
 
-    val fieldName = "value"
+    val fieldName = "time-finished-hour"
+    val requiredKey = "whatTimeDidYouFinish.time-finished-hour.error.required"
+    val rangeKey = "whatTimeDidYouFinish.time-finished-hour.error.range"
+    val nonNumericKey = "whatTimeDidYouFinish.time-finished-hour.error.numeric"
+    val wholeNumberKey = "whatTimeDidYouFinish.time-finished-hour.error.wholeNumber"
 
-    "must bind valid values" in {
-      val validCases = List("9am", "9:30am", "12:15pm", "6 pm", "10 p.m.", "10 p.m", "10 a.m", "9.15pm", "3 20am", "09:29am", "11 59 pm", "0:12a.m.", "00:39pm", "12:00am", "11:01pm", "12Am", "12PM", "12:01 aM")
-      validCases.foreach {
-        validCase =>
-          val result = form.bind(Map(fieldName -> validCase)).apply(fieldName)
-          result.value.value mustBe validCase
-          result.errors mustBe empty
-      }
-    }
+    behave like fieldThatBindsValidData(
+      form,
+      fieldName,
+      Gen.oneOf(List("9", "09", "12"))
+    )
 
-    "must not bind values missing am/pm" in {
-      val missingAmPm = List("9", "10", "11:00", "12:15", "1 00", "10.30")
-      missingAmPm.foreach {
-        invalidCase =>
-          val result = form.bind(Map(fieldName -> invalidCase)).apply(fieldName)
-          result.errors mustBe Seq(FormError("value", morningOrAfternoonErrorKey, Seq(invalidCase)))
-      }
-    }
+    behave like intField(
+      form,
+      fieldName,
+      FormError(fieldName, nonNumericKey),
+      FormError(fieldName, wholeNumberKey)
+    )
 
-    "must not bind values in the wrong format" in {
-      val invalidFormat = List("23:00am", "am", "pm", "21am", "21:00pm", "20am", "1234pm", "aa:bbam")
-      invalidFormat.foreach {
-        invalidCase =>
-          val result = form.bind(Map(fieldName -> invalidCase)).apply(fieldName)
-          result.errors mustBe Seq(FormError("value", formatErrorKey, Seq(invalidCase)))
-      }
-    }
+    behave like intFieldWithRange(
+      form,
+      fieldName,
+      1,
+      12,
+      FormError(fieldName, rangeKey, Seq(1, 12))
+    )
 
     behave like mandatoryField(
       form,
       fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+      FormError(fieldName, requiredKey)
+    )
+  }
+
+  ".time-finished-minute" - {
+
+    val fieldName = "time-finished-minute"
+    val requiredKey = "whatTimeDidYouFinish.time-finished-minute.error.required"
+    val rangeKey = "whatTimeDidYouFinish.time-finished-minute.error.range"
+    val nonNumericKey = "whatTimeDidYouFinish.time-finished-minute.error.numeric"
+    val wholeNumberKey = "whatTimeDidYouFinish.time-finished-minute.error.wholeNumber"
+
+    behave like fieldThatBindsValidData(
+      form,
+      fieldName,
+      Gen.oneOf(List("0", "09", "9", "00"))
     )
 
+    behave like intField(
+      form,
+      fieldName,
+      FormError(fieldName, nonNumericKey),
+      FormError(fieldName, wholeNumberKey)
+    )
+
+    behave like intFieldWithRange(
+      form,
+      fieldName,
+      0,
+      59,
+      FormError(fieldName, rangeKey, Seq(0, 59))
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      FormError(fieldName, requiredKey)
+    )
+  }
+
+  ".time-finished-ampm" - {
+
+    val fieldName = "time-finished-ampm"
+    val requiredKey = "whatTimeDidYouFinish.time-finished-ampm.error.required"
+    val invalidKey = "whatTimeDidYouFinish.time-finished-ampm.error.invalid"
+
+    behave like fieldThatBindsValidData(
+      form,
+      fieldName,
+      Gen.oneOf(List("am", "pm"))
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      FormError(fieldName, requiredKey)
+    )
+
+    "must fail to bind value that is not am or pm" in {
+
+      val gen = nonEmptyString
+        .suchThat(_ !== "am")
+        .suchThat(_ !== "pm")
+
+      forAll(gen) { value =>
+        val errors = form.bind(Map(fieldName -> value))(fieldName).errors
+        errors must contain (FormError(fieldName, invalidKey))
+      }
+    }
   }
 }

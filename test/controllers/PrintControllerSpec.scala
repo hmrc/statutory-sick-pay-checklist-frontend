@@ -19,7 +19,7 @@ package controllers
 import audit.AuditService
 import base.SpecBase
 import com.dmanchester.playfop.sapi.PlayFop
-import models.{JourneyModel, WhatIsYourName}
+import models.{JourneyModel, WhatIsYourName, WhatTimeDidYouFinish}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchersSugar.eqTo
 import org.mockito.Mockito.{times, verify, when}
@@ -51,7 +51,7 @@ class PrintControllerSpec extends SpecBase with EitherValues with MockitoSugar {
     .set(DateSicknessEndedPage, LocalDate.of(2002, 2, 1)).success.value
     .set(CausedByAccidentOrIndustrialDiseasePage, true).success.value
     .set(WhenDidYouLastWorkPage, LocalDate.of(2003, 2, 1)).success.value
-    .set(WhatTimeDidYouFinishPage, "9am").success.value
+    .set(WhatTimeDidYouFinishPage, WhatTimeDidYouFinish(9, 0, "am")).success.value
 
   val model = JourneyModel.from(answers).right.value
 

@@ -14,8 +14,8 @@
  * limitations under the License.
  *@
 
-@import viewmodels.InputWidth._
 @import java.time.LocalDate
+@import scala.util.Try
 
 @this(
     layout: templates.Layout,
@@ -51,7 +51,7 @@
                 @if(form.errors.nonEmpty) {
                 <p id="value-error" class="govuk-error-message">
                     <span class="govuk-visually-hidden">Error:</span>
-                    @form.errors.head.message
+                    @messages(form.errors.head.message)
                 </p>
                 }
 
@@ -61,7 +61,7 @@
                             <label class="govuk-label govuk-date-input__label" for="time-finished-hour">
                                 Hour
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="time-finished-hour" name="time-finished-hour" type="text" inputmode="numeric">
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="time-finished-hour" name="time-finished-hour" type="text" inputmode="numeric" value="@form("time-finished-hour").value">
                         </div>
                     </div>
                     <div class="govuk-date-input__item govuk-!-margin-right-1 govuk-body">:</div>
@@ -70,7 +70,7 @@
                             <label class="govuk-label govuk-date-input__label" for="time-finished-minute">
                                 Minute
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="time-finished-minute" name="time-finished-minute" type="text" inputmode="numeric">
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="time-finished-minute" name="time-finished-minute" type="text" inputmode="numeric" value="@Try(form("time-finished-minute").value.map(v => f"${v.toInt}%02d")).getOrElse(form("time-finished-minute").value)">
                         </div>
                     </div>
                     <div class="govuk-date-input__item">
@@ -80,8 +80,8 @@
                             </label>
                             <select class="govuk-select govuk-input--width-4" id="time-finished-ampm" name="time-finished-ampm">
                                 <option value="blank"></option>
-                                <option value="am">am</option>
-                                <option value="pm">pm</option>
+                                <option value="am" @if(form("time-finished-ampm").value.contains("am")) { selected }>am</option>
+                                <option value="pm" @if(form("time-finished-ampm").value.contains("pm")) { selected }>pm</option>
                             </select>
                         </div>
                     </div>

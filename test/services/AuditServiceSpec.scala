@@ -17,8 +17,8 @@
 package services
 
 import audit.{AuditService, DownloadAuditEvent}
-import models.JourneyModel
-import org.mockito.ArgumentMatchers.{eq => eqTo, any}
+import models.{JourneyModel, WhatTimeDidYouFinish}
+import org.mockito.ArgumentMatchers.{any, eq => eqTo}
 import org.mockito.Mockito.{times, verify}
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
@@ -59,7 +59,7 @@ class AuditServiceSpec extends AnyFreeSpec with Matchers with MockitoSugar {
         sicknessStartDate = LocalDate.of(2000, 3, 2),
         sicknessEndDate = Some(LocalDate.of(2000, 4, 3)),
         whenDidYouLastWork = LocalDate.of(2000, 2, 1),
-        whatTimeDidYouFinish = "12:00pm",
+        whatTimeDidYouFinish = WhatTimeDidYouFinish(12, 0, "pm"),
         causedByIndustrialDiseaseOrAccident = true
       )
 

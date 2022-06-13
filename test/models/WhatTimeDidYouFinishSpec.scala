@@ -16,13 +16,20 @@
 
 package models
 
-import play.api.libs.json.{Json, OFormat}
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.must.Matchers
 
-final case class WhatTimeDidYouFinish(hour: Int, minute: Int, amOrPm: String) {
+class WhatTimeDidYouFinishSpec extends AnyFreeSpec with Matchers {
 
-  override def toString: String = f"$hour:$minute%02d$amOrPm"
-}
+  ".toString" - {
 
-object WhatTimeDidYouFinish {
-  implicit val format: OFormat[WhatTimeDidYouFinish] = Json.format[WhatTimeDidYouFinish]
+    "must return the correct string" in {
+      List(
+        WhatTimeDidYouFinish(12, 0, "pm") -> "12:00pm",
+        WhatTimeDidYouFinish(4, 30, "am") -> "4:30am"
+      ).foreach { case (time, expected) =>
+        time.toString mustEqual expected
+      }
+    }
+  }
 }

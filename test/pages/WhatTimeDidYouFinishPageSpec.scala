@@ -16,6 +16,7 @@
 
 package pages
 
+import models.WhatTimeDidYouFinish
 import pages.behaviours.PageBehaviours
 
 
@@ -23,10 +24,10 @@ class WhatTimeDidYouFinishPageSpec extends PageBehaviours {
 
   "WhatTimeDidYouFinishPage" - {
 
-    beRetrievable[String](WhatTimeDidYouFinishPage)
+    beRetrievable[WhatTimeDidYouFinish](WhatTimeDidYouFinishPage)
 
-    beSettable[String](WhatTimeDidYouFinishPage)
+    beSettable[WhatTimeDidYouFinish](WhatTimeDidYouFinishPage)
 
-    beRemovable[String](WhatTimeDidYouFinishPage)
+    beRemovable[WhatTimeDidYouFinish](WhatTimeDidYouFinishPage)
   }
 }
