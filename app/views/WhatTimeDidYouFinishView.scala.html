@@ -35,17 +35,59 @@
             @govukErrorSummary(ErrorSummaryViewModel(form))
         }
 
-        @govukInput(
-            InputViewModel(
-                field = form("value"),
-                label = HmrcPageHeadingLabel(
-                    content = messages("whatTimeDidYouFinish.heading", govUkDateFormat(lastDate)),
-                    caption = HmrcSectionCaption(messages("section.employmentDetails"))
-                )
-            )
-            .withWidth(Fixed5)
-            .withHint(Hint(content = messages("whatTimeDidYouFinish.hint")))
-        )
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="what-time-did-you-finish-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                    <h1 class="govuk-fieldset__heading">
+                        <label class="govuk-label hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2 govuk-label--xl" for="value">
+                            @messages("whatTimeDidYouFinish.heading", govUkDateFormat(lastDate)) <span class="hmrc-caption govuk-caption-xl"><span class="govuk-visually-hidden">@messages("thisSectionIs") </span>@messages("section.employmentDetails")</span>
+                        </label>
+                    </h1>
+                </legend>
+                <div id="what-time-did-you-finish-hint" class="govuk-hint">
+                    @messages("whatTimeDidYouFinish.hint")
+                </div>
+
+                @if(form.errors.nonEmpty) {
+                <p id="value-error" class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>
+                    @form.errors.head.message
+                </p>
+                }
+
+                <div id="time-finished">
+                    <div class="govuk-date-input__item govuk-!-margin-right-1">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="time-finished-hour">
+                                Hour
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="time-finished-hour" name="time-finished-hour" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item govuk-!-margin-right-1 govuk-body">:</div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="time-finished-minute">
+                                Minute
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="time-finished-minute" name="time-finished-minute" type="text" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="time-finished-ampm">
+                                am or pm
+                            </label>
+                            <select class="govuk-select govuk-input--width-4" id="time-finished-ampm" name="time-finished-ampm">
+                                <option value="blank"></option>
+                                <option value="am">am</option>
+                                <option value="pm">pm</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
 
         @govukButton(
             ButtonViewModel(messages("site.continue"))

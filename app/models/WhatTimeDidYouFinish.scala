@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package pages
+package models
 
-import models.WhatTimeDidYouFinish
-import play.api.libs.json.JsPath
+import play.api.libs.json.Json
 
-case object WhatTimeDidYouFinishPage extends QuestionPage[WhatTimeDidYouFinish] {
+case class WhatTimeDidYouFinish(hour: Int, minute: Int, amOrPm: String)
 
-  override def path: JsPath = JsPath \ toString
-
-  override def toString: String = "whatTimeDidYouFinish"
+object WhatTimeDidYouFinish {
+  implicit val format = Json.format[WhatTimeDidYouFinish]
 }

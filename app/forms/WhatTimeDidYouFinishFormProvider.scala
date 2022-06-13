@@ -18,12 +18,13 @@ package forms
 
 import javax.inject.Inject
 import forms.mappings.Mappings
+import models.WhatTimeDidYouFinish
 import play.api.data.Form
 import play.api.data.validation._
 
 class WhatTimeDidYouFinishFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[String] =
+  def apply(): Form[WhatTimeDidYouFinish] =
     Form(
       "value" -> text("whatTimeDidYouFinish.error.required")
         .verifying(formatConstraint)

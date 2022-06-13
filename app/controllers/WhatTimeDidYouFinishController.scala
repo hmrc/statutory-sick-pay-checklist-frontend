@@ -61,8 +61,10 @@ class WhatTimeDidYouFinishController @Inject()(
     implicit request => request.userAnswers.get(WhenDidYouLastWorkPage).map { lastDate =>
 
       form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, lastDate, mode))),
+        formWithErrors => {
+          println(formWithErrors.errors)
+          Future.successful(BadRequest(view(formWithErrors, lastDate, mode)))
+        },
 
         value =>
           for {
