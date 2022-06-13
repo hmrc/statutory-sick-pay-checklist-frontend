@@ -16,10 +16,12 @@
 
 package models
 
+import org.scalatest.OptionValues
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
+import play.api.libs.json.{JsString, Json}
 
-class WhatTimeDidYouFinishSpec extends AnyFreeSpec with Matchers {
+class WhatTimeDidYouFinishSpec extends AnyFreeSpec with Matchers with OptionValues {
 
   ".toString" - {
 
@@ -31,5 +33,31 @@ class WhatTimeDidYouFinishSpec extends AnyFreeSpec with Matchers {
         time.toString mustEqual expected
       }
     }
+  }
+
+  "must read from json object" in {
+    val json = Json.obj(
+      "hour" -> 12,
+      "minute" -> 0,
+      "amOrPm" -> "am"
+    )
+    val expected = WhatTimeDidYouFinish(12, 0, "am")
+    Json.fromJson[WhatTimeDidYouFinish](json).asOpt.value mustEqual expected
+  }
+
+  List(
+    "9am" -> WhatTimeDidYouFinish(9, 0, "am"),
+    "08AM" -> WhatTimeDidYouFinish(8, 0, "am"),
+    "07 00a.m." -> WhatTimeDidYouFinish(7, 0, "am"),
+    "10:01 am" -> WhatTimeDidYouFinish(10, 1, "am"),
+    "10.30PM" -> WhatTimeDidYouFinish(10, 30, "pm")
+  ).foreach { case (string, expected) =>
+    s"must read from a string ($string)" in {
+      Json.fromJson[WhatTimeDidYouFinish](JsString(string)).asOpt.value mustEqual expected
+    }
+  }
+
+  "must fail to read from an invalid string" in {
+    Json.fromJson[WhatTimeDidYouFinish](JsString("foobar")).asOpt mustBe empty
   }
 }
