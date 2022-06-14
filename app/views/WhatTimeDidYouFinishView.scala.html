@@ -35,8 +35,8 @@
             @govukErrorSummary(ErrorSummaryViewModel(form))
         }
 
-        <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="what-time-did-you-finish-hint">
+        <div class="govuk-form-group @if(form.errors.nonEmpty){ govuk-form-group--error }">
+            <fieldset class="govuk-fieldset" role="group" aria-describedby="what-time-did-you-finish-hint @if(form.errors.nonEmpty){ value-error }">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
                     <h1 class="govuk-fieldset__heading hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-0">
                         @messages("whatTimeDidYouFinish.heading", govUkDateFormat(lastDate)) <span class="hmrc-caption govuk-caption-xl"><span class="govuk-visually-hidden">@messages("thisSectionIs") </span>@messages("section.employmentDetails")</span>
@@ -59,7 +59,7 @@
                             <label class="govuk-label govuk-date-input__label" for="time-finished-hour">
                                 Hour
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="time-finished-hour" name="time-finished-hour" type="text" inputmode="numeric" value="@form("time-finished-hour").value">
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2 @if(form("time-finished-hour").errors.nonEmpty){ govuk-input--error }" id="time-finished-hour" name="time-finished-hour" type="text" inputmode="numeric" value="@form("time-finished-hour").value">
                         </div>
                     </div>
                     <div class="govuk-date-input__item govuk-!-margin-right-1 govuk-body">:</div>
@@ -68,7 +68,7 @@
                             <label class="govuk-label govuk-date-input__label" for="time-finished-minute">
                                 Minute
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="time-finished-minute" name="time-finished-minute" type="text" inputmode="numeric" value="@Try(form("time-finished-minute").value.map(v => f"${v.toInt}%02d")).getOrElse(form("time-finished-minute").value)">
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2 @if(form("time-finished-minute").errors.nonEmpty){ govuk-input--error }" id="time-finished-minute" name="time-finished-minute" type="text" inputmode="numeric" value="@Try(form("time-finished-minute").value.map(v => f"${v.toInt}%02d")).getOrElse(form("time-finished-minute").value)">
                         </div>
                     </div>
                     <div class="govuk-date-input__item">
@@ -76,7 +76,7 @@
                             <label class="govuk-label govuk-date-input__label" for="time-finished-ampm">
                                 am or pm
                             </label>
-                            <select class="govuk-select govuk-input--width-4" id="time-finished-ampm" name="time-finished-ampm">
+                            <select class="govuk-select govuk-input--width-4 @if(form("time-finished-ampm").errors.nonEmpty){ govuk-select--error }" id="time-finished-ampm" name="time-finished-ampm">
                                 <option value="blank"></option>
                                 <option value="am" @if(form("time-finished-ampm").value.contains("am")) { selected }>am</option>
                                 <option value="pm" @if(form("time-finished-ampm").value.contains("pm")) { selected }>pm</option>
