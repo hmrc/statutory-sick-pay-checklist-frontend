@@ -17,13 +17,13 @@
 package controllers
 
 import base.SpecBase
-import models.WhatIsYourName
+import models.{WhatIsYourName, WhatTimeDidYouFinish}
 import pages._
 import play.api.i18n.Messages
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.domain.Nino
-import viewmodels.checkAnswers.{DoYouKnowYourClockOrPayrollNumberSummary, _}
+import viewmodels.checkAnswers._
 import viewmodels.govuk.SummaryListFluency
 import views.html.CheckYourAnswersView
 
@@ -47,7 +47,7 @@ class CheckYourAnswersControllerSpec extends SpecBase with SummaryListFluency {
         .set(DateSicknessEndedPage, LocalDate.of(2002, 2, 1)).success.value
         .set(CausedByAccidentOrIndustrialDiseasePage, true).success.value
         .set(WhenDidYouLastWorkPage, LocalDate.of(2003, 2, 1)).success.value
-        .set(WhatTimeDidYouFinishPage, "9am").success.value
+        .set(WhatTimeDidYouFinishPage, WhatTimeDidYouFinish(9, 0, "am")).success.value
         .set(DoYouKnowYourClockOrPayrollNumberPage, true).success.value
         .set(WhatIsYourClockOrPayrollNumberPage, "prcn").success.value
 

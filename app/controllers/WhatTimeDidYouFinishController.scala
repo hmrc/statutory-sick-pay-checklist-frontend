@@ -43,7 +43,7 @@ class WhatTimeDidYouFinishController @Inject()(
                                         view: WhatTimeDidYouFinishView
                                     )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  val form = formProvider()
+  private def form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request => request.userAnswers.get(WhenDidYouLastWorkPage).map { lastDate =>
@@ -63,7 +63,6 @@ class WhatTimeDidYouFinishController @Inject()(
       form.bindFromRequest().fold(
         formWithErrors =>
           Future.successful(BadRequest(view(formWithErrors, lastDate, mode))),
-
         value =>
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(WhatTimeDidYouFinishPage, value))

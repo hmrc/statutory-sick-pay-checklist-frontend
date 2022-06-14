@@ -39,4 +39,12 @@ trait ModelGenerators {
       lastChar <- Gen.oneOf('A', 'B', 'C', 'D')
     } yield Nino(firstChar ++ secondChar ++ digits :+ lastChar)
   }
+
+  implicit lazy val arbitraryTime: Arbitrary[WhatTimeDidYouFinish] = Arbitrary {
+    for {
+      hour <- Gen.choose(1, 12)
+      minute <- Gen.choose(0, 59)
+      ampm <- Gen.oneOf(List("am", "pm"))
+    } yield WhatTimeDidYouFinish(hour, minute, ampm)
+  }
 }

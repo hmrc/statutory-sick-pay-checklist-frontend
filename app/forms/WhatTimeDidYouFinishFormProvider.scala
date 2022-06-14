@@ -16,28 +16,31 @@
 
 package forms
 
-import javax.inject.Inject
 import forms.mappings.Mappings
+import models.WhatTimeDidYouFinish
 import play.api.data.Form
-import play.api.data.validation._
+import play.api.data.Forms.mapping
+
+import javax.inject.Inject
 
 class WhatTimeDidYouFinishFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("whatTimeDidYouFinish.error.required")
-        .verifying(formatConstraint)
+  def apply(): Form[WhatTimeDidYouFinish] = Form(
+    mapping(
+      "time-finished-hour" -> int(
+        "whatTimeDidYouFinish.time-finished-hour.error.required",
+     "whatTimeDidYouFinish.time-finished-hour.error.wholeNumber",
+     "whatTimeDidYouFinish.time-finished-hour.error.numeric"
     )
-
-  private val validSuffixes = List("am", "a.m", "a.m.", "pm", "p.m", "p.m.")
-
-  private val formatConstraint: Constraint[String] = Constraint {
-    case value if !validSuffixes.exists(value.toLowerCase.endsWith(_)) =>
-      Invalid("whatTimeDidYouFinish.error.morningOrAfternoon", value)
-    case value if value.matches("^(?i)([0-9]|0[0-9]|1[0-2])([:\\. ][0-5][0-9])? ?((a|p)\\.?m\\.?)$") =>
-      Valid
-    case value =>
-      Invalid("whatTimeDidYouFinish.error.format", value)
-  }
-
+  .verifying(inRange(1, 12, "whatTimeDidYouFinish.time-finished-hour.error.range")),
+      "time-finished-minute" -> int(
+        "whatTimeDidYouFinish.time-finished-minute.error.required",
+    "whatTimeDidYouFinish.time-finished-minute.error.wholeNumber",
+    "whatTimeDidYouFinish.time-finished-minute.error.numeric"
+      )
+  .verifying(inRange(0, 59, "whatTimeDidYouFinish.time-finished-minute.error.range")),
+    "time-finished-ampm" -> text("whatTimeDidYouFinish.time-finished-ampm.error.required")
+      .verifying("whatTimeDidYouFinish.time-finished-ampm.error.invalid", List("am", "pm").contains(_))
+    )(WhatTimeDidYouFinish.apply)(WhatTimeDidYouFinish.unapply)
+  )
 }

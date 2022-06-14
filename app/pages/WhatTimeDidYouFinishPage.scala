@@ -16,9 +16,10 @@
 
 package pages
 
+import models.WhatTimeDidYouFinish
 import play.api.libs.json.JsPath
 
-case object WhatTimeDidYouFinishPage extends QuestionPage[String] {
+case object WhatTimeDidYouFinishPage extends QuestionPage[WhatTimeDidYouFinish] {
 
   override def path: JsPath = JsPath \ toString
 

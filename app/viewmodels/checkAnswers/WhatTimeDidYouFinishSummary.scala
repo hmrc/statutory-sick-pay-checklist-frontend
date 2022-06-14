@@ -38,7 +38,7 @@ object WhatTimeDidYouFinishSummary  {
     } yield {
       SummaryListRowViewModel(
         key = "whatTimeDidYouFinish.checkYourAnswersLabel",
-        value = ValueViewModel(HtmlFormat.escape(time).toString),
+        value = ValueViewModel(HtmlFormat.escape(time.toString).toString),
         actions = Seq(
           ActionItemViewModel("site.change", routes.WhatTimeDidYouFinishController.onPageLoad(CheckMode).url)
             .withVisuallyHiddenText(messages("whatTimeDidYouFinish.change.hidden", dateFormatter.format(date)))

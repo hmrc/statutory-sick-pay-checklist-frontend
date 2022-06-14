@@ -50,7 +50,7 @@ object DownloadAuditEvent {
       sicknessStartDate = model.sicknessStartDate,
       sicknessEndDate = model.sicknessEndDate,
       whenDidYouLastWork = model.whenDidYouLastWork,
-      whatTimeDidYouFinish = model.whatTimeDidYouFinish,
+      whatTimeDidYouFinish = model.whatTimeDidYouFinish.toString,
       causedByIndustrialDiseaseOrAccident = model.causedByIndustrialDiseaseOrAccident
     )
 
