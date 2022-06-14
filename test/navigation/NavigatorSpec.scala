@@ -22,6 +22,8 @@ import pages._
 import models._
 import uk.gov.hmrc.domain.Nino
 
+import java.time.LocalDate
+
 class NavigatorSpec extends SpecBase {
 
   val navigator = new Navigator
@@ -162,19 +164,32 @@ class NavigatorSpec extends SpecBase {
       "must go from the date sickness began page" - {
 
         "to the date sickness ended page when the user has selected yes for the has sickness ended page but has no answer for the date sickness ended page" in {
-          fail
+          val userAnswers = emptyUserAnswers
+            .set(DateSicknessBeganPage, LocalDate.now()).success.value
+            .set(HasSicknessEndedPage, true).success.value
+
+          navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.DateSicknessEndedController.onPageLoad(CheckMode)
         }
 
-        "to the check your answers page when the user has selected yes for the has sickness ended page and has an answer for the date sickness ened page" in {
-          fail
+        "to the check your answers page when the user has selected yes for the has sickness ended page and has an answer for the date sickness ended page" in {
+          val userAnswers = emptyUserAnswers
+            .set(DateSicknessBeganPage, LocalDate.now()).success.value
+            .set(HasSicknessEndedPage, true).success.value
+            .set(DateSicknessEndedPage, LocalDate.now()).success.value
+
+          navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
         }
 
         "to the check your answers page when the user has selected no for the has sickness ended page" in {
-          fail
+          val userAnswers = emptyUserAnswers
+            .set(DateSicknessBeganPage, LocalDate.now()).success.value
+            .set(HasSicknessEndedPage, false).success.value
+
+          navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
         }
 
         "to the journey recovery page when the user has no answer" in {
-          fail
+          navigator.nextPage(DateSicknessBeganPage, CheckMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
         }
       }
 
