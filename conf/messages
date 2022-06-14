@@ -175,9 +175,11 @@ whatTimeDidYouFinish.checkYourAnswersLabel = What time did you finish work?
 whatTimeDidYouFinish.time-finished-hour.error.required = Enter the hour that you finished work
 whatTimeDidYouFinish.time-finished-hour.error.numeric = The hour that you finished work must be a number
 whatTimeDidYouFinish.time-finished-hour.error.wholeNumber = The hour that you finished work must be a whole number
+whatTimeDidYouFinish.time-finished-hour.error.range = The hour that you finished work must be between {0} and {1}
 whatTimeDidYouFinish.time-finished-minute.error.required = Enter the minute of the hour that you finished work
 whatTimeDidYouFinish.time-finished-minute.error.numeric = The minute that you finished work must be a number
 whatTimeDidYouFinish.time-finished-minute.error.wholeNumber = The minute that you finished work must be a whole number
+whatTimeDidYouFinish.time-finished-minute.error.range = The hour that you finished work must be between {0} and {1}
 whatTimeDidYouFinish.time-finished-ampm.error.invalid = Select whether you finished working in the morning or evening
 whatTimeDidYouFinish.change.hidden = what time you finished work on {0}
 
