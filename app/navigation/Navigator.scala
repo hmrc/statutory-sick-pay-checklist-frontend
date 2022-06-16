@@ -46,7 +46,9 @@ class Navigator @Inject()() {
 
   private val checkRouteMap: Page => UserAnswers => Call = {
     case DoYouKnowYourNationalInsuranceNumberPage => doYouKnowYourNationalInsuranceNumberCheckRoutes
+    case DateSicknessBeganPage => dateSicknessBeganCheckRoutes
     case HasSicknessEndedPage => hasSicknessEndedCheckRoutes
+    case DateSicknessEndedPage => dateSicknessEndedCheckRoutes
     case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberCheckRoutes
     case _ => _ => routes.CheckYourAnswersController.onPageLoad
   }
@@ -87,8 +89,35 @@ class Navigator @Inject()() {
   private def hasSicknessEndedCheckRoutes(answers: UserAnswers): Call =
     answers.get(HasSicknessEndedPage).map {
       case true  => routes.DateSicknessEndedController.onPageLoad(CheckMode)
-      case false => routes.CheckYourAnswersController.onPageLoad
+      case false =>
+        if (answers.get(WhenDidYouLastWorkPage).isEmpty) { routes.WhenDidYouLastWorkController.onPageLoad(CheckMode) }
+        else { routes.CheckYourAnswersController.onPageLoad }
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
+
+  private def dateSicknessBeganCheckRoutes(answers: UserAnswers): Call = {
+    (for {
+      _ <- answers.get(DateSicknessBeganPage)
+      hasEnded <- answers.get(HasSicknessEndedPage)
+    } yield {
+      if (hasEnded && answers.get(DateSicknessEndedPage).isEmpty) {
+        routes.DateSicknessEndedController.onPageLoad(CheckMode)
+      } else if (answers.get(WhenDidYouLastWorkPage).isEmpty) {
+        routes.WhenDidYouLastWorkController.onPageLoad(CheckMode)
+      } else {
+        routes.CheckYourAnswersController.onPageLoad
+      }
+    }).getOrElse(routes.JourneyRecoveryController.onPageLoad())
+  }
+
+  private def dateSicknessEndedCheckRoutes(answers: UserAnswers): Call = {
+    answers.get(DateSicknessEndedPage).map { _ =>
+      if (answers.get(WhenDidYouLastWorkPage).isEmpty) {
+        routes.WhenDidYouLastWorkController.onPageLoad(CheckMode)
+      } else {
+        routes.CheckYourAnswersController.onPageLoad
+      }
+    }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
+  }
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode =>
