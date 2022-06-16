@@ -37,18 +37,148 @@ class DateSicknessBeganPageSpec extends PageBehaviours with TryValues {
 
     beRemovable[LocalDate](DateSicknessBeganPage)
 
-    "must remove DateSicknessEnded page if it is before this date" in {
-      val answers = UserAnswers("id")
-        .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 1)).success.value
-        .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
-      answers.get(DateSicknessEndedPage) mustBe empty
+    "when DateSicknessEnded is before DateSicknessBegan" - {
+
+      "and WhenDidYouLastWork is before DateSicknessBegan" - {
+
+        "must remove DateSicknessEnded and keep WhenDidYouLastWork" in {
+          val answers = UserAnswers("id")
+            .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 1)).success.value
+            .set(WhenDidYouLastWorkPage, LocalDate.of(2022, 2, 1)).success.value
+            .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
+          answers.get(DateSicknessEndedPage) mustBe empty
+          answers.get(WhenDidYouLastWorkPage).value mustBe LocalDate.of(2022, 2, 1)
+        }
+
+      }
+
+      "and WhenDidYouLastWork is on DateSicknessBegan" - {
+
+        "must remove DateSicknessEnded and remove WhenDidYouLastWork" in {
+          val answers = UserAnswers("id")
+            .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 1)).success.value
+            .set(WhenDidYouLastWorkPage, LocalDate.of(2022, 2, 2)).success.value
+            .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
+          answers.get(DateSicknessEndedPage) mustBe empty
+          answers.get(WhenDidYouLastWorkPage) mustBe empty
+        }
+
+      }
+
+      "and WhenDidYouLastWork is after DateSicknessBegan" - {
+
+        "must remove DateSicknessEnded and remove WhenDidYouLastWork" in {
+          val answers = UserAnswers("id")
+            .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 1)).success.value
+            .set(WhenDidYouLastWorkPage, LocalDate.of(2022, 2, 3)).success.value
+            .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
+          answers.get(DateSicknessEndedPage) mustBe empty
+          answers.get(WhenDidYouLastWorkPage) mustBe empty
+        }
+
+      }
+
+      "and WhenDidYouLastWork is not set" - {
+
+        "must remove DateSicknessEnded" in {
+          val answers = UserAnswers("id")
+            .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 1)).success.value
+            .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
+          answers.get(DateSicknessEndedPage) mustBe empty
+          answers.get(WhenDidYouLastWorkPage) mustBe empty
+        }
+      }
+
     }
 
-    "must not remove DateSicknessEnded page if it is not before this date" in {
-      val answers = UserAnswers("id")
-        .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 1)).success.value
-        .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 1)).success.value
-      answers.get(DateSicknessEndedPage).value mustEqual LocalDate.of(2022, 2, 1)
+    "when DateSicknessEnded is after DateSicknessBegan" - {
+
+      "and WhenDidYouLastWork is before DateSicknessBegan" - {
+
+        "must keep DateSicknessEnded and keep WhenDidYouLastWork" in {
+          val answers = UserAnswers("id")
+            .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 3)).success.value
+            .set(WhenDidYouLastWorkPage, LocalDate.of(2022, 2, 1)).success.value
+            .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
+          answers.get(DateSicknessEndedPage).value mustBe LocalDate.of(2022, 2, 3)
+          answers.get(WhenDidYouLastWorkPage).value mustBe LocalDate.of(2022, 2, 1)
+        }
+
+      }
+
+      "and WhenDidYouLastWork is on DateSicknessBegan" - {
+
+        "must keep DateSicknessEnded and remove WhenDidYouLastWork" in {
+          val answers = UserAnswers("id")
+            .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 3)).success.value
+            .set(WhenDidYouLastWorkPage, LocalDate.of(2022, 2, 2)).success.value
+            .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
+          answers.get(DateSicknessEndedPage).value mustBe LocalDate.of(2022, 2, 3)
+          answers.get(WhenDidYouLastWorkPage) mustBe empty
+        }
+
+      }
+
+      "and WhenDidYouLastWork is after DateSicknessBegan" - {
+
+        "must keep DateSicknessEnded and remove WhenDidYouLastWork" in {
+          val answers = UserAnswers("id")
+            .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 3)).success.value
+            .set(WhenDidYouLastWorkPage, LocalDate.of(2022, 2, 3)).success.value
+            .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
+          answers.get(DateSicknessEndedPage).value mustBe LocalDate.of(2022, 2, 3)
+          answers.get(WhenDidYouLastWorkPage) mustBe empty
+        }
+      }
+
+      "and WhenDidYouLastWork is not set" - {
+
+        "must keep DateSicknessEnded" in {
+          val answers = UserAnswers("id")
+            .set(DateSicknessEndedPage, LocalDate.of(2022, 2, 3)).success.value
+            .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
+          answers.get(DateSicknessEndedPage).value mustBe LocalDate.of(2022, 2, 3)
+          answers.get(WhenDidYouLastWorkPage) mustBe empty
+        }
+      }
+
+    }
+
+    "when DateSicknessEnded is not set" - {
+
+      "and WhenDidYouLastWork is before DateSicknessBegan" - {
+
+        "must keep WhenDidYouLastWork" in {
+          val answers = UserAnswers("id")
+            .set(WhenDidYouLastWorkPage, LocalDate.of(2022, 2, 1)).success.value
+            .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
+          answers.get(WhenDidYouLastWorkPage).value mustBe LocalDate.of(2022, 2, 1)
+        }
+
+      }
+
+      "and WhenDidYouLastWork is on DateSicknessBegan" - {
+
+        "must remove WhenDidYouLastWork" in {
+          val answers = UserAnswers("id")
+            .set(WhenDidYouLastWorkPage, LocalDate.of(2022, 2, 2)).success.value
+            .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 2)).success.value
+          answers.get(WhenDidYouLastWorkPage) mustBe empty
+        }
+
+      }
+
+      "and WhenDidYouLastWork is after DateSicknessBegan" - {
+
+        "must remove WhenDidYouLastWork" in {
+          val answers = UserAnswers("id")
+            .set(WhenDidYouLastWorkPage, LocalDate.of(2022, 2, 2)).success.value
+            .set(DateSicknessBeganPage, LocalDate.of(2022, 2, 1)).success.value
+          answers.get(WhenDidYouLastWorkPage) mustBe empty
+        }
+
+      }
+
     }
   }
 }

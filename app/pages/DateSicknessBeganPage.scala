@@ -21,7 +21,7 @@ import models.UserAnswers
 import java.time.LocalDate
 import play.api.libs.json.JsPath
 
-import scala.util.Try
+import scala.util.{Success, Try}
 
 case object DateSicknessBeganPage extends QuestionPage[LocalDate] {
 
@@ -30,9 +30,21 @@ case object DateSicknessBeganPage extends QuestionPage[LocalDate] {
   override def toString: String = "dateSicknessBegan"
 
   override def cleanup(value: Option[LocalDate], userAnswers: UserAnswers): Try[UserAnswers] = {
-    for {
-      startDate <- value
-      endDate   <- userAnswers.get(DateSicknessEndedPage)
-    } yield if (endDate isBefore startDate) userAnswers.remove(DateSicknessEndedPage) else super.cleanup(value, userAnswers)
-  }.getOrElse(super.cleanup(value, userAnswers))
+
+    def cleanupEndDate(userAnswers: UserAnswers): Try[UserAnswers] = {
+      for {
+        startDate <- value
+        endDate   <- userAnswers.get(DateSicknessEndedPage)
+      } yield if (endDate isBefore startDate) userAnswers.remove(DateSicknessEndedPage) else Success(userAnswers)
+    }.getOrElse(userAnswers.remove(DateSicknessEndedPage))
+
+    def cleanupLastWorkedDate(userAnswers: UserAnswers): Try[UserAnswers] = {
+      for {
+        startDate <- value
+        lastWorked <- userAnswers.get(WhenDidYouLastWorkPage)
+      } yield if (!(lastWorked isBefore startDate)) userAnswers.remove(WhenDidYouLastWorkPage) else Success(userAnswers)
+    }.getOrElse(userAnswers.remove(WhenDidYouLastWorkPage))
+
+    cleanupEndDate(userAnswers).flatMap(cleanupLastWorkedDate)
+  }
 }
