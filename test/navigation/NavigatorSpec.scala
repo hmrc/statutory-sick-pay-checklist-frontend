@@ -171,21 +171,40 @@ class NavigatorSpec extends SpecBase {
           navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.DateSicknessEndedController.onPageLoad(CheckMode)
         }
 
-        "to the check your answers page when the user has selected yes for the has sickness ended page and has an answer for the date sickness ended page" in {
+        "to the check your answers page when the user has selected yes for the has sickness ended page and has an answer for the date sickness ended page and last worked date" in {
           val userAnswers = emptyUserAnswers
-            .set(DateSicknessBeganPage, LocalDate.now()).success.value
+            .set(DateSicknessBeganPage, LocalDate.now().minusDays(1)).success.value
             .set(HasSicknessEndedPage, true).success.value
             .set(DateSicknessEndedPage, LocalDate.now()).success.value
+            .set(WhenDidYouLastWorkPage, LocalDate.now().minusDays(2)).success.value
 
           navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
         }
 
-        "to the check your answers page when the user has selected no for the has sickness ended page" in {
+        "to the when did you last work page when the user has selected yes for the has sickness ended page and has an answer for the date sickness ended page and no answer for last worked date" in {
+          val userAnswers = emptyUserAnswers
+            .set(DateSicknessBeganPage, LocalDate.now().minusDays(1)).success.value
+            .set(HasSicknessEndedPage, true).success.value
+            .set(DateSicknessEndedPage, LocalDate.now()).success.value
+
+          navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.WhenDidYouLastWorkController.onPageLoad(CheckMode)
+        }
+
+        "to the check your answers page when the user has selected no for the has sickness ended page and has an answer for last worked date" in {
+          val userAnswers = emptyUserAnswers
+            .set(DateSicknessBeganPage, LocalDate.now()).success.value
+            .set(HasSicknessEndedPage, false).success.value
+            .set(WhenDidYouLastWorkPage, LocalDate.now().minusDays(1)).success.value
+
+          navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+        }
+
+        "to the when did you last work page when the user has selected no for the has sickness ended page and no answer for last worked date" in {
           val userAnswers = emptyUserAnswers
             .set(DateSicknessBeganPage, LocalDate.now()).success.value
             .set(HasSicknessEndedPage, false).success.value
 
-          navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+          navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.WhenDidYouLastWorkController.onPageLoad(CheckMode)
         }
 
         "to the journey recovery page when the user has no answer" in {
@@ -200,13 +219,41 @@ class NavigatorSpec extends SpecBase {
           navigator.nextPage(HasSicknessEndedPage, CheckMode, answers) mustBe routes.DateSicknessEndedController.onPageLoad(CheckMode)
         }
 
-        "to the check your answers page when the user selects no" in {
-          val answers = emptyUserAnswers.set(HasSicknessEndedPage, false).success.value
+        "to the check your answers page when the user selects no and has an answer for last worked date" in {
+          val answers = emptyUserAnswers
+            .set(HasSicknessEndedPage, false).success.value
+            .set(WhenDidYouLastWorkPage, LocalDate.now().minusDays(2)).success.value
           navigator.nextPage(HasSicknessEndedPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
+        }
+
+        "to the when did you last work page when the user selects no and has no answer for last worked date" in {
+          val answers = emptyUserAnswers
+            .set(HasSicknessEndedPage, false).success.value
+          navigator.nextPage(HasSicknessEndedPage, CheckMode, answers) mustBe routes.WhenDidYouLastWorkController.onPageLoad(CheckMode)
         }
 
         "to the journey recovery page when the user has no answer" in {
           navigator.nextPage(HasSicknessEndedPage, CheckMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
+        }
+      }
+
+      "must go from the when did your sickness end page" - {
+
+        "to the when did you last work page when an end date is given and the user has no answer for last worked date" in {
+          val answers = emptyUserAnswers
+            .set(DateSicknessEndedPage, LocalDate.now()).success.value
+          navigator.nextPage(DateSicknessEndedPage, CheckMode, answers) mustBe routes.WhenDidYouLastWorkController.onPageLoad(CheckMode)
+        }
+
+        "to the check your answers page when an end date is given and the user has an answer for last worked date" in {
+          val answers = emptyUserAnswers
+            .set(DateSicknessEndedPage, LocalDate.now()).success.value
+            .set(WhenDidYouLastWorkPage, LocalDate.now().minusDays(1)).success.value
+          navigator.nextPage(DateSicknessEndedPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
+        }
+
+        "to the journey recovery page when the user has no answer" in {
+          navigator.nextPage(DateSicknessEndedPage, CheckMode, emptyUserAnswers) mustBe routes.JourneyRecoveryController.onPageLoad()
         }
       }
 
