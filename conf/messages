@@ -181,6 +181,7 @@ whatTimeDidYouFinish.time-finished-minute.error.numeric = The minute that you fi
 whatTimeDidYouFinish.time-finished-minute.error.wholeNumber = The minute that you finished work must be a whole number
 whatTimeDidYouFinish.time-finished-minute.error.range = The hour that you finished work must be between {0} and {1}
 whatTimeDidYouFinish.time-finished-ampm.error.invalid = Select whether you finished working in the morning or evening
+whatTimeDidYouFinish.time-finished-ampm.error.required = Select whether you finished working in the morning or evening
 whatTimeDidYouFinish.change.hidden = what time you finished work on {0}
 
 causedByAccidentOrIndustrialDisease.title = Was your sickness caused by an accident at work or an industrial disease?
