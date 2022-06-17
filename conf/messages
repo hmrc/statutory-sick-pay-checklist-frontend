@@ -20,6 +20,10 @@ date.day = Day
 date.month = Month
 date.year = Year
 
+time.hour = Hour
+time.minute = Minute
+time.amPm = am or pm
+
 timeout.title = The application form is about to be reset
 timeout.message = For your security, the application form will be reset in
 timeout.keepAlive = Continue form

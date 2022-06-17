@@ -57,7 +57,7 @@
                     <div class="govuk-date-input__item govuk-!-margin-right-1">
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="time-finished-hour">
-                                Hour
+                                @messages("time.hour")
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2 @if(form("time-finished-hour").errors.nonEmpty){ govuk-input--error }" id="time-finished-hour" name="time-finished-hour" type="text" inputmode="numeric" value="@form("time-finished-hour").value">
                         </div>
@@ -66,7 +66,7 @@
                     <div class="govuk-date-input__item">
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="time-finished-minute">
-                                Minute
+                                @messages("time.minute")
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2 @if(form("time-finished-minute").errors.nonEmpty){ govuk-input--error }" id="time-finished-minute" name="time-finished-minute" type="text" inputmode="numeric" value="@Try(form("time-finished-minute").value.map(v => f"${v.toInt}%02d")).getOrElse(form("time-finished-minute").value)">
                         </div>
@@ -74,10 +74,10 @@
                     <div class="govuk-date-input__item">
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="time-finished-ampm">
-                                am or pm
+                                @messages("time.amPm")
                             </label>
                             <select class="govuk-select govuk-input--width-4 @if(form("time-finished-ampm").errors.nonEmpty){ govuk-select--error }" id="time-finished-ampm" name="time-finished-ampm">
-                                <option value=""> </option>
+                                <option value="" label="@messages("time.amPm")"> </option>
                                 <option value="am" @if(form("time-finished-ampm").value.contains("am")) { selected }>am</option>
                                 <option value="pm" @if(form("time-finished-ampm").value.contains("pm")) { selected }>pm</option>
                             </select>
