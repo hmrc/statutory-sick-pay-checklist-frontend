@@ -77,7 +77,7 @@
                                 am or pm
                             </label>
                             <select class="govuk-select govuk-input--width-4 @if(form("time-finished-ampm").errors.nonEmpty){ govuk-select--error }" id="time-finished-ampm" name="time-finished-ampm">
-                                <option value="blank"></option>
+                                <option value=""> </option>
                                 <option value="am" @if(form("time-finished-ampm").value.contains("am")) { selected }>am</option>
                                 <option value="pm" @if(form("time-finished-ampm").value.contains("pm")) { selected }>pm</option>
                             </select>
