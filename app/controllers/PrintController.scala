@@ -48,8 +48,8 @@ class PrintController @Inject()(
     foUserAgent.setAuthor("HMRC forms service")
     foUserAgent.setProducer("HMRC forms services")
     foUserAgent.setCreator("HMRC forms services")
-    foUserAgent.setSubject("Get your National Insurance number by post form")
-    foUserAgent.setTitle("Get your National Insurance number by post form")
+    foUserAgent.setSubject("Ask your employer for Statutory Sick Pay")
+    foUserAgent.setTitle("Ask your employer for Statutory Sick Pay")
   }
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
