@@ -26,21 +26,12 @@ import javax.inject.Inject
 class WhatTimeDidYouFinishFormProvider @Inject() extends Mappings {
 
   def apply(): Form[WhatTimeDidYouFinish] = Form(
-    mapping(
-      "time-finished-hour" -> int(
-        "whatTimeDidYouFinish.time-finished-hour.error.required",
-     "whatTimeDidYouFinish.time-finished-hour.error.wholeNumber",
-     "whatTimeDidYouFinish.time-finished-hour.error.numeric"
+    "time-finished" -> timeAmPm(
+      "whatTimeDidYouFinish.error.invalid",
+      "whatTimeDidYouFinish.error.required",
+      "whatTimeDidYouFinish.error.required.two",
+      "whatTimeDidYouFinish.error.required.ampm",
+      "whatTimeDidYouFinish.error.invalid.hour"
     )
-  .verifying(inRange(1, 12, "whatTimeDidYouFinish.time-finished-hour.error.range")),
-      "time-finished-minute" -> int(
-        "whatTimeDidYouFinish.time-finished-minute.error.required",
-    "whatTimeDidYouFinish.time-finished-minute.error.wholeNumber",
-    "whatTimeDidYouFinish.time-finished-minute.error.numeric"
-      )
-  .verifying(inRange(0, 59, "whatTimeDidYouFinish.time-finished-minute.error.range")),
-    "time-finished-ampm" -> text("whatTimeDidYouFinish.time-finished-ampm.error.required")
-      .verifying("whatTimeDidYouFinish.time-finished-ampm.error.invalid", List("am", "pm").contains(_))
-    )(WhatTimeDidYouFinish.apply)(WhatTimeDidYouFinish.unapply)
   )
 }
