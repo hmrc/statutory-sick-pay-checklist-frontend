@@ -28,7 +28,7 @@
 @(form: Form[_], lastDate: LocalDate, mode: Mode)(implicit request: Request[_], messages: Messages)
 
 @overallError = @{
-    form.errors.forall(_.args.isEmpty)
+    !form.errors.isEmpty && form.errors.forall(_.args.isEmpty)
 }
 
 @layout(pageTitle = title(form, messages("whatTimeDidYouFinish.title", govUkDateFormat(lastDate)), Some(messages("section.employmentDetails")))) {
