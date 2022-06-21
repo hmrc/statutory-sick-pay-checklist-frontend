@@ -176,6 +176,12 @@ whatTimeDidYouFinish.title = What time did you finish work on {0}?
 whatTimeDidYouFinish.heading = What time did you finish work on {0}?
 whatTimeDidYouFinish.hint = For example, 9:00am or 2:30pm - enter 12:00pm for midday.
 whatTimeDidYouFinish.checkYourAnswersLabel = What time did you finish work?
+whatTimeDidYouFinish.error.required = The time must include the {0}
+whatTimeDidYouFinish.error.required.two = The time must include the {0} and {1}
+whatTimeDidYouFinish.error.invalid = The {0} must be valid
+whatTimeDidYouFinish.error.invalid.overall = Enter a valid time
+whatTimeDidYouFinish.error.required.ampm = The time must include am for before midday or pm for after midday
+
 whatTimeDidYouFinish.time-finished-hour.error.required = Enter the hour that you finished work
 whatTimeDidYouFinish.time-finished-hour.error.numeric = The hour that you finished work must be a number
 whatTimeDidYouFinish.time-finished-hour.error.wholeNumber = The hour that you finished work must be a whole number

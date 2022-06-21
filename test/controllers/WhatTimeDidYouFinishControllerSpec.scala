@@ -18,7 +18,7 @@ package controllers
 
 import base.SpecBase
 import forms.WhatTimeDidYouFinishFormProvider
-import models.{NormalMode, UserAnswers, WhatTimeDidYouFinish}
+import models.{NormalMode, WhatTimeDidYouFinish}
 import navigation.{FakeNavigator, Navigator}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
@@ -99,9 +99,9 @@ class WhatTimeDidYouFinishControllerSpec extends SpecBase with MockitoSugar {
         val request =
           FakeRequest(POST, whatTimeDidYouFinishRoute)
             .withFormUrlEncodedBody(
-              "time-finished-hour" -> "10",
-              "time-finished-minute" -> "0",
-              "time-finished-ampm" -> "am"
+              "time-finished.hour" -> "10",
+              "time-finished.minute" -> "0",
+              "time-finished.ampm" -> "am"
             )
 
         val result = route(application, request).value
