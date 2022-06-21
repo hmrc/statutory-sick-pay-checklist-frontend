@@ -103,7 +103,7 @@ class TimeFinishedMappingSpec extends AnyFreeSpec with Matchers with ScalaCheckP
 
       val result = form.bind(data)
 
-      result.errors must contain only FormError("value", "error.required.ampm", List.empty)
+      result.errors must contain only FormError("value", "error.required.ampm", List("ampm"))
 
     }
 
@@ -404,7 +404,7 @@ class TimeFinishedMappingSpec extends AnyFreeSpec with Matchers with ScalaCheckP
       )
 
       val result = form.bind(data)
-      result.errors must contain only FormError("value", "error.required.ampm", List.empty)
+      result.errors must contain only FormError("value", "error.required.ampm", List("ampm"))
     }
   }
 

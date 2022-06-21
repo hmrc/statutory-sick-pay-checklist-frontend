@@ -17,113 +17,137 @@
 package forms
 
 import forms.behaviours.{IntFieldBehaviours, StringFieldBehaviours}
-import org.scalacheck.{Arbitrary, Gen, Shrink}
+import models.WhatTimeDidYouFinish
+import org.scalacheck.{Gen, Shrink}
 import play.api.data.FormError
 
 class WhatTimeDidYouFinishFormProviderSpec extends StringFieldBehaviours with IntFieldBehaviours {
 
+  implicit val dontShrinkInt: Shrink[Int] = Shrink.shrinkAny
+
   val form = new WhatTimeDidYouFinishFormProvider()()
 
-  ".time-finished-hour" - {
+  val invalidKey = "whatTimeDidYouFinish.error.invalid"
+  val requiredKey = "whatTimeDidYouFinish.error.required"
+  val twoRequiredKey = "whatTimeDidYouFinish.error.required.two"
+  val amPmRequiredKey = "whatTimeDidYouFinish.error.required.ampm"
+  val overallInvalidKey = "whatTimeDidYouFinish.error.invalid.overall"
 
-    val fieldName = "time-finished-hour"
-    val requiredKey = "whatTimeDidYouFinish.time-finished-hour.error.required"
-    val rangeKey = "whatTimeDidYouFinish.time-finished-hour.error.range"
-    val nonNumericKey = "whatTimeDidYouFinish.time-finished-hour.error.numeric"
-    val wholeNumberKey = "whatTimeDidYouFinish.time-finished-hour.error.wholeNumber"
+  ".time-finished" - {
 
-    behave like fieldThatBindsValidData(
-      form,
-      fieldName,
-      Gen.oneOf(List("9", "09", "12"))
-    )
+    "must bind valid values" in {
+      val gen = for {
+        hour <- Gen.chooseNum(1, 12)
+        minute <- Gen.chooseNum(0, 59)
+        amPm <- Gen.oneOf("am", "pm")
+      } yield (hour, minute, amPm)
 
-    behave like intField(
-      form,
-      fieldName,
-      FormError(fieldName, nonNumericKey),
-      FormError(fieldName, wholeNumberKey)
-    )
+      forAll(gen -> "valid time") { time =>
 
-    behave like intFieldWithRange(
-      form,
-      fieldName,
-      1,
-      12,
-      FormError(fieldName, rangeKey, Seq(1, 12))
-    )
+        val data = Map(
+          "time-finished.hour" -> time._1.toString,
+          "time-finished.minute" -> time._2.toString,
+          "time-finished.ampm" -> time._3
+        )
 
-    behave like mandatoryField(
-      form,
-      fieldName,
-      FormError(fieldName, requiredKey)
-    )
-  }
+        val result = form.bind(data)
 
-  ".time-finished-minute" - {
+        result.errors mustBe empty
+        result.value.value mustEqual WhatTimeDidYouFinish(time._1, time._2, time._3)
 
-    val fieldName = "time-finished-minute"
-    val requiredKey = "whatTimeDidYouFinish.time-finished-minute.error.required"
-    val rangeKey = "whatTimeDidYouFinish.time-finished-minute.error.range"
-    val nonNumericKey = "whatTimeDidYouFinish.time-finished-minute.error.numeric"
-    val wholeNumberKey = "whatTimeDidYouFinish.time-finished-minute.error.wholeNumber"
-
-    behave like fieldThatBindsValidData(
-      form,
-      fieldName,
-      Gen.oneOf(List("0", "09", "9", "00"))
-    )
-
-    behave like intField(
-      form,
-      fieldName,
-      FormError(fieldName, nonNumericKey),
-      FormError(fieldName, wholeNumberKey)
-    )
-
-    behave like intFieldWithRange(
-      form,
-      fieldName,
-      0,
-      59,
-      FormError(fieldName, rangeKey, Seq(0, 59))
-    )
-
-    behave like mandatoryField(
-      form,
-      fieldName,
-      FormError(fieldName, requiredKey)
-    )
-  }
-
-  ".time-finished-ampm" - {
-
-    val fieldName = "time-finished-ampm"
-    val requiredKey = "whatTimeDidYouFinish.time-finished-ampm.error.required"
-    val invalidKey = "whatTimeDidYouFinish.time-finished-ampm.error.invalid"
-
-    behave like fieldThatBindsValidData(
-      form,
-      fieldName,
-      Gen.oneOf(List("am", "pm"))
-    )
-
-    behave like mandatoryField(
-      form,
-      fieldName,
-      FormError(fieldName, requiredKey)
-    )
-
-    "must fail to bind value that is not am or pm" in {
-
-      val gen = nonEmptyString
-        .suchThat(_ !== "am")
-        .suchThat(_ !== "pm")
-
-      forAll(gen) { value =>
-        val errors = form.bind(Map(fieldName -> value))(fieldName).errors
-        errors must contain (FormError(fieldName, invalidKey))
       }
     }
+
+    "must not bind when hour is missing" in {
+      val gen = for {
+        minute <- Gen.chooseNum(0, 59)
+        amPm <- Gen.oneOf("am", "pm")
+      } yield (minute, amPm)
+
+      forAll(gen -> "valid time") { time =>
+        val data = Map(
+          "time-finished.minute" -> time._1.toString,
+          "time-finished.ampm" -> time._2
+        )
+
+        val result = form.bind(data)
+        result.errors must contain only FormError("time-finished", requiredKey, List("hour"))
+      }
+    }
+
+    "must not bind when minute is missing" in {
+      val gen = for {
+        hour <- Gen.chooseNum(0, 23)
+        amPm <- Gen.oneOf("am", "pm")
+      } yield (hour, amPm)
+
+      forAll(gen -> "valid time") { time =>
+        val data = Map(
+          "time-finished.hour" -> time._1.toString,
+          "time-finished.ampm" -> time._2
+        )
+
+        val result = form.bind(data)
+        result.errors must contain only FormError("time-finished", requiredKey, List("minute"))
+      }
+    }
+
+    "must not bind hours outside of 0 to 23" in {
+      val gen = for {
+        hour <- intsOutsideRange(0, 23)
+        minute <- Gen.chooseNum(0, 59)
+        amPm <- Gen.oneOf("am", "pm")
+      } yield (hour, minute, amPm)
+
+      forAll(gen -> "valid time") { time =>
+        val data = Map(
+          "time-finished.hour" -> time._1.toString,
+          "time-finished.minute" -> time._2.toString,
+          "time-finished.ampm" -> time._3
+        )
+
+        val result = form.bind(data)
+        result.errors must contain only FormError("time-finished", invalidKey, List("hour"))
+      }
+    }
+
+    "must not bind minutes outside of 0 to 59" in {
+      val gen = for {
+        hour <- Gen.chooseNum(0, 23)
+        minute <- intsOutsideRange(0, 59)
+        amPm <- Gen.oneOf("am", "pm")
+      } yield (hour, minute, amPm)
+
+      forAll(gen -> "valid time") { time =>
+        val data = Map(
+          "time-finished.hour" -> time._1.toString,
+          "time-finished.minute" -> time._2.toString,
+          "time-finished.ampm" -> time._3
+        )
+
+        val result = form.bind(data)
+        result.errors must contain only FormError("time-finished", invalidKey, List("minute"))
+      }
+    }
+
+    "must not bind invalid am/pm values" in {
+      val gen = for {
+        hour <- Gen.chooseNum(0, 23)
+        minute <- Gen.chooseNum(0, 59)
+        amPm <- stringsExceptSpecificValues(List("am", "pm"))
+      } yield (hour, minute, amPm)
+
+      forAll(gen -> "valid time") { time =>
+        val data = Map(
+          "time-finished.hour" -> time._1.toString,
+          "time-finished.minute" -> time._2.toString,
+          "time-finished.ampm" -> time._3
+        )
+
+        val result = form.bind(data)
+        result.errors must contain only FormError("time-finished", amPmRequiredKey, List("ampm"))
+      }
+    }
+
   }
 }
