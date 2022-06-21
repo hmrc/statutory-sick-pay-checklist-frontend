@@ -39,6 +39,9 @@ trait ErrorSummaryFluency {
             case a if a.contains("day")   => s"${error.key}.day"
             case a if a.contains("month") => s"${error.key}.month"
             case a if a.contains("year")  => s"${error.key}.year"
+            case a if a.contains("hour")  => s"${error.key}.hour"
+            case a if a.contains("minute")=> s"${error.key}.minute"
+            case a if a.contains("ampm")  => s"${error.key}.ampm"
             case _                        => error.key
           }
 

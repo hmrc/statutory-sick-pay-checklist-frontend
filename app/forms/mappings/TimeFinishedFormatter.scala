@@ -21,12 +21,12 @@ import play.api.data.FormError
 import play.api.data.format.Formatter
 
 private[mappings] class TimeFinishedFormatter(
-                                            invalidKey: String,
-                                            requiredKey: String,
-                                            twoRequiredKey: String,
-                                            amPmRequiredKey: String,
-                                            invalidHourKey: String,
-                                            args: Seq[String] = Seq.empty
+                                               invalidKey: String,
+                                               requiredKey: String,
+                                               twoRequiredKey: String,
+                                               amPmRequiredKey: String,
+                                               invalidOverall: String,
+                                               args: Seq[String] = Seq.empty
                                           ) extends Formatter[WhatTimeDidYouFinish] with Formatters {
 
   private val mandatoryFieldKeys: List[String] = List("hour", "minute")
@@ -37,13 +37,13 @@ private[mappings] class TimeFinishedFormatter(
     } else if (hour <= 12) {
       Right(WhatTimeDidYouFinish(hour, minute, "am"))
     } else {
-      Left(Seq(FormError(key, invalidHourKey, args)))
+      Left(Seq(FormError(key, invalidOverall, args)))
     }
   }
 
   private def toTimePm(key: String, hour: Int, minute: Int): Either[Seq[FormError], WhatTimeDidYouFinish] = {
     if (hour == 0) {
-      Left(Seq(FormError(key, invalidHourKey, args)))
+      Left(Seq(FormError(key, invalidOverall, args)))
     } else if (hour > 12) {
       Right(WhatTimeDidYouFinish(hour - 12, minute, "pm"))
     } else {
@@ -57,7 +57,7 @@ private[mappings] class TimeFinishedFormatter(
     } else if (hour > 12) {
       Right(WhatTimeDidYouFinish(hour - 12, minute, "pm"))
     } else {
-      Left(Seq(FormError(key, amPmRequiredKey, args)))
+      Left(Seq(FormError(key, amPmRequiredKey, args :+ "ampm")))
     }
   }
 
@@ -90,7 +90,7 @@ private[mappings] class TimeFinishedFormatter(
       value match {
         case Some(value) if List("am", "pm").contains(value) => Right(Some(value))
         case Some("") => Right(None)
-        case _ => Left(Seq(FormError(key, amPmRequiredKey, args)))
+        case _ => Left(Seq(FormError(key, amPmRequiredKey, args :+ "ampm")))
       }
     }
 

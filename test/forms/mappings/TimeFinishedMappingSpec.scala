@@ -25,18 +25,18 @@ import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.data.{Form, FormError}
 
-class TimeMappingsSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with Generators with OptionValues
+class TimeFinishedMappingSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyChecks with Generators with OptionValues
   with Mappings {
 
   implicit val dontShrinkInt: Shrink[Int] = Shrink.shrinkAny
 
   val form = Form(
-    "value" -> timeAmPm(
+    "value" -> timeFinished(
       "error.invalid",
       "error.required",
       "error.required.two",
       "error.required.ampm",
-      "error.invalid.hour"
+      "error.invalid.overall"
     )
   )
 
@@ -80,7 +80,7 @@ class TimeMappingsSpec extends AnyFreeSpec with Matchers with ScalaCheckProperty
       )
 
       val result = form.bind(data)
-      result.errors must contain only FormError("value", "error.invalid.hour", List.empty)
+      result.errors must contain only FormError("value", "error.invalid.overall", List.empty)
 
     }
 
@@ -220,7 +220,7 @@ class TimeMappingsSpec extends AnyFreeSpec with Matchers with ScalaCheckProperty
 
       val result = form.bind(data)
 
-      result.errors must contain only FormError("value", "error.invalid.hour", List.empty)
+      result.errors must contain only FormError("value", "error.invalid.overall", List.empty)
 
     }
 

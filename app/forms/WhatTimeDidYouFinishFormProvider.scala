@@ -26,12 +26,12 @@ import javax.inject.Inject
 class WhatTimeDidYouFinishFormProvider @Inject() extends Mappings {
 
   def apply(): Form[WhatTimeDidYouFinish] = Form(
-    "time-finished" -> timeAmPm(
+    "time-finished" -> timeFinished(
       "whatTimeDidYouFinish.error.invalid",
       "whatTimeDidYouFinish.error.required",
       "whatTimeDidYouFinish.error.required.two",
       "whatTimeDidYouFinish.error.required.ampm",
-      "whatTimeDidYouFinish.error.invalid.hour"
+      "whatTimeDidYouFinish.error.invalid.overall"
     )
   )
 }

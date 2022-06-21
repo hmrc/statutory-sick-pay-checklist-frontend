@@ -51,7 +51,7 @@ trait Mappings extends Formatters with Constraints {
                            args: Seq[String] = Seq.empty): FieldMapping[LocalDate] =
     of(new LocalDateFormatter(invalidKey, allRequiredKey, twoRequiredKey, requiredKey, args))
 
-  protected def timeAmPm(
+  protected def timeFinished(
                           invalidKey: String,
                           requiredKey: String,
                           twoRequiredKey: String,

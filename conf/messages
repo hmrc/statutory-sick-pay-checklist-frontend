@@ -179,7 +179,7 @@ whatTimeDidYouFinish.checkYourAnswersLabel = What time did you finish work?
 whatTimeDidYouFinish.error.required = The time must include the {0}
 whatTimeDidYouFinish.error.required.two = The time must include the {0} and {1}
 whatTimeDidYouFinish.error.invalid = The {0} must be valid
-whatTimeDidYouFinish.error.invalid.hour = The hour must be valid
+whatTimeDidYouFinish.error.invalid.overall = Enter a valid time
 whatTimeDidYouFinish.error.required.ampm = The time must include am for before midday or pm for after midday
 
 whatTimeDidYouFinish.time-finished-hour.error.required = Enter the hour that you finished work

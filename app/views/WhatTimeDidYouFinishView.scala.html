@@ -27,12 +27,16 @@
 
 @(form: Form[_], lastDate: LocalDate, mode: Mode)(implicit request: Request[_], messages: Messages)
 
+@overallError = @{
+    form.errors.forall(_.args.isEmpty)
+}
+
 @layout(pageTitle = title(form, messages("whatTimeDidYouFinish.title", govUkDateFormat(lastDate)), Some(messages("section.employmentDetails")))) {
 
     @formHelper(action = routes.WhatTimeDidYouFinishController.onSubmit(mode)) {
 
         @if(form.errors.nonEmpty) {
-            @govukErrorSummary(ErrorSummaryViewModel(form))
+            @govukErrorSummary(ErrorSummaryViewModel(form, Map("time-finished" -> "time-finished.hour")))
         }
 
         <div class="govuk-form-group @if(form.errors.nonEmpty){ govuk-form-group--error }">
@@ -56,27 +60,27 @@
                 <div id="time-finished">
                     <div class="govuk-date-input__item govuk-!-margin-right-1">
                         <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="time-finished-hour">
+                            <label class="govuk-label govuk-date-input__label" for="time-finished.hour">
                                 @messages("time.hour")
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2 @if(form("time-finished.hour").errors.nonEmpty){ govuk-input--error }" id="time-finished-hour" name="time-finished.hour" type="text" inputmode="numeric" value="@form("time-finished.hour").value">
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2 @if(overallError || form("time-finished").errors.exists(_.args.contains("hour"))){ govuk-input--error }" id="time-finished.hour" name="time-finished.hour" type="text" inputmode="numeric" value="@form("time-finished.hour").value">
                         </div>
                     </div>
                     <div class="govuk-date-input__item govuk-!-margin-right-1 govuk-body">:</div>
                     <div class="govuk-date-input__item">
                         <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="time-finished-minute">
+                            <label class="govuk-label govuk-date-input__label" for="time-finished.minute">
                                 @messages("time.minute")
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2 @if(form("time-finished.minute").errors.nonEmpty){ govuk-input--error }" id="time-finished-minute" name="time-finished.minute" type="text" inputmode="numeric" value="@Try(form("time-finished.minute").value.map(v => f"${v.toInt}%02d")).getOrElse(form("time-finished.minute").value)">
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2 @if(overallError || form("time-finished").errors.exists(_.args.contains("minute"))){ govuk-input--error }" id="time-finished.minute" name="time-finished.minute" type="text" inputmode="numeric" value="@Try(form("time-finished.minute").value.map(v => f"${v.toInt}%02d")).getOrElse(form("time-finished.minute").value)">
                         </div>
                     </div>
                     <div class="govuk-date-input__item">
                         <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="time-finished-ampm">
+                            <label class="govuk-label govuk-date-input__label" for="time-finished.ampm">
                                 @messages("time.amPm")
                             </label>
-                            <select class="govuk-select govuk-input--width-4 @if(form("time-finished.ampm").errors.nonEmpty){ govuk-select--error }" id="time-finished-ampm" name="time-finished.ampm">
+                            <select class="govuk-select govuk-input--width-4 @if(overallError || form("time-finished").errors.exists(_.args.contains("ampm"))){ govuk-select--error }" id="time-finished.ampm" name="time-finished.ampm">
                                 <option value="" label="@messages("time.amPm")"> </option>
                                 <option value="am" @if(form("time-finished.ampm").value.contains("am")) { selected }>am</option>
                                 <option value="pm" @if(form("time-finished.ampm").value.contains("pm")) { selected }>pm</option>
