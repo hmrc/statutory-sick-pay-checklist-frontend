@@ -132,6 +132,7 @@ detailsOfSickness.change.hidden = details of your sickness
 
 dateSicknessBegan.title = When did your sickness begin?
 dateSicknessBegan.heading = When did your sickness begin?
+dateSicknessBegan.p = If this is your first day off work due to sickness, you are not eligible for Statutory Sick Pay. You must have been off work due to sickness for more than 3 days in a row before you can be eligible.
 dateSicknessBegan.hint = For example, 12 11 2007
 dateSicknessBegan.checkYourAnswersLabel = When did your sickness begin?
 dateSicknessBegan.error.required.all = Enter the date that your sickness began

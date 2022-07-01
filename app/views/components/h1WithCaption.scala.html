@@ -16,10 +16,10 @@
 
 @this()
 
-@(content: Content, caption: Content, size: String = "xl")(implicit request: Request[_], messages: Messages)
+@(content: Content, caption: Content, size: String = "xl", h1Classes: String = "")(implicit request: Request[_], messages: Messages)
 
 <header class="hmrc-page-heading">
-    <h1 class="govuk-heading-@size">@content.asHtml</h1>
+    <h1 class="govuk-heading-@size @h1Classes">@content.asHtml</h1>
     <p class="hmrc-caption govuk-caption-@size">
         <span class="govuk-visually-hidden">@messages("thisSectionIs") </span>
         @caption.asHtml
