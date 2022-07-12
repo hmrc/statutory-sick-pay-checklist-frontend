@@ -1,0 +1,15 @@
+#!/bin/bash
+# shellcheck disable=SC2215
+## https://github.com/koalaman/shellcheck/wiki/SC2215
+
+-mem 4096
+-J-Xss2M
+-J-Xmx4G
+-J-XX:MinHeapFreeRatio=10
+-J-XX:MaxHeapFreeRatio=20
+-J-XX:MaxMetaspaceSize=2048M
+-J-XX:MetaspaceSize=256M
+-J-XX:+CMSClassUnloadingEnabled
+-J-XX:ReservedCodeCacheSize=128m
+-J-Dsbt.log.format=true
+-J-Duser.timezone=GMT
