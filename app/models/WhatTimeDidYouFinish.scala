@@ -16,9 +16,7 @@
 
 package models
 
-import play.api.libs.json.{JsError, JsString, JsSuccess, Json, OWrites, Reads}
-
-import scala.util.matching.Regex
+import play.api.libs.json.{Json, OFormat}
 
 final case class WhatTimeDidYouFinish(hour: Int, minute: Int, amOrPm: String) {
 
@@ -27,20 +25,5 @@ final case class WhatTimeDidYouFinish(hour: Int, minute: Int, amOrPm: String) {
 
 object WhatTimeDidYouFinish {
 
-  implicit lazy val writes: OWrites[WhatTimeDidYouFinish] = Json.writes[WhatTimeDidYouFinish]
-
-  implicit lazy val reads: Reads[WhatTimeDidYouFinish] = Json.reads[WhatTimeDidYouFinish] orElse fallbackReads
-
-  private val FallbackFormat: Regex = """^(?i)(\d|0\d|1[0-2])[:. ]?([0-5][0-9])? ?([ap]\.?m\.?)$""".r
-
-  // TODO remove after release
-  private val fallbackReads: Reads[WhatTimeDidYouFinish] = Reads {
-    case JsString(FallbackFormat(rawHour, rawMinute, rawAmPm)) =>
-      val hour = rawHour.toInt
-      val minute = Option(rawMinute).map(_.toInt).getOrElse(0)
-      val amPm = rawAmPm.toLowerCase.replaceAll("\\.", "")
-      JsSuccess(WhatTimeDidYouFinish(hour, minute, amPm))
-    case _ =>
-      JsError("Invalid")
-  }
+  implicit lazy val format: OFormat[WhatTimeDidYouFinish] = Json.format[WhatTimeDidYouFinish]
 }
