@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter
 
 class WhenDidYouLastWorkFormProvider @Inject()(clock: Clock) extends Mappings {
 
-  val minDate: LocalDate = LocalDate.now(clock).minusYears(1)
+  def minDate: LocalDate = LocalDate.now(clock).minusYears(1)
 
   private def dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
