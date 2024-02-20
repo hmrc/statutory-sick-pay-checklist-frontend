@@ -19,7 +19,6 @@ package forms
 import forms.mappings.Mappings
 import models.WhatTimeDidYouFinish
 import play.api.data.Form
-import play.api.data.Forms.mapping
 
 import javax.inject.Inject
 
