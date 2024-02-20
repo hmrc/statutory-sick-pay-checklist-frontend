@@ -25,7 +25,9 @@ object AppDependencies {
     "org.scalatestplus"       %% "scalacheck-1-15"         % "3.2.10.0",
     "org.scalatestplus"       %% "mockito-3-4"             % "3.2.10.0",
     "org.scalacheck"          %% "scalacheck"              % "1.15.4",
-  ).map(_ % "test, it")
+  ).map(_ % Test)
+
+  val integration: Seq[ModuleID] = Seq.empty
 
   def apply(): Seq[ModuleID] = compile ++ test
 }
