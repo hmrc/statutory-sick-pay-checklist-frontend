@@ -18,10 +18,8 @@ package controllers
 
 import audit.AuditService
 import base.SpecBase
-import com.dmanchester.playfop.sapi.PlayFop
 import models.{JourneyModel, WhatIsYourName, WhatTimeDidYouFinish}
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchersSugar.eqTo
+import org.mockito.ArgumentMatchers.{eq => eqTo, any}
 import org.mockito.Mockito.{times, verify, when}
 import org.scalatest.EitherValues
 import org.scalatestplus.mockito.MockitoSugar
@@ -30,10 +28,12 @@ import play.api.http.HeaderNames
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import services.FopService
 import uk.gov.hmrc.domain.Nino
 import views.html.PrintView
 
 import java.time.LocalDate
+import scala.concurrent.Future
 
 class PrintControllerSpec extends SpecBase with EitherValues with MockitoSugar {
 
@@ -83,21 +83,21 @@ class PrintControllerSpec extends SpecBase with EitherValues with MockitoSugar {
 
     "must return OK and the correct view" in {
       val mockAuditService = mock[AuditService]
-      val mockPlayFop = mock[PlayFop]
+      val mockFopService = mock[FopService]
       val application = applicationBuilder(userAnswers = Some(answers))
         .overrides(
           bind[AuditService].toInstance(mockAuditService),
-          bind[PlayFop].toInstance(mockPlayFop)
+          bind[FopService].toInstance(mockFopService)
         )
         .build()
-      when(mockPlayFop.processTwirlXml(any(), any(), any(), any())).thenReturn("hello".getBytes)
+      when(mockFopService.render(any())).thenReturn(Future.successful("hello".getBytes))
       running(application) {
         val request = FakeRequest(GET, routes.PrintController.onDownload().url)
         val result = route(application, request).value
-        verify(mockAuditService, times(1)).auditDownload(eqTo(model))(any())
         status(result) mustEqual OK
         contentAsString(result) mustEqual "hello"
         header(HeaderNames.CONTENT_DISPOSITION, result).value mustEqual "attachment; filename=claim-statutory-sick-pay-sc2.pdf"
+        verify(mockAuditService, times(1)).auditDownload(eqTo(model))(any())
       }
     }
 

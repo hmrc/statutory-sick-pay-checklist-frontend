@@ -16,9 +16,9 @@
 
 package models
 
-import org.scalatest.{EitherValues, OptionValues, TryValues}
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
+import org.scalatest.{EitherValues, OptionValues, TryValues}
 import pages._
 import uk.gov.hmrc.domain.Nino
 
