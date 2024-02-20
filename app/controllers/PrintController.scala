@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,17 @@
 package controllers
 
 import audit.AuditService
-import com.dmanchester.playfop.sapi.PlayFop
 import controllers.actions._
 import models.JourneyModel
-import org.apache.fop.apps.FOUserAgent
-import org.apache.xmlgraphics.util.MimeConstants
-
-import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.FopService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.PrintView
 import views.xml.pdf.PdfView
+
+import javax.inject.Inject
+import scala.concurrent.{ExecutionContext, Future}
 
 class PrintController @Inject()(
                                  override val messagesApi: MessagesApi,
@@ -38,19 +37,10 @@ class PrintController @Inject()(
                                  val controllerComponents: MessagesControllerComponents,
                                  view: PrintView,
                                  pdfView: PdfView,
+                                 fopService: FopService,
                                  auditService: AuditService,
-                                 fop: PlayFop
-                               ) extends FrontendBaseController with I18nSupport {
+                               )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  private val userAgentBlock: FOUserAgent => Unit = { foUserAgent: FOUserAgent =>
-    foUserAgent.setAccessibility(true)
-    foUserAgent.setPdfUAEnabled(true)
-    foUserAgent.setAuthor("HMRC forms service")
-    foUserAgent.setProducer("HMRC forms services")
-    foUserAgent.setCreator("HMRC forms services")
-    foUserAgent.setSubject("Ask your employer for Statutory Sick Pay")
-    foUserAgent.setTitle("Ask your employer for Statutory Sick Pay")
-  }
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
@@ -59,14 +49,15 @@ class PrintController @Inject()(
       }.getOrElse(Redirect(routes.JourneyRecoveryController.onPageLoad()))
   }
 
-  def onDownload: Action[AnyContent] = (identify andThen getData andThen requireData) {
+  def onDownload: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       JourneyModel.from(request.userAnswers).map { model =>
         auditService.auditDownload(model)
-        val pdf = fop.processTwirlXml(pdfView(model), MimeConstants.MIME_PDF, foUserAgentBlock = userAgentBlock)
-        Ok(pdf)
-          .as("application/octet-stream")
-          .withHeaders(CONTENT_DISPOSITION -> "attachment; filename=claim-statutory-sick-pay-sc2.pdf")
-      }.getOrElse(Redirect(routes.JourneyRecoveryController.onPageLoad()))
+        fopService.render(pdfView.render(model, implicitly, implicitly).body).map { pdf =>
+          Ok(pdf)
+            .as("application/octet-stream")
+            .withHeaders(CONTENT_DISPOSITION -> "attachment; filename=claim-statutory-sick-pay-sc2.pdf")
+        }
+      }.getOrElse(Future.successful(Redirect(routes.JourneyRecoveryController.onPageLoad())))
   }
 }

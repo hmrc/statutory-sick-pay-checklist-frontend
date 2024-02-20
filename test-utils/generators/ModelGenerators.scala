@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ trait ModelGenerators {
       secondChar <- Gen.oneOf('A', 'B', 'C', 'E', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'W', 'X', 'Y', 'Z').map(_.toString)
       digits <- Gen.listOfN(6, Gen.numChar)
       lastChar <- Gen.oneOf('A', 'B', 'C', 'D')
-    } yield Nino(firstChar ++ secondChar ++ digits :+ lastChar)
+    } yield Nino(firstChar ++ secondChar ++ digits.mkString + lastChar)
   }
 
   implicit lazy val arbitraryTime: Arbitrary[WhatTimeDidYouFinish] = Arbitrary {
