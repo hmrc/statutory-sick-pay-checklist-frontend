@@ -18,7 +18,7 @@
 
 @(model: JourneyModel)(implicit request: RequestHeader, messages: Messages)
 
-<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:fox="http://xmlgraphics.apache.org/fop/extensions" font-family="sans-serif">
+<fo:root xml:lang="@messages.lang.locale.getLanguage" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:fox="http://xmlgraphics.apache.org/fop/extensions" font-family="sans-serif">
 
     <fo:layout-master-set>
         <fo:simple-page-master master-name="main" page-height="297mm" page-width="210mm" margin="2cm">
@@ -28,13 +28,44 @@
         </fo:simple-page-master>
     </fo:layout-master-set>
 
+    <fo:declarations>
+        <pdf:catalog xmlns:pdf="http://xmlgraphics.apache.org/fop/extensions/pdf">
+            <pdf:dictionary type="normal" key="ViewerPreferences">
+                <pdf:boolean key="DisplayDocTitle">true</pdf:boolean>
+            </pdf:dictionary>
+        </pdf:catalog>
+    </fo:declarations>
+
+    <fo:bookmark-tree>
+        <fo:bookmark internal-destination="title">
+            <fo:bookmark-title>@messages("pdf.title")</fo:bookmark-title>
+
+            <fo:bookmark internal-destination="personal-details">
+                <fo:bookmark-title>@messages("section.personalDetails")</fo:bookmark-title>
+            </fo:bookmark>
+
+            <fo:bookmark internal-destination="sickness-details">
+                <fo:bookmark-title>@messages("section.sicknessDetails")</fo:bookmark-title>
+            </fo:bookmark>
+
+            <fo:bookmark internal-destination="employment-details">
+                <fo:bookmark-title>@messages("section.employmentDetails")</fo:bookmark-title>
+            </fo:bookmark>
+
+            <fo:bookmark internal-destination="what-happens-next">
+                <fo:bookmark-title>@messages("print.whatHappensNext")</fo:bookmark-title>
+            </fo:bookmark>
+
+        </fo:bookmark>
+    </fo:bookmark-tree>
+
     <fo:page-sequence master-reference="main">
 
         <!-- Header -->
         <fo:static-content flow-name="xsl-region-before">
             <fo:block>
                 <fo:external-graphic src="url(conf/resources/logo.jpg)" padding-right="1cm" fox:alt-text="HM Revenue and Customs logo" />
-                <fo:block margin-left="3cm" margin-top="-1.25cm" text-align="right" font-size="16pt" font-weight="bold">@messages("pdf.title")</fo:block>
+                <fo:block role="H1" margin-left="3cm" margin-top="-1.25cm" text-align="right" font-size="16pt" font-weight="bold">@messages("pdf.title")</fo:block>
             </fo:block>
         </fo:static-content>
 
@@ -43,7 +74,7 @@
             <fo:block-container>
 
                 <!-- Personal Details -->
-                <fo:block font-size="18pt" font-weight="bold" margin-bottom="5mm">@messages("section.personalDetails")</fo:block>
+                <fo:block role="H2" id="personal-details" font-size="18pt" font-weight="bold" margin-bottom="5mm">@messages("section.personalDetails")</fo:block>
 
                 <fo:block-container>
 
@@ -84,7 +115,7 @@
                 </fo:block-container>
 
                 <!-- Sickness Details -->
-                <fo:block font-size="18pt" font-weight="bold" margin-bottom="5mm" margin-top="7mm">@messages("section.sicknessDetails")</fo:block>
+                <fo:block role="H2" id="sickness-details" font-size="18pt" font-weight="bold" margin-bottom="5mm" margin-top="7mm">@messages("section.sicknessDetails")</fo:block>
 
                 <fo:block-container>
 
@@ -125,7 +156,7 @@
                 </fo:block-container>
 
                 <!-- Employment Details -->
-                <fo:block font-size="18pt" font-weight="bold" margin-bottom="5mm" margin-top="7mm">@messages("section.employmentDetails")</fo:block>
+                <fo:block role="H2" id="employment-details" font-size="18pt" font-weight="bold" margin-bottom="5mm" margin-top="7mm">@messages("section.employmentDetails")</fo:block>
 
                 <fo:block-container>
 
@@ -168,13 +199,13 @@
         <fo:static-content flow-name="xsl-region-before">
             <fo:block>
                 <fo:external-graphic src="url(conf/resources/logo.jpg)" padding-right="1cm" fox:alt-text="HM Revenue and Customs logo" />
-                <fo:block margin-left="3cm" margin-top="-1.25cm" text-align="right" font-size="16pt" font-weight="bold">@messages("pdf.title")</fo:block>
+                <fo:block role="H1" margin-left="3cm" margin-top="-1.25cm" text-align="right" font-size="16pt" font-weight="bold">@messages("pdf.title")</fo:block>
             </fo:block>
         </fo:static-content>
 
         <!-- Instructions -->
         <fo:flow flow-name="xsl-region-body">
-            <fo:block font-size="18pt" font-weight="bold" margin-bottom="5mm">@messages("print.whatHappensNext")</fo:block>
+            <fo:block role="H2" id="what-happens-next" font-size="18pt" font-weight="bold" margin-bottom="5mm">@messages("print.whatHappensNext")</fo:block>
 
             @if(model.causedByIndustrialDiseaseOrAccident) {
                 <fo:block margin-bottom="5mm" margin-left="0" padding-left="5mm" border-left="2mm solid #b1b4b6">
