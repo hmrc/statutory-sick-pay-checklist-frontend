@@ -10,11 +10,11 @@ import scala.collection.Seq
 lazy val appName: String = "statutory-sick-pay-checklist-frontend"
 
 ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "2.13.12"
+ThisBuild / scalaVersion := "2.13.16"
 ThisBuild / useSuperShell := false
 
 lazy val root = (project in file("."))
-  .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin)
+  .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin) //Required to prevent https://github.com/scalatest/scalatest/issues/1427
   .settings(inConfig(Test)(testSettings))
   .settings(majorVersion := 0)
@@ -44,13 +44,10 @@ lazy val root = (project in file("."))
     ScoverageKeys.coverageHighlighting := true,
     scalacOptions ++= Seq(
       "-feature",
-      "-rootdir",
-      baseDirectory.value.getCanonicalPath,
       "-Wconf:cat=deprecation:ws,cat=feature:ws,cat=optimizer:ws,src=target/.*:s"
     ),
     libraryDependencies ++= AppDependencies(),
     retrieveManaged := true,
-    resolvers ++= Seq(Resolver.jcenterRepo),
     // concatenate js
     Concat.groups := Seq(
       "javascripts/application.js" ->
@@ -58,10 +55,7 @@ lazy val root = (project in file("."))
           "javascripts/app.js"
         ))
     ),
-    Assets / pipelineStages := Seq(concat, uglify),
-    uglifyCompressOptions := Seq("unused=false", "dead_code=false"),
-    uglifyOps := UglifyOps.singleFile,
-    uglify / includeFilter := GlobFilter("application.js")
+    Assets / pipelineStages := Seq(concat)
   )
 
 lazy val testSettings: Seq[Def.Setting[_]] = Seq(
