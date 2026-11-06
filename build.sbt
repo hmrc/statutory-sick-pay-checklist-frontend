@@ -10,7 +10,7 @@ import scala.collection.Seq
 lazy val appName: String = "statutory-sick-pay-checklist-frontend"
 
 ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "2.13.16"
+ThisBuild / scalaVersion := "3.3.7"
 ThisBuild / useSuperShell := false
 
 lazy val root = (project in file("."))

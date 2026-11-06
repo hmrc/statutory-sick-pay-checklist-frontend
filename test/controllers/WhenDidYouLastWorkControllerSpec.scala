@@ -55,10 +55,10 @@ class WhenDidYouLastWorkControllerSpec extends SpecBase with MockitoSugar {
     emptyUserAnswers
       .set(DateSicknessBeganPage, startDate).success.value
 
-  def getRequest(): FakeRequest[AnyContentAsEmpty.type] =
+  def getRequest: FakeRequest[AnyContentAsEmpty.type] =
     FakeRequest(GET, whenDidYouLastWorkRoute)
 
-  def postRequest(): FakeRequest[AnyContentAsFormUrlEncoded] =
+  def postRequest: FakeRequest[AnyContentAsFormUrlEncoded] =
     FakeRequest(POST, whenDidYouLastWorkRoute)
       .withFormUrlEncodedBody(
         "value.day"   -> validAnswer.getDayOfMonth.toString,

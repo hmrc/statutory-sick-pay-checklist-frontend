@@ -26,7 +26,7 @@
 
 @layout(pageTitle = title(form, messages("doYouKnowYourNationalInsuranceNumber.title"), Some(messages("section.personalDetails")))) {
 
-    @formHelper(action = routes.DoYouKnowYourNationalInsuranceNumberController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = routes.DoYouKnowYourNationalInsuranceNumberController.onSubmit(mode), Symbol("autoComplete") -> "off") {
 
         @if(form.errors.nonEmpty) {
             @govukErrorSummary(ErrorSummaryViewModel(form))
