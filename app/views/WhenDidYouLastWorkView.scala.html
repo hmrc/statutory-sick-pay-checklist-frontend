@@ -26,7 +26,7 @@
 
 @layout(pageTitle = title(form, messages("whenDidYouLastWork.title"), Some(messages("section.employmentDetails")))) {
 
-    @formHelper(action = routes.WhenDidYouLastWorkController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = routes.WhenDidYouLastWorkController.onSubmit(mode), Symbol("autoComplete") -> "off") {
 
         @if(form.errors.nonEmpty) {
             @govukErrorSummary(ErrorSummaryViewModel(form, errorLinkOverrides = Map("value" -> "value.day")))

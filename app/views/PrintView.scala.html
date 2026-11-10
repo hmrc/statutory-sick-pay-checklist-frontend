@@ -37,7 +37,7 @@
 
   <p class="govuk-body">
     @messages("print.p2.pre")
-    <a class="govuk-link" href="@routes.CheckYourAnswersController.onPageLoad.url">@messages("print.p2.link.1")</a>
+    <a class="govuk-link" href="@routes.CheckYourAnswersController.onPageLoad().url">@messages("print.p2.link.1")</a>
     @messages("print.p2.or")
     <a class="govuk-link" href="@routes.JourneyRecoveryController.onStartAgain.url">@messages("print.p2.link.2")</a>@messages("print.p2.post")
   </p>
@@ -55,5 +55,5 @@
     <a class="govuk-link" href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/statutory-payment-dispute-team">@messages("print.p6.link")</a>@messages("print.p6.post")
   </p>
   <p class="govuk-body govuk-!-margin-top-5 govuk-!-margin-bottom-9">@messages("print.p1")</p>
-  <a id="download" href="@routes.PrintController.onDownload.url" role="button" data-module="govuk-button" class="govuk-button">@messages("print.button")</a>
+  <a id="download" href="@routes.PrintController.onDownload().url" role="button" data-module="govuk-button" class="govuk-button">@messages("print.button")</a>
 }

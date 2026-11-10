@@ -121,7 +121,7 @@ class NavigatorSpec extends SpecBase {
 
         "to the check your answers page when the user selects no" in {
           val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, false).success.value
-          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, NormalMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
+          navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, NormalMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad()
         }
 
         "to the journey recovery page when the user has no answer" in {
@@ -130,7 +130,7 @@ class NavigatorSpec extends SpecBase {
       }
 
       "must go from the what is your clock or payroll number to the check your answers page" in {
-        navigator.nextPage(WhatIsYourClockOrPayrollNumberPage, NormalMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+        navigator.nextPage(WhatIsYourClockOrPayrollNumberPage, NormalMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
     }
 
@@ -143,7 +143,7 @@ class NavigatorSpec extends SpecBase {
             .set(DoYouKnowYourNationalInsuranceNumberPage, true).success.value
             .set(WhatIsYourNinoPage, Nino("AA123456A")).success.value
 
-          navigator.nextPage(DoYouKnowYourNationalInsuranceNumberPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+          navigator.nextPage(DoYouKnowYourNationalInsuranceNumberPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
         }
 
         "to the what is your nino page when yes and nino has not been given" in {
@@ -157,7 +157,7 @@ class NavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers
             .set(DoYouKnowYourNationalInsuranceNumberPage, false).success.value
 
-          navigator.nextPage(DoYouKnowYourNationalInsuranceNumberPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+          navigator.nextPage(DoYouKnowYourNationalInsuranceNumberPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
         }
       }
 
@@ -178,7 +178,7 @@ class NavigatorSpec extends SpecBase {
             .set(DateSicknessEndedPage, LocalDate.now()).success.value
             .set(WhenDidYouLastWorkPage, LocalDate.now().minusDays(2)).success.value
 
-          navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+          navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
         }
 
         "to the when did you last work page when the user has selected yes for the has sickness ended page and has an answer for the date sickness ended page and no answer for last worked date" in {
@@ -196,7 +196,7 @@ class NavigatorSpec extends SpecBase {
             .set(HasSicknessEndedPage, false).success.value
             .set(WhenDidYouLastWorkPage, LocalDate.now().minusDays(1)).success.value
 
-          navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+          navigator.nextPage(DateSicknessBeganPage, CheckMode, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
         }
 
         "to the when did you last work page when the user has selected no for the has sickness ended page and no answer for last worked date" in {
@@ -223,7 +223,7 @@ class NavigatorSpec extends SpecBase {
           val answers = emptyUserAnswers
             .set(HasSicknessEndedPage, false).success.value
             .set(WhenDidYouLastWorkPage, LocalDate.now().minusDays(2)).success.value
-          navigator.nextPage(HasSicknessEndedPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
+          navigator.nextPage(HasSicknessEndedPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad()
         }
 
         "to the when did you last work page when the user selects no and has no answer for last worked date" in {
@@ -249,7 +249,7 @@ class NavigatorSpec extends SpecBase {
           val answers = emptyUserAnswers
             .set(DateSicknessEndedPage, LocalDate.now()).success.value
             .set(WhenDidYouLastWorkPage, LocalDate.now().minusDays(1)).success.value
-          navigator.nextPage(DateSicknessEndedPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
+          navigator.nextPage(DateSicknessEndedPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad()
         }
 
         "to the journey recovery page when the user has no answer" in {
@@ -259,7 +259,7 @@ class NavigatorSpec extends SpecBase {
 
       "must go from a page that doesn't exist in the edit route map to CheckYourAnswers" in {
         case object UnknownPage extends Page
-        navigator.nextPage(UnknownPage, CheckMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad
+        navigator.nextPage(UnknownPage, CheckMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
     }
 
@@ -272,7 +272,7 @@ class NavigatorSpec extends SpecBase {
 
       "to the check your answers page when the user selects no" in {
         val answers = emptyUserAnswers.set(DoYouKnowYourClockOrPayrollNumberPage, false).success.value
-        navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad
+        navigator.nextPage(DoYouKnowYourClockOrPayrollNumberPage, CheckMode, answers) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
 
       "to the journey recovery page when the user has no answer" in {

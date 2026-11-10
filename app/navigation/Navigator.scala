@@ -40,7 +40,7 @@ class Navigator @Inject()() {
     case WhenDidYouLastWorkPage => _ => routes.WhatTimeDidYouFinishController.onPageLoad(NormalMode)
     case WhatTimeDidYouFinishPage => _ => routes.DoYouKnowYourClockOrPayrollNumberController.onPageLoad(NormalMode)
     case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberRoutes
-    case WhatIsYourClockOrPayrollNumberPage => _ => routes.CheckYourAnswersController.onPageLoad
+    case WhatIsYourClockOrPayrollNumberPage => _ => routes.CheckYourAnswersController.onPageLoad()
     case _ => _ => routes.IndexController.onPageLoad
   }
 
@@ -50,7 +50,7 @@ class Navigator @Inject()() {
     case HasSicknessEndedPage => hasSicknessEndedCheckRoutes
     case DateSicknessEndedPage => dateSicknessEndedCheckRoutes
     case DoYouKnowYourClockOrPayrollNumberPage => doYouKnowYourClockOrPayrollNumberCheckRoutes
-    case _ => _ => routes.CheckYourAnswersController.onPageLoad
+    case _ => _ => routes.CheckYourAnswersController.onPageLoad()
   }
 
   private def doYouKnowYourNationalInsuranceNumberRoutes(answers: UserAnswers): Call =
@@ -61,8 +61,8 @@ class Navigator @Inject()() {
 
   private def doYouKnowYourNationalInsuranceNumberCheckRoutes(answers: UserAnswers): Call = {
     (answers.get(DoYouKnowYourNationalInsuranceNumberPage), answers.get(WhatIsYourNinoPage)) match {
-      case (Some(false), _)       => routes.CheckYourAnswersController.onPageLoad
-      case (Some(true),  Some(_)) => routes.CheckYourAnswersController.onPageLoad
+      case (Some(false), _)       => routes.CheckYourAnswersController.onPageLoad()
+      case (Some(true),  Some(_)) => routes.CheckYourAnswersController.onPageLoad()
       case (Some(true),  None)    => routes.WhatIsYourNinoController.onPageLoad(CheckMode)
       case (_, _)                 => routes.JourneyRecoveryController.onPageLoad()
     }
@@ -71,13 +71,13 @@ class Navigator @Inject()() {
   private def doYouKnowYourClockOrPayrollNumberRoutes(answers: UserAnswers): Call =
     answers.get(DoYouKnowYourClockOrPayrollNumberPage).map {
       case true  => routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(NormalMode)
-      case false => routes.CheckYourAnswersController.onPageLoad
+      case false => routes.CheckYourAnswersController.onPageLoad()
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
 
   private def doYouKnowYourClockOrPayrollNumberCheckRoutes(answers: UserAnswers): Call =
     answers.get(DoYouKnowYourClockOrPayrollNumberPage).map {
       case true  => routes.WhatIsYourClockOrPayrollNumberController.onPageLoad(CheckMode)
-      case false => routes.CheckYourAnswersController.onPageLoad
+      case false => routes.CheckYourAnswersController.onPageLoad()
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
 
   private def hasSicknessEndedRoutes(answers: UserAnswers): Call =
@@ -91,7 +91,7 @@ class Navigator @Inject()() {
       case true  => routes.DateSicknessEndedController.onPageLoad(CheckMode)
       case false =>
         if (answers.get(WhenDidYouLastWorkPage).isEmpty) { routes.WhenDidYouLastWorkController.onPageLoad(CheckMode) }
-        else { routes.CheckYourAnswersController.onPageLoad }
+        else { routes.CheckYourAnswersController.onPageLoad() }
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
 
   private def dateSicknessBeganCheckRoutes(answers: UserAnswers): Call = {
@@ -104,7 +104,7 @@ class Navigator @Inject()() {
       } else if (answers.get(WhenDidYouLastWorkPage).isEmpty) {
         routes.WhenDidYouLastWorkController.onPageLoad(CheckMode)
       } else {
-        routes.CheckYourAnswersController.onPageLoad
+        routes.CheckYourAnswersController.onPageLoad()
       }
     }).getOrElse(routes.JourneyRecoveryController.onPageLoad())
   }
@@ -114,7 +114,7 @@ class Navigator @Inject()() {
       if (answers.get(WhenDidYouLastWorkPage).isEmpty) {
         routes.WhenDidYouLastWorkController.onPageLoad(CheckMode)
       } else {
-        routes.CheckYourAnswersController.onPageLoad
+        routes.CheckYourAnswersController.onPageLoad()
       }
     }.getOrElse(routes.JourneyRecoveryController.onPageLoad())
   }

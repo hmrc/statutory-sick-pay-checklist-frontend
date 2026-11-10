@@ -41,7 +41,7 @@ class ErrorSummaryViewModelSpec
       mapping(
         "date"   -> localDate("invalid", "allRequired", "twoRequired", "oneRequired"),
         "string" -> text()
-      )(Data.apply)(Data.unapply)
+      )(Data.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 
   private implicit val msgs: Messages = stubMessages(stubMessagesApi())

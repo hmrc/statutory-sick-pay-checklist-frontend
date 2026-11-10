@@ -29,7 +29,7 @@
 
 @layout(pageTitle = title(form, messages("dateSicknessBegan.title"), Some(messages("section.sicknessDetails")))) {
 
-    @formHelper(action = routes.DateSicknessBeganController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = routes.DateSicknessBeganController.onSubmit(mode), Symbol("autoComplete") -> "off") {
 
         @if(form.errors.nonEmpty) {
             @govukErrorSummary(ErrorSummaryViewModel(form, errorLinkOverrides = Map("value" -> "value.day")))

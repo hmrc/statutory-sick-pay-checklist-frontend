@@ -26,7 +26,7 @@
 
 @layout(pageTitle = title(form, messages("causedByAccidentOrIndustrialDisease.title"), Some(messages("section.sicknessDetails")))) {
 
-    @formHelper(action = routes.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = routes.CausedByAccidentOrIndustrialDiseaseController.onSubmit(mode), Symbol("autoComplete") -> "off") {
 
         @if(form.errors.nonEmpty) {
             @govukErrorSummary(ErrorSummaryViewModel(form))
