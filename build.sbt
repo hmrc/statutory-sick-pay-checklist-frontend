@@ -71,3 +71,4 @@ lazy val it = project
     libraryDependencies ++= AppDependencies.integration,
     Compile / unmanagedSourceDirectories += baseDirectory.value / "test-utils"
   )
+
