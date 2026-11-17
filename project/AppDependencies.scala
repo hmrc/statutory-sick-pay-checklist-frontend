@@ -13,7 +13,7 @@ object AppDependencies {
     "uk.gov.hmrc.mongo"             %% "hmrc-mongo-play-30"                    % hmrcMongoVersion,
     "uk.gov.hmrc"                   %% "domain-play-30"                        % "13.0.0",
     "org.typelevel"                 %% "cats-core"                             % "2.13.0",
-    "org.apache.xmlgraphics"        % "fop"                                    % "2.10",
+    "org.apache.xmlgraphics"        % "fop"                                    % "2.12",
     "com.googlecode.libphonenumber" % "libphonenumber"                         % "8.12.47"
   )
 
@@ -23,6 +23,7 @@ object AppDependencies {
     "org.scalatestplus"       %% "scalacheck-1-15"         % "3.2.10.0",
     "org.scalatestplus"       %% "mockito-3-4"             % "3.2.10.0",
     "org.scalacheck"          %% "scalacheck"              % "1.15.4",
+    "org.apache.pdfbox"       % "pdfbox"                   % "3.0.3"
   ).map(_ % Test)
 
   val integration: Seq[ModuleID] = Seq.empty
