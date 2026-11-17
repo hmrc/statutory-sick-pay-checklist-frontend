@@ -16,6 +16,7 @@
 
 package services
 
+import org.apache.pdfbox.Loader
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatest.freespec.AnyFreeSpec
@@ -33,8 +34,8 @@ class FopServiceSpec extends AnyFreeSpec with Matchers with ScalaFutures with In
 
     "must render some fop content as a pdf" in {
       val input = Source.fromResource("fop/simple.fo").mkString
-      val result = fopService.render(input).futureValue
-      PDDocument.load(result)
+      val result: Array[Byte] = fopService.render(input).futureValue
+      Loader.loadPDF(result)
     }
   }
 }
